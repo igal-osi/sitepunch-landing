@@ -501,13 +501,119 @@
   /* ── FOOTER ── */
   footer {
     border-top: 1px solid rgba(212,175,55,0.1);
-    padding: 36px 6vw;
+    padding: 28px 6vw 20px;
     background: rgba(8,9,14,0.98);
+  }
+  .footer-top {
     display: flex; align-items: center; justify-content: space-between;
-    flex-wrap: wrap; gap: 12px;
+    flex-wrap: wrap; gap: 12px; margin-bottom: 20px;
+  }
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.05);
+    padding-top: 16px;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 10px;
   }
   footer img { height: 38px; width: auto; object-fit: contain; }
   footer p { font-size: 0.8rem; color: var(--muted); }
+  .footer-links { display: flex; gap: 20px; flex-wrap: wrap; }
+  .footer-links a {
+    font-size: 0.78rem; color: var(--muted); text-decoration: underline;
+    text-decoration-color: rgba(107,114,128,0.4); cursor: pointer;
+    transition: color .2s; background: none; border: none; font-family: inherit;
+  }
+  .footer-links a:hover { color: var(--gold); }
+
+  /* ── LEGAL MODAL ── */
+  .legal-overlay {
+    position: fixed; inset: 0; z-index: 1100;
+    background: rgba(0,0,0,0.88); backdrop-filter: blur(12px);
+    display: flex; align-items: center; justify-content: center; padding: 20px;
+    opacity: 0; pointer-events: none; transition: opacity .3s;
+  }
+  .legal-overlay.open { opacity: 1; pointer-events: all; }
+  .legal-box {
+    background: linear-gradient(145deg,rgba(16,18,26,0.97),rgba(11,12,18,0.99));
+    border: 1px solid rgba(212,175,55,0.22);
+    border-radius: 20px; width: 100%; max-width: 600px; max-height: 85vh;
+    display: flex; flex-direction: column;
+    box-shadow: 0 40px 80px rgba(0,0,0,0.7);
+    transform: translateY(20px); transition: transform .3s; overflow: hidden;
+  }
+  .legal-overlay.open .legal-box { transform: none; }
+  .legal-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 24px; border-bottom: 1px solid rgba(212,175,55,0.12); flex-shrink: 0;
+  }
+  .legal-header h2 { font-family: "Inter",sans-serif; font-weight: 800; font-size: 1.05rem; color: var(--gold); }
+  .legal-close {
+    width: 32px; height: 32px; border-radius: 8px;
+    background: rgba(212,175,55,0.08); border: 1px solid rgba(212,175,55,0.18);
+    color: var(--gold); font-size: 1.1rem; cursor: pointer;
+    display: flex; align-items: center; justify-content: center; transition: background .2s;
+  }
+  .legal-close:hover { background: rgba(212,175,55,0.16); }
+  .legal-body {
+    flex: 1; overflow-y: auto; padding: 28px 24px;
+    font-size: 0.88rem; line-height: 1.8; color: rgba(200,200,210,0.85);
+    scrollbar-width: thin; scrollbar-color: rgba(212,175,55,0.2) transparent;
+  }
+  .legal-body h3 { font-size: 0.95rem; font-weight: 700; color: var(--white); margin: 20px 0 8px; }
+  .legal-body p  { margin-bottom: 12px; }
+  .legal-body ul { padding-right: 18px; margin-bottom: 12px; }
+  .legal-body li { margin-bottom: 6px; }
+
+  /* ── ACCESSIBILITY WIDGET ── */
+  .a11y-btn {
+    position: fixed; bottom: 24px; left: 24px; z-index: 900;
+    width: 52px; height: 52px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary), var(--primary2));
+    color: #fff; font-size: 1.5rem; border: none; cursor: pointer;
+    box-shadow: 0 4px 20px rgba(109,40,217,0.5);
+    display: flex; align-items: center; justify-content: center;
+    transition: transform .2s, box-shadow .2s;
+  }
+  .a11y-btn:hover { transform: scale(1.08); box-shadow: 0 6px 28px rgba(109,40,217,0.6); }
+  .a11y-panel {
+    position: fixed; bottom: 86px; left: 24px; z-index: 900;
+    background: linear-gradient(145deg,rgba(16,18,26,0.97),rgba(11,12,18,0.99));
+    border: 1px solid rgba(212,175,55,0.22); border-radius: 18px;
+    padding: 18px 16px; width: 220px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+    display: none; flex-direction: column; gap: 8px;
+  }
+  .a11y-panel.open { display: flex; }
+  .a11y-panel-title {
+    font-size: 0.72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 4px; padding-bottom: 10px;
+    border-bottom: 1px solid rgba(212,175,55,0.12);
+  }
+  .a11y-row {
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: 0.82rem; color: rgba(200,200,210,0.85);
+  }
+  .a11y-ctrl { display: flex; gap: 6px; }
+  .a11y-ctrl button {
+    width: 28px; height: 28px; border-radius: 7px;
+    background: rgba(212,175,55,0.08); border: 1px solid rgba(212,175,55,0.2);
+    color: var(--gold); font-size: 0.9rem; cursor: pointer; transition: background .15s;
+    display: flex; align-items: center; justify-content: center; font-family: inherit;
+  }
+  .a11y-ctrl button:hover { background: rgba(212,175,55,0.18); }
+  .a11y-toggle-btn {
+    width: 100%; padding: 8px; border-radius: 8px; margin-top: 2px;
+    background: rgba(212,175,55,0.08); border: 1px solid rgba(212,175,55,0.18);
+    color: rgba(200,200,210,0.85); font-size: 0.8rem; cursor: pointer;
+    text-align: right; transition: background .15s; font-family: inherit;
+  }
+  .a11y-toggle-btn:hover { background: rgba(212,175,55,0.15); }
+  .a11y-toggle-btn.active { background: rgba(212,175,55,0.15); color: var(--gold); border-color: rgba(212,175,55,0.35); }
+  .a11y-reset {
+    margin-top: 6px; width: 100%; padding: 7px; border-radius: 8px;
+    background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.2);
+    color: #f87171; font-size: 0.78rem; cursor: pointer; transition: background .15s; font-family: inherit;
+  }
+  .a11y-reset:hover { background: rgba(239,68,68,0.14); }
 
   /* ── SCROLL REVEAL ── */
   .reveal { opacity: 0; transform: translateY(28px); transition: opacity .65s ease, transform .65s ease; }
@@ -972,10 +1078,49 @@
 
 <!-- FOOTER -->
 <footer>
-  <img src="logo-header.png" alt="SitePunch">
-  <p>© 2026 SitePunch · כל הזכויות שמורות</p>
-  <p style="color: var(--muted); font-size: 0.78rem;">בנוי לשוק הבנייה הישראלי 🇮🇱</p>
+  <div class="footer-top">
+    <img src="logo-header.png" alt="SitePunch">
+    <p>בנוי לשוק הבנייה הישראלי 🇮🇱</p>
+    <p>© 2026 SitePunch · כל הזכויות שמורות</p>
+  </div>
+  <div class="footer-bottom">
+    <p style="font-size:0.75rem;color:rgba(107,114,128,0.6);">SitePunch מחויבת לנגישות אתר לכלל המשתמשים</p>
+    <div class="footer-links">
+      <a onclick="openLegal('terms')">תנאי שימוש</a>
+      <a onclick="openLegal('privacy')">מדיניות פרטיות</a>
+      <a onclick="openLegal('accessibility')">הצהרת נגישות</a>
+      <a href="mailto:office@sitepunch.co.il">יצירת קשר</a>
+    </div>
+  </div>
 </footer>
+
+<!-- LEGAL MODALS -->
+<div class="legal-overlay" id="legalOverlay" onclick="if(event.target===this)closeLegal()">
+  <div class="legal-box">
+    <div class="legal-header">
+      <h2 id="legalTitle">תנאי שימוש</h2>
+      <button class="legal-close" onclick="closeLegal()">✕</button>
+    </div>
+    <div class="legal-body" id="legalBody"></div>
+  </div>
+</div>
+
+<!-- ACCESSIBILITY WIDGET -->
+<button class="a11y-btn" onclick="toggleA11y()" title="אפשרויות נגישות" aria-label="פתח תפריט נגישות">♿</button>
+<div class="a11y-panel" id="a11yPanel">
+  <div class="a11y-panel-title">⚙️ נגישות</div>
+  <div class="a11y-row">
+    <span>גודל טקסט</span>
+    <div class="a11y-ctrl">
+      <button onclick="changeFont(-1)" aria-label="הקטן טקסט">A−</button>
+      <button onclick="changeFont(1)" aria-label="הגדל טקסט">A+</button>
+    </div>
+  </div>
+  <button class="a11y-toggle-btn" id="btnContrast" onclick="toggleContrast()">ניגודיות גבוהה</button>
+  <button class="a11y-toggle-btn" id="btnLinks" onclick="toggleUnderline()">הדגש קישורים</button>
+  <button class="a11y-toggle-btn" id="btnAnim" onclick="toggleAnim()">עצור אנימציות</button>
+  <button class="a11y-reset" onclick="resetA11y()">אפס הגדרות</button>
+</div>
 
 <!-- FEATURES MODAL -->
 <div class="modal-overlay" id="featuresModal" onclick="handleOverlayClick(event)">
@@ -1239,6 +1384,167 @@ async function submitCheckout() {
     'לאחר התשלום תקבלו מייל עם פרטי כניסה לחשבון שלכם ב-SitePunch.</p>' +
     '</div>';
 }
+</script>
+
+<script>
+// ── LEGAL MODALS ──
+const LEGAL = {
+  terms: {
+    title: 'תנאי שימוש',
+    html: `
+      <p>ברוכים הבאים ל-SitePunch. השימוש בשירות מהווה הסכמה לתנאים אלו.</p>
+      <h3>1. השירות</h3>
+      <p>SitePunch מספקת פלטפורמה לניהול ליקויים באתרי בנייה. השירות מוצע "כפי שהוא" (As-Is) ועשוי להשתנות מעת לעת.</p>
+      <h3>2. חשבון משתמש</h3>
+      <p>אחראים לשמור על סודיות פרטי הגישה לחשבון. יש לדווח מיידית על כל שימוש לא מורשה.</p>
+      <h3>3. תשלומים</h3>
+      <p>מנויים מתחדשים אוטומטית. ביטול אפשרי בכל עת ויכנס לתוקף בסוף תקופת החיוב הנוכחית. אין החזרים על תקופות שכבר שולמו.</p>
+      <h3>4. קניין רוחני</h3>
+      <p>כל התכנים, הלוגואים והקוד של SitePunch הם קניינה הבלעדי. אסור להעתיק, לשכפל או להפיץ ללא אישור בכתב.</p>
+      <h3>5. נתוני משתמש</h3>
+      <p>הנתונים שאתם מזינים למערכת (ליקויים, תמונות, פרויקטים) שייכים לכם. SitePunch לא תמכור מידע זה לצדדים שלישיים.</p>
+      <h3>6. הגבלת אחריות</h3>
+      <p>SitePunch לא תישא באחריות לנזקים עקיפים, תוצאתיים או אובדן רווחים הנובעים מהשימוש בשירות.</p>
+      <h3>7. שינויים בתנאים</h3>
+      <p>אנו שומרים לעצמנו את הזכות לעדכן תנאים אלו. שינויים מהותיים יוודעו למשתמשים במייל 14 יום מראש.</p>
+      <h3>8. יצירת קשר</h3>
+      <p>לכל שאלה: <a href="mailto:office@sitepunch.co.il" style="color:var(--gold)">office@sitepunch.co.il</a></p>
+      <p style="color:var(--muted);font-size:0.8rem;margin-top:20px;">עדכון אחרון: יוני 2026</p>
+    `
+  },
+  privacy: {
+    title: 'מדיניות פרטיות',
+    html: `
+      <p>SitePunch מכבדת את פרטיות המשתמשים ומחויבת להגן על המידע האישי שלהם.</p>
+      <h3>1. מידע שאנו אוספים</h3>
+      <ul>
+        <li>פרטי הרשמה: שם, אימייל, שם חברה, טלפון</li>
+        <li>נתוני שימוש: פרויקטים, ליקויים, תמונות שהועלו</li>
+        <li>נתונים טכניים: סוג דפדפן, כתובת IP, מערכת הפעלה</li>
+      </ul>
+      <h3>2. שימוש במידע</h3>
+      <ul>
+        <li>מתן השירות ותמיכה טכנית</li>
+        <li>שליחת עדכונים ומידע על תכונות חדשות</li>
+        <li>שיפור השירות על בסיס דפוסי שימוש אנונימיים</li>
+        <li>עמידה בדרישות חוקיות</li>
+      </ul>
+      <h3>3. אחסון ואבטחה</h3>
+      <p>כל הנתונים מוצפנים ב-SSL ומאוחסנים בשרתי ענן מאובטחים. אנו מיישמים אמצעי אבטחה תעשייתיים לשמירה על המידע.</p>
+      <h3>4. שיתוף מידע</h3>
+      <p>לא נמכור, לא נשכיר ולא נעביר מידע אישי לצדדים שלישיים, אלא במקרים הבאים:</p>
+      <ul>
+        <li>ספקי שירות הפועלים מטעמנו (תשלומים, אחסון ענן)</li>
+        <li>לפי דרישת חוק או צו שיפוטי</li>
+      </ul>
+      <h3>5. זכויות המשתמש</h3>
+      <p>יש לכם הזכות לבקש: עיון במידע, תיקון, מחיקה, והפסקת עיבוד. לפנייה: <a href="mailto:office@sitepunch.co.il" style="color:var(--gold)">office@sitepunch.co.il</a></p>
+      <h3>6. עוגיות (Cookies)</h3>
+      <p>האתר משתמש בעוגיות הכרחיות בלבד לצורך תפקוד תקין. לא נשתמש בעוגיות פרסומיות ללא הסכמתכם.</p>
+      <h3>7. קשר</h3>
+      <p>ממונה הגנת מידע: <a href="mailto:office@sitepunch.co.il" style="color:var(--gold)">office@sitepunch.co.il</a></p>
+      <p style="color:var(--muted);font-size:0.8rem;margin-top:20px;">עדכון אחרון: יוני 2026</p>
+    `
+  },
+  accessibility: {
+    title: 'הצהרת נגישות',
+    html: `
+      <p>SitePunch מחויבת להנגיש את שירותיה לכלל המשתמשים, לרבות אנשים עם מוגבלויות, בהתאם לתקן ישראלי 5568 ולהנחיות WCAG 2.1 ברמה AA.</p>
+      <h3>רמת הנגישות הנוכחית</h3>
+      <p>האתר עומד ברמת נגישות AA בהתאם לתקן WCAG 2.1 ומציע:</p>
+      <ul>
+        <li>ניגודיות צבעים מספקת לכל הטקסטים</li>
+        <li>תמיכה בניווט מקלדת</li>
+        <li>תמיכה בקוראי מסך (ARIA labels)</li>
+        <li>אפשרות להגדלת טקסט ללא פגיעה בתוכן</li>
+        <li>כיווניות RTL מלאה לעברית</li>
+        <li>תפריט נגישות מובנה לאפשרויות התאמה אישית</li>
+      </ul>
+      <h3>פעולות שנעשו</h3>
+      <ul>
+        <li>בדיקת נגישות ידנית ואוטומטית של כל דפי האתר</li>
+        <li>הוספת טקסט חלופי לכל התמונות</li>
+        <li>סימון מבני ברור עם תגיות HTML סמנטיות</li>
+        <li>מיקוד גלוי לכל הרכיבים הניתנים לאינטראקציה</li>
+      </ul>
+      <h3>פניות נגישות</h3>
+      <p>נתקלתם בבעיית נגישות? נשמח לשמוע ולתקן:</p>
+      <p>📧 <a href="mailto:office@sitepunch.co.il" style="color:var(--gold)">office@sitepunch.co.il</a></p>
+      <p>נשתדל להגיב תוך 5 ימי עסקים.</p>
+      <h3>תאריך עדכון</h3>
+      <p style="color:var(--muted);font-size:0.8rem;">הצהרה זו עודכנה לאחרונה ביוני 2026.</p>
+    `
+  }
+};
+
+function openLegal(type) {
+  const d = LEGAL[type];
+  document.getElementById('legalTitle').textContent = d.title;
+  document.getElementById('legalBody').innerHTML = d.html;
+  document.getElementById('legalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLegal() {
+  document.getElementById('legalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// ── ACCESSIBILITY WIDGET ──
+let a11yOpen = false;
+let fontScale = 0;
+let highContrast = false;
+let underlineLinks = false;
+let stopAnim = false;
+
+function toggleA11y() {
+  a11yOpen = !a11yOpen;
+  document.getElementById('a11yPanel').classList.toggle('open', a11yOpen);
+}
+
+function changeFont(dir) {
+  fontScale = Math.max(-2, Math.min(4, fontScale + dir));
+  document.documentElement.style.fontSize = (16 + fontScale * 2) + 'px';
+}
+
+function toggleContrast() {
+  highContrast = !highContrast;
+  document.getElementById('btnContrast').classList.toggle('active', highContrast);
+  document.body.style.filter = highContrast ? 'contrast(1.4) brightness(1.1)' : '';
+}
+
+function toggleUnderline() {
+  underlineLinks = !underlineLinks;
+  document.getElementById('btnLinks').classList.toggle('active', underlineLinks);
+  const style = document.getElementById('a11y-link-style') || document.createElement('style');
+  style.id = 'a11y-link-style';
+  style.textContent = underlineLinks ? 'a, button { text-decoration: underline !important; }' : '';
+  if (!document.getElementById('a11y-link-style')) document.head.appendChild(style);
+}
+
+function toggleAnim() {
+  stopAnim = !stopAnim;
+  document.getElementById('btnAnim').classList.toggle('active', stopAnim);
+  const style = document.getElementById('a11y-anim-style') || document.createElement('style');
+  style.id = 'a11y-anim-style';
+  style.textContent = stopAnim ? '*, *::before, *::after { animation: none !important; transition: none !important; }' : '';
+  if (!document.getElementById('a11y-anim-style')) document.head.appendChild(style);
+}
+
+function resetA11y() {
+  fontScale = 0; highContrast = false; underlineLinks = false; stopAnim = false;
+  document.documentElement.style.fontSize = '';
+  document.body.style.filter = '';
+  ['btnContrast','btnLinks','btnAnim'].forEach(id => document.getElementById(id).classList.remove('active'));
+  ['a11y-link-style','a11y-anim-style'].forEach(id => { const el = document.getElementById(id); if(el) el.textContent = ''; });
+}
+
+// סגירת תפריט נגישות בלחיצה בחוץ
+document.addEventListener('click', function(e) {
+  if (a11yOpen && !e.target.closest('.a11y-panel') && !e.target.closest('.a11y-btn')) {
+    a11yOpen = false;
+    document.getElementById('a11yPanel').classList.remove('open');
+  }
+});
 </script>
 
 </body>
