@@ -1509,7 +1509,12 @@ function changeFont(dir) {
 function toggleContrast() {
   highContrast = !highContrast;
   document.getElementById('btnContrast').classList.toggle('active', highContrast);
-  document.body.style.filter = highContrast ? 'contrast(1.4) brightness(1.1)' : '';
+  var style = document.getElementById('a11y-contrast-style') || document.createElement('style');
+  style.id = 'a11y-contrast-style';
+  style.textContent = highContrast
+    ? 'nav, #hero, .stats-strip, section, footer { filter: contrast(1.5) brightness(1.12); }'
+    : '';
+  if (!document.getElementById('a11y-contrast-style')) document.head.appendChild(style);
 }
 
 function toggleUnderline() {
