@@ -565,7 +565,7 @@
 
   /* ── ACCESSIBILITY WIDGET ── */
   .a11y-btn {
-    position: fixed; bottom: 24px; left: 24px; z-index: 900;
+    position: fixed; bottom: 24px; left: 24px; z-index: 1000;
     width: 52px; height: 52px; border-radius: 50%;
     background: linear-gradient(135deg, var(--primary), var(--primary2));
     color: #fff; font-size: 1.5rem; border: none; cursor: pointer;
@@ -575,45 +575,87 @@
   }
   .a11y-btn:hover { transform: scale(1.08); box-shadow: 0 6px 28px rgba(109,40,217,0.6); }
   .a11y-panel {
-    position: fixed; bottom: 86px; left: 24px; z-index: 900;
-    background: linear-gradient(145deg,rgba(16,18,26,0.97),rgba(11,12,18,0.99));
-    border: 1px solid rgba(212,175,55,0.22); border-radius: 18px;
-    padding: 18px 16px; width: 220px;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.6);
-    display: none; flex-direction: column; gap: 8px;
+    position: fixed; bottom: 86px; left: 16px; z-index: 1000;
+    background: linear-gradient(145deg,rgba(16,18,26,0.98),rgba(11,12,18,1));
+    border: 1px solid rgba(212,175,55,0.25); border-radius: 18px;
+    padding: 0; width: 270px; max-height: 85vh; overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+    display: none; flex-direction: column;
+    scrollbar-width: thin; scrollbar-color: rgba(212,175,55,0.2) transparent;
   }
   .a11y-panel.open { display: flex; }
-  .a11y-panel-title {
-    font-size: 0.72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
-    color: var(--gold); margin-bottom: 4px; padding-bottom: 10px;
-    border-bottom: 1px solid rgba(212,175,55,0.12);
+  .a11y-ph {
+    padding: 14px 16px 12px; border-bottom: 1px solid rgba(212,175,55,0.12);
+    display: flex; align-items: center; justify-content: space-between; flex-shrink: 0;
   }
-  .a11y-row {
+  .a11y-ph-title { font-size: 0.85rem; font-weight: 700; color: var(--white); }
+  .a11y-ph-close {
+    width: 26px; height: 26px; border-radius: 6px; border: 1px solid rgba(212,175,55,0.2);
+    background: rgba(212,175,55,0.08); color: var(--gold); cursor: pointer; font-size: 0.9rem;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .a11y-section { padding: 12px 16px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+  .a11y-section-title {
+    font-size: 0.7rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 10px;
+  }
+  /* font size row */
+  .a11y-font-row {
+    display: flex; align-items: center; gap: 8px;
+  }
+  .a11y-font-btn {
+    flex: 1; padding: 8px 0; border-radius: 9px;
+    background: rgba(212,175,55,0.07); border: 1px solid rgba(212,175,55,0.18);
+    color: rgba(200,200,210,0.85); font-size: 0.82rem; cursor: pointer; transition: background .15s;
+    display: flex; align-items: center; justify-content: center; gap: 5px; font-family: inherit;
+  }
+  .a11y-font-btn:hover { background: rgba(212,175,55,0.15); }
+  .a11y-font-counter {
+    min-width: 28px; text-align: center; font-size: 0.8rem;
+    color: var(--gold); font-weight: 700;
+  }
+  /* contrast grid */
+  .a11y-contrast-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
+  .a11y-contrast-opt {
+    padding: 9px 6px; border-radius: 9px; border: 1px solid rgba(212,175,55,0.15);
+    background: rgba(212,175,55,0.06); color: rgba(200,200,210,0.85);
+    font-size: 0.78rem; cursor: pointer; text-align: center; transition: all .15s; font-family: inherit;
+  }
+  .a11y-contrast-opt:hover { background: rgba(212,175,55,0.14); }
+  .a11y-contrast-opt.active { background: rgba(212,175,55,0.18); color: var(--gold); border-color: rgba(212,175,55,0.4); font-weight: 700; }
+  /* toggle rows */
+  .a11y-toggle-row {
     display: flex; align-items: center; justify-content: space-between;
-    font-size: 0.82rem; color: rgba(200,200,210,0.85);
+    padding: 9px 0; border-bottom: 1px solid rgba(255,255,255,0.04); cursor: pointer;
   }
-  .a11y-ctrl { display: flex; gap: 6px; }
-  .a11y-ctrl button {
-    width: 28px; height: 28px; border-radius: 7px;
-    background: rgba(212,175,55,0.08); border: 1px solid rgba(212,175,55,0.2);
-    color: var(--gold); font-size: 0.9rem; cursor: pointer; transition: background .15s;
-    display: flex; align-items: center; justify-content: center; font-family: inherit;
+  .a11y-toggle-row:last-child { border-bottom: none; padding-bottom: 0; }
+  .a11y-toggle-label { font-size: 0.82rem; color: rgba(200,200,210,0.85); display: flex; align-items: center; gap: 7px; }
+  .a11y-switch {
+    width: 36px; height: 20px; border-radius: 10px; flex-shrink: 0;
+    background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15);
+    position: relative; transition: background .2s;
   }
-  .a11y-ctrl button:hover { background: rgba(212,175,55,0.18); }
-  .a11y-toggle-btn {
-    width: 100%; padding: 8px; border-radius: 8px; margin-top: 2px;
-    background: rgba(212,175,55,0.08); border: 1px solid rgba(212,175,55,0.18);
-    color: rgba(200,200,210,0.85); font-size: 0.8rem; cursor: pointer;
-    text-align: right; transition: background .15s; font-family: inherit;
+  .a11y-switch.on { background: rgba(109,40,217,0.7); border-color: rgba(124,58,237,0.5); }
+  .a11y-switch::after {
+    content: ''; position: absolute; top: 2px; right: 2px;
+    width: 14px; height: 14px; border-radius: 50%; background: #fff; transition: transform .2s;
   }
-  .a11y-toggle-btn:hover { background: rgba(212,175,55,0.15); }
-  .a11y-toggle-btn.active { background: rgba(212,175,55,0.15); color: var(--gold); border-color: rgba(212,175,55,0.35); }
+  .a11y-switch.on::after { transform: translateX(-16px); }
+  /* links at bottom */
+  .a11y-links { padding: 10px 16px 14px; display: flex; flex-direction: column; gap: 6px; }
+  .a11y-link-btn {
+    width: 100%; padding: 9px 12px; border-radius: 9px; text-align: right;
+    background: rgba(212,175,55,0.05); border: 1px solid rgba(212,175,55,0.12);
+    color: rgba(200,200,210,0.75); font-size: 0.8rem; cursor: pointer; transition: background .15s;
+    display: flex; align-items: center; gap: 8px; font-family: inherit;
+  }
+  .a11y-link-btn:hover { background: rgba(212,175,55,0.12); color: var(--gold); }
   .a11y-reset {
-    margin-top: 6px; width: 100%; padding: 7px; border-radius: 8px;
-    background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.2);
-    color: #f87171; font-size: 0.78rem; cursor: pointer; transition: background .15s; font-family: inherit;
+    margin: 0 16px 14px; padding: 8px; border-radius: 9px;
+    background: rgba(239,68,68,0.07); border: 1px solid rgba(239,68,68,0.18);
+    color: #f87171; font-size: 0.78rem; cursor: pointer; transition: background .15s; font-family: inherit; width: calc(100% - 32px);
   }
-  .a11y-reset:hover { background: rgba(239,68,68,0.14); }
+  .a11y-reset:hover { background: rgba(239,68,68,0.13); }
 
   /* ── SCROLL REVEAL ── */
   .reveal { opacity: 0; transform: translateY(28px); transition: opacity .65s ease, transform .65s ease; }
@@ -1107,19 +1149,65 @@
 
 <!-- ACCESSIBILITY WIDGET -->
 <button class="a11y-btn" onclick="toggleA11y()" title="אפשרויות נגישות" aria-label="פתח תפריט נגישות">♿</button>
-<div class="a11y-panel" id="a11yPanel">
-  <div class="a11y-panel-title">⚙️ נגישות</div>
-  <div class="a11y-row">
-    <span>גודל טקסט</span>
-    <div class="a11y-ctrl">
-      <button onclick="changeFont(-1)" aria-label="הקטן טקסט">A−</button>
-      <button onclick="changeFont(1)" aria-label="הגדל טקסט">A+</button>
+<div class="a11y-panel" id="a11yPanel" role="dialog" aria-label="תפריט נגישות">
+  <div class="a11y-ph">
+    <span class="a11y-ph-title">♿ אפשרויות נגישות</span>
+    <button class="a11y-ph-close" onclick="toggleA11y()" aria-label="סגור">✕</button>
+  </div>
+
+  <!-- גודל טקסט -->
+  <div class="a11y-section">
+    <div class="a11y-section-title">גודל טקסט</div>
+    <div class="a11y-font-row">
+      <button class="a11y-font-btn" onclick="changeFont(-1)" aria-label="הקטן טקסט">🔍− הקטנה</button>
+      <span class="a11y-font-counter" id="fontCounter">0</span>
+      <button class="a11y-font-btn" onclick="changeFont(1)" aria-label="הגדל טקסט">הגדלה 🔍+</button>
     </div>
   </div>
-  <button class="a11y-toggle-btn" id="btnContrast" onclick="toggleContrast()">ניגודיות גבוהה</button>
-  <button class="a11y-toggle-btn" id="btnLinks" onclick="toggleUnderline()">הדגש קישורים</button>
-  <button class="a11y-toggle-btn" id="btnAnim" onclick="toggleAnim()">עצור אנימציות</button>
-  <button class="a11y-reset" onclick="resetA11y()">אפס הגדרות</button>
+
+  <!-- ניגודיות -->
+  <div class="a11y-section">
+    <div class="a11y-section-title">ניגודיות</div>
+    <div class="a11y-contrast-grid">
+      <button class="a11y-contrast-opt" id="cNormal" onclick="setContrast('normal')">☀️ רגיל</button>
+      <button class="a11y-contrast-opt" id="cHigh"   onclick="setContrast('high')">◑ גבוהה</button>
+      <button class="a11y-contrast-opt" id="cLight"  onclick="setContrast('light')">🔆 בהיר</button>
+      <button class="a11y-contrast-opt" id="cDark"   onclick="setContrast('dark')">🌙 כהה</button>
+    </div>
+  </div>
+
+  <!-- מצבים נוספים -->
+  <div class="a11y-section">
+    <div class="a11y-section-title">הגדרות נוספות</div>
+    <div class="a11y-toggle-row" onclick="toggleBW()">
+      <span class="a11y-toggle-label">🔲 שחור-לבן</span>
+      <div class="a11y-switch" id="swBW"></div>
+    </div>
+    <div class="a11y-toggle-row" onclick="toggleUnderline()">
+      <span class="a11y-toggle-label">🔗 הדגש קישורים</span>
+      <div class="a11y-switch" id="swLinks"></div>
+    </div>
+    <div class="a11y-toggle-row" onclick="toggleDyslexia()">
+      <span class="a11y-toggle-label">T פונט קריא (דיסלקציה)</span>
+      <div class="a11y-switch" id="swDyslexia"></div>
+    </div>
+    <div class="a11y-toggle-row" onclick="toggleAnim()">
+      <span class="a11y-toggle-label">💨 ביטול אנימציות</span>
+      <div class="a11y-switch" id="swAnim"></div>
+    </div>
+    <div class="a11y-toggle-row" onclick="toggleKeyboardFocus()">
+      <span class="a11y-toggle-label">⌨️ ניווט מקלדת</span>
+      <div class="a11y-switch" id="swKeyboard"></div>
+    </div>
+  </div>
+
+  <!-- קישורים -->
+  <div class="a11y-links">
+    <button class="a11y-link-btn" onclick="openLegal('accessibility');toggleA11y()">📄 הצהרת נגישות</button>
+    <button class="a11y-link-btn" onclick="openLegal('terms');toggleA11y()">📄 תנאי שימוש</button>
+  </div>
+
+  <button class="a11y-reset" onclick="resetA11y()">↺ איפוס כל ההגדרות</button>
 </div>
 
 <!-- FEATURES MODAL -->
@@ -1492,9 +1580,14 @@ function closeLegal() {
 // ── ACCESSIBILITY WIDGET ──
 let a11yOpen = false;
 let fontScale = 0;
-let highContrast = false;
-let underlineLinks = false;
-let stopAnim = false;
+let contrastMode = 'normal'; // normal | high | light | dark
+let bwMode = false, underlineLinks = false, dyslexia = false, stopAnim = false, keyboardFocus = false;
+
+function injectStyle(id, css) {
+  var el = document.getElementById(id);
+  if (!el) { el = document.createElement('style'); el.id = id; document.head.appendChild(el); }
+  el.textContent = css;
+}
 
 function toggleA11y() {
   a11yOpen = !a11yOpen;
@@ -1502,48 +1595,73 @@ function toggleA11y() {
 }
 
 function changeFont(dir) {
-  fontScale = Math.max(-2, Math.min(4, fontScale + dir));
+  fontScale = Math.max(-3, Math.min(5, fontScale + dir));
   document.documentElement.style.fontSize = (16 + fontScale * 2) + 'px';
+  document.getElementById('fontCounter').textContent = fontScale > 0 ? '+' + fontScale : fontScale;
 }
 
-function toggleContrast() {
-  highContrast = !highContrast;
-  document.getElementById('btnContrast').classList.toggle('active', highContrast);
-  var style = document.getElementById('a11y-contrast-style') || document.createElement('style');
-  style.id = 'a11y-contrast-style';
-  style.textContent = highContrast
-    ? 'nav, #hero, .stats-strip, section, footer { filter: contrast(1.5) brightness(1.12); }'
-    : '';
-  if (!document.getElementById('a11y-contrast-style')) document.head.appendChild(style);
+function setContrast(mode) {
+  contrastMode = mode;
+  ['cNormal','cHigh','cLight','cDark'].forEach(id => document.getElementById(id).classList.remove('active'));
+  const map = { normal:'cNormal', high:'cHigh', light:'cLight', dark:'cDark' };
+  document.getElementById(map[mode]).classList.add('active');
+  const filters = {
+    normal: '',
+    high:   'nav,#hero,.stats-strip,section,footer{filter:contrast(1.6) brightness(1.1);}',
+    light:  'nav,#hero,.stats-strip,section,footer{filter:brightness(1.4) contrast(0.9);}',
+    dark:   'nav,#hero,.stats-strip,section,footer{filter:brightness(0.7) contrast(1.2);}'
+  };
+  injectStyle('a11y-contrast-style', filters[mode]);
+}
+
+function toggleBW() {
+  bwMode = !bwMode;
+  document.getElementById('swBW').classList.toggle('on', bwMode);
+  injectStyle('a11y-bw-style', bwMode ? 'nav,#hero,.stats-strip,section,footer{filter:grayscale(1);}' : '');
 }
 
 function toggleUnderline() {
   underlineLinks = !underlineLinks;
-  document.getElementById('btnLinks').classList.toggle('active', underlineLinks);
-  const style = document.getElementById('a11y-link-style') || document.createElement('style');
-  style.id = 'a11y-link-style';
-  style.textContent = underlineLinks ? 'a, button { text-decoration: underline !important; }' : '';
-  if (!document.getElementById('a11y-link-style')) document.head.appendChild(style);
+  document.getElementById('swLinks').classList.toggle('on', underlineLinks);
+  injectStyle('a11y-link-style', underlineLinks ? 'a,button{text-decoration:underline!important;}' : '');
+}
+
+function toggleDyslexia() {
+  dyslexia = !dyslexia;
+  document.getElementById('swDyslexia').classList.toggle('on', dyslexia);
+  injectStyle('a11y-dyslexia-style', dyslexia
+    ? 'body,*{font-family:"Arial",sans-serif!important;letter-spacing:0.05em!important;word-spacing:0.15em!important;line-height:1.9!important;}'
+    : '');
 }
 
 function toggleAnim() {
   stopAnim = !stopAnim;
-  document.getElementById('btnAnim').classList.toggle('active', stopAnim);
-  const style = document.getElementById('a11y-anim-style') || document.createElement('style');
-  style.id = 'a11y-anim-style';
-  style.textContent = stopAnim ? '*, *::before, *::after { animation: none !important; transition: none !important; }' : '';
-  if (!document.getElementById('a11y-anim-style')) document.head.appendChild(style);
+  document.getElementById('swAnim').classList.toggle('on', stopAnim);
+  injectStyle('a11y-anim-style', stopAnim ? '*,*::before,*::after{animation:none!important;transition:none!important;}' : '');
+}
+
+function toggleKeyboardFocus() {
+  keyboardFocus = !keyboardFocus;
+  document.getElementById('swKeyboard').classList.toggle('on', keyboardFocus);
+  injectStyle('a11y-focus-style', keyboardFocus
+    ? '*:focus{outline:3px solid #d4af37!important;outline-offset:3px!important;}'
+    : '');
 }
 
 function resetA11y() {
-  fontScale = 0; highContrast = false; underlineLinks = false; stopAnim = false;
+  fontScale = 0; contrastMode = 'normal'; bwMode = false;
+  underlineLinks = false; dyslexia = false; stopAnim = false; keyboardFocus = false;
   document.documentElement.style.fontSize = '';
-  document.body.style.filter = '';
-  ['btnContrast','btnLinks','btnAnim'].forEach(id => document.getElementById(id).classList.remove('active'));
-  ['a11y-link-style','a11y-anim-style'].forEach(id => { const el = document.getElementById(id); if(el) el.textContent = ''; });
+  document.getElementById('fontCounter').textContent = '0';
+  ['swBW','swLinks','swDyslexia','swAnim','swKeyboard'].forEach(id => document.getElementById(id).classList.remove('on'));
+  setContrast('normal');
+  ['a11y-bw-style','a11y-link-style','a11y-dyslexia-style','a11y-anim-style','a11y-focus-style']
+    .forEach(id => injectStyle(id, ''));
 }
 
-// סגירת תפריט נגישות בלחיצה בחוץ
+// init normal contrast active
+document.addEventListener('DOMContentLoaded', function() { setContrast('normal'); });
+
 document.addEventListener('click', function(e) {
   if (a11yOpen && !e.target.closest('.a11y-panel') && !e.target.closest('.a11y-btn')) {
     a11yOpen = false;
