@@ -290,7 +290,14 @@
     box-shadow: 0 4px 20px rgba(0,0,0,0.3);
   }
   .lang-card:hover { border-color: rgba(212,175,55,0.38); transform: translateY(-4px); }
-  .lang-flag { font-size: 2.8rem; margin-bottom: 14px; }
+  .lang-flag {
+    font-size: 2rem; font-weight: 900; margin-bottom: 14px;
+    font-family: 'Inter', sans-serif;
+    width: 56px; height: 56px; border-radius: 50%;
+    background: var(--gold-dim); border: 1px solid var(--gold-border);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--gold); margin-left: auto; margin-right: auto;
+  }
   .lang-name { font-family: 'Inter', sans-serif; font-weight: 800; font-size: 1.05rem; margin-bottom: 6px; }
   .lang-native { font-size: 1rem; color: var(--gold); font-weight: 600; margin-bottom: 10px; }
   .lang-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.55; }
@@ -838,7 +845,7 @@
   </div>
   <div>
     <div class="stat-val">3</div>
-    <div class="stat-label">שפות — עברית,<br>ערבית, רוסית</div>
+    <div class="stat-label">שפות — עברית, ערבית,<br>רוסית ואנגלית</div>
   </div>
 </div>
 
@@ -937,9 +944,9 @@
         <h3><span>📄</span> דוחות PDF מקצועיים</h3>
         <p>לוגו הפרויקט, כל הליקויים, תמונות, תאריכים — דוח מקצועי שנוצר בלחיצה אחת ונשלח ישירות.</p>
       </div>
-      <div class="feature-item" data-icon="🌐" data-label="תמיכה במספר שפות" data-desc="עברית, ערבית ורוסית — כל עובד עובד בשפתו שלו. אנגלית גם זמינה.">
+      <div class="feature-item" data-icon="🌐" data-label="תמיכה במספר שפות" data-desc="עברית, ערבית, רוסית ואנגלית ואנגלית — כל עובד עובד בשפתו שלו.">
         <h3><span>🌐</span> תמיכה במספר שפות</h3>
-        <p>עברית, ערבית ורוסית — כל עובד עובד בשפתו שלו. אנגלית גם זמינה.</p>
+        <p>עברית, ערבית, רוסית ואנגלית ואנגלית — כל עובד עובד בשפתו שלו.</p>
       </div>
     </div>
     <div class="feature-visual" id="featureVisual">
@@ -956,25 +963,31 @@
 <section id="languages">
   <p class="section-tag reveal">שפות</p>
   <h2 class="section-title reveal">מתאים לצוותים רב-לשוניים</h2>
-  <p class="section-sub reveal">SitePunch תומכת בעברית, ערבית, רוסית ואנגלית כדי שכל בעלי התפקידים באתר יוכלו לעבוד בשפה הנוחה להם.</p>
+  <p class="section-sub reveal">SitePunch תומכת בעברית, ערבית, רוסית ואנגלית ואנגלית כדי שכל בעלי התפקידים באתר יוכלו לעבוד בשפה הנוחה להם.</p>
   <div class="lang-grid">
     <div class="lang-card reveal">
-      <div class="lang-flag">🇮🇱</div>
+      <div class="lang-flag">א</div>
       <div class="lang-name">עברית</div>
       <div class="lang-native">עברית</div>
       <div class="lang-desc">ממשק RTL מלא, מונחים מקצועיים מהתעשייה הישראלית, תמיכה בכל גדלי מסך.</div>
     </div>
     <div class="lang-card reveal">
-      <div class="lang-flag">🇮🇱</div>
+      <div class="lang-flag">ع</div>
       <div class="lang-name">ערבית</div>
       <div class="lang-native">عربي</div>
       <div class="lang-desc">ממשק ערבי מלא RTL לעובדי שטח, עם מונחי בנייה מדויקים בניב הישראלי.</div>
     </div>
     <div class="lang-card reveal">
-      <div class="lang-flag">🇷🇺</div>
+      <div class="lang-flag">Я</div>
       <div class="lang-name">רוסית</div>
       <div class="lang-native">Русский</div>
       <div class="lang-desc">ממשק לעובדים דוברי רוסית — מאות אלפי עובדי בנייה שלא מוגשים על ידי אף פתרון קיים.</div>
+    </div>
+    <div class="lang-card reveal">
+      <div class="lang-flag">A</div>
+      <div class="lang-name">אנגלית</div>
+      <div class="lang-native">English</div>
+      <div class="lang-desc">Full English interface for international teams and project managers working across borders.</div>
     </div>
   </div>
 </section>
@@ -1033,7 +1046,7 @@
         <li>עד 3 פרויקטים פעילים</li>
         <li>עד 10 משתמשים</li>
         <li>PDF אוטומטי</li>
-        <li>עברית, ערבית, רוסית</li>
+        <li>עברית, ערבית, רוסית ואנגלית</li>
         <li>תמיכה במייל</li>
         <li class="muted">לוגו לבן</li>
         <li class="muted">API גישה</li>
@@ -1052,7 +1065,7 @@
         <li>פרויקטים ללא הגבלה</li>
         <li>עד 50 משתמשים</li>
         <li>PDF עם לוגו לקוח</li>
-        <li>עברית, ערבית, רוסית</li>
+        <li>עברית, ערבית, רוסית ואנגלית</li>
         <li>דשבורד מנהל מתקדם</li>
         <li>תמיכה בצ'אט</li>
         <li class="muted">API גישה</li>
@@ -1310,7 +1323,7 @@ const KB = [
   { keys: ['אינטרנט','offline','אופליין','4g','קישור','חיבור','רשת','גרוע','שטח','בלי נט'],
     ans: '📡 SitePunch עובדת גם ללא אינטרנט. מתעדים ליקויים בשטח — גם בקומה תחתונה, גם בשטח בלי קליטה — ובמכה שיש קישור הכל מסתנכרן אוטומטית.' },
   { keys: ['שפה','שפות','עברית','ערבית','רוסית','ערבי','רוסי','עובד זר','לועזי','תרגום'],
-    ans: '🌍 SitePunch תומכת ב-<b>עברית, ערבית ורוסית</b> — כולל ממשק RTL מלא לערבית. כל עובד רואה את המערכת בשפתו שלו.' },
+    ans: '🌍 SitePunch תומכת ב-<b>עברית, ערבית, רוסית ואנגלית</b> — כולל ממשק RTL מלא לערבית. כל עובד רואה את המערכת בשפתו שלו.' },
   { keys: ['תמונה','תמונות','מצלמה','תיעוד','לצלם','צילום','קובץ','מדיה'],
     ans: '📸 פותחים ליקוי ב-10 שניות: מצלמים ישירות מהאפליקציה, בוחרים קטגוריה ומיקום, מקצים לאחראי — ומוכן. התמונות נשמרות בענן ומופיעות אוטומטית בדוח ה-PDF.' },
   { keys: ['pdf','דוח','דוחות','ייצוא','להוציא','לשלוח','לקוח','מסמך','excel'],
