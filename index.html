@@ -1206,25 +1206,25 @@
   <!-- מצבים נוספים -->
   <div class="a11y-section">
     <div class="a11y-section-title">הגדרות נוספות</div>
-    <div class="a11y-toggle-row" onclick="toggleBW()">
+    <div class="a11y-toggle-row" role="button" tabindex="0" onclick="toggleBW()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleBW()}" aria-label="שחור-לבן">
       <span class="a11y-toggle-label">🔲 שחור-לבן</span>
-      <div class="a11y-switch" id="swBW"></div>
+      <div class="a11y-switch" id="swBW" aria-hidden="true"></div>
     </div>
-    <div class="a11y-toggle-row" onclick="toggleUnderline()">
+    <div class="a11y-toggle-row" role="button" tabindex="0" onclick="toggleUnderline()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleUnderline()}" aria-label="הדגש קישורים">
       <span class="a11y-toggle-label">🔗 הדגש קישורים</span>
-      <div class="a11y-switch" id="swLinks"></div>
+      <div class="a11y-switch" id="swLinks" aria-hidden="true"></div>
     </div>
-    <div class="a11y-toggle-row" onclick="toggleDyslexia()">
+    <div class="a11y-toggle-row" role="button" tabindex="0" onclick="toggleDyslexia()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleDyslexia()}" aria-label="פונט קריא לדיסלקציה">
       <span class="a11y-toggle-label">T פונט קריא (דיסלקציה)</span>
-      <div class="a11y-switch" id="swDyslexia"></div>
+      <div class="a11y-switch" id="swDyslexia" aria-hidden="true"></div>
     </div>
-    <div class="a11y-toggle-row" onclick="toggleAnim()">
+    <div class="a11y-toggle-row" role="button" tabindex="0" onclick="toggleAnim()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleAnim()}" aria-label="ביטול אנימציות">
       <span class="a11y-toggle-label">💨 ביטול אנימציות</span>
-      <div class="a11y-switch" id="swAnim"></div>
+      <div class="a11y-switch" id="swAnim" aria-hidden="true"></div>
     </div>
-    <div class="a11y-toggle-row" onclick="toggleKeyboardFocus()">
+    <div class="a11y-toggle-row" role="button" tabindex="0" onclick="toggleKeyboardFocus()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleKeyboardFocus()}" aria-label="ניווט מקלדת">
       <span class="a11y-toggle-label">⌨️ ניווט מקלדת</span>
-      <div class="a11y-switch" id="swKeyboard"></div>
+      <div class="a11y-switch" id="swKeyboard" aria-hidden="true"></div>
     </div>
   </div>
 
