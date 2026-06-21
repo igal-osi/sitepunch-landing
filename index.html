@@ -823,7 +823,7 @@
       <span class="hero-check">תיעוד עם תמונות</span>
       <span class="hero-check">מעקב בזמן אמת</span>
       <span class="hero-check">דוחות PDF מקצועיים</span>
-      <span class="hero-check">עברית | ערבית | רוסית</span>
+      <span class="hero-check">עברית | ערבית | רוסית | אנגלית</span>
       <span class="hero-check">מותאם למנהלי פרויקטים וקבלנים</span>
     </div>
   </div>
@@ -844,7 +844,7 @@
     <div class="stat-label">דוח מקצועי מוגמר<br>בלחיצה אחת</div>
   </div>
   <div>
-    <div class="stat-val">3</div>
+    <div class="stat-val">4</div>
     <div class="stat-label">שפות — עברית, ערבית,<br>רוסית ואנגלית</div>
   </div>
 </div>
@@ -944,7 +944,7 @@
         <h3><span>📄</span> דוחות PDF מקצועיים</h3>
         <p>לוגו הפרויקט, כל הליקויים, תמונות, תאריכים — דוח מקצועי שנוצר בלחיצה אחת ונשלח ישירות.</p>
       </div>
-      <div class="feature-item" data-icon="🌐" data-label="תמיכה במספר שפות" data-desc="עברית, ערבית, רוסית ואנגלית ואנגלית — כל עובד עובד בשפתו שלו.">
+      <div class="feature-item" data-icon="🌐" data-label="תמיכה במספר שפות" data-desc="עברית, ערבית, רוסית ואנגלית — כל עובד עובד בשפתו שלו.">
         <h3><span>🌐</span> תמיכה במספר שפות</h3>
         <p>עברית, ערבית, רוסית ואנגלית ואנגלית — כל עובד עובד בשפתו שלו.</p>
       </div>
@@ -963,7 +963,7 @@
 <section id="languages">
   <p class="section-tag reveal">שפות</p>
   <h2 class="section-title reveal">מתאים לצוותים רב-לשוניים</h2>
-  <p class="section-sub reveal">SitePunch תומכת בעברית, ערבית, רוסית ואנגלית ואנגלית כדי שכל בעלי התפקידים באתר יוכלו לעבוד בשפה הנוחה להם.</p>
+  <p class="section-sub reveal">SitePunch תומכת בעברית, ערבית, רוסית ואנגלית — כדי שכל בעלי התפקידים באתר יוכלו לעבוד בשפה הנוחה להם.</p>
   <div class="lang-grid">
     <div class="lang-card reveal">
       <div class="lang-flag">א</div>
@@ -1225,6 +1225,17 @@
     <div class="a11y-toggle-row" role="button" tabindex="0" onclick="toggleKeyboardFocus()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleKeyboardFocus()}" aria-label="ניווט מקלדת">
       <span class="a11y-toggle-label">⌨️ ניווט מקלדת</span>
       <div class="a11y-switch" id="swKeyboard" aria-hidden="true"></div>
+    </div>
+  </div>
+
+  <!-- שפת הדף -->
+  <div class="a11y-section">
+    <div class="a11y-section-title">שפת הדף / Page Language</div>
+    <div class="a11y-contrast-grid" style="grid-template-columns:repeat(4,1fr)">
+      <button class="a11y-contrast-opt active" id="langHe" onclick="switchLang('he')">🇮🇱 עב</button>
+      <button class="a11y-contrast-opt" id="langEn" onclick="switchLang('en')">🇬🇧 EN</button>
+      <button class="a11y-contrast-opt" id="langRu" onclick="switchLang('ru')">🇷🇺 Рус</button>
+      <button class="a11y-contrast-opt" id="langAr" onclick="switchLang('ar')">🇸🇦 عر</button>
     </div>
   </div>
 
@@ -1695,6 +1706,189 @@ document.addEventListener('click', function(e) {
     document.getElementById('a11yPanel').classList.remove('open');
   }
 });
+</script>
+
+<script>
+// ── LANGUAGE SWITCHER ──
+const TRANSLATIONS = {
+  he: {
+    dir: 'rtl', lang: 'he',
+    navLinks: ["למי מיועד","האתגרים","פיצ'רים","איך זה עובד","מחירים"],
+    navAccount: "אזור מנויים", navApp: "כניסה לאפליקציה",
+    heroEyebrow: "🏗️ מערכת ניהול ליקויים לאתרי בנייה",
+    heroTitle: "פנצ' ליסט שמנהל<br>את האתר <span class=\"gold\">בשבילך</span>",
+    heroSub: "תעדו ליקויים מהשטח, הקצו אחריות לקבלנים, עקבו אחרי טיפול והפיקו דוחות מקצועיים — הכל ממערכת אחת.",
+    heroChecks: ["תיעוד עם תמונות","מעקב בזמן אמת","דוחות PDF מקצועיים","עברית | ערבית | רוסית | אנגלית","מותאם למנהלי פרויקטים וקבלנים"],
+    heroCta1: "כניסה לאפליקציה", heroCta2: "צפו במחירים",
+    statLabels: ["חיסכון שבועי ממוצע<br>למנהל פרויקט","לפתיחת ליקוי<br>עם תמונה ומיקום","דוח מקצועי מוגמר<br>בלחיצה אחת","שפות — עברית, ערבית,<br>רוסית ואנגלית"],
+    rolesTag:"למי מיועד SitePunch", rolesTitle:"נבנה במיוחד עבור אנשי הביצוע והפיקוח", rolesSub:"כל הגורמים המעורבים בפרויקט עובדים מול אותה מערכת ומקבלים תמונת מצב מלאה בזמן אמת.",
+    problemsTag:"האתגרים", problemsTitle:"ניהול ליקויים ב-WhatsApp ו-Excel — זה לא עובד", problemsSub:"כל מנהל פרויקט מכיר את הכאב: רשימות שמתבלבלות, ליקויים שנופלים בין הכסאות, ואף אחד לא יודע מה הסטטוס.",
+    featTag:"פיצ'רים", featTitle:"הכל במקום אחד", featSub:"מתיעוד מהשטח ועד דוח PDF — הכל מנוהל ממערכת אחת.",
+    langTag:"שפות", langTitle:"מתאים לצוותים רב-לשוניים", langSub:"SitePunch תומכת בעברית, ערבית, רוסית ואנגלית — כדי שכל בעלי התפקידים באתר יוכלו לעבוד בשפה הנוחה להם.",
+    howTag:"איך זה עובד", howTitle:"מוכן לעבודה תוך דקות",
+    howSteps: [["פותחים ליקוי","מצלמים ומזינים פרטים — קטגוריה, מיקום ואחראי. תוך 10 שניות."],["מקצים אחריות","משייכים לקבלן או לגורם המטפל. הוא מקבל התראה מיידית בשפתו."],["עוקבים אחר טיפול","מנהלים סטטוסים והתקדמות. ליקוי שלא נסגר — מתריעים אוטומטית."],["סוגרים ומפיקים דוחות","הכל מתועד ומוכן למסירה. דוח PDF מקצועי בלחיצה אחת."]],
+    pricingTag:"מחירים", pricingTitle:"שקוף, פשוט, ללא הפתעות", pricingSub:"כל התוכניות כוללות גישה מלאה לכל הפיצ'רים. ההבדל הוא בגודל הצוות ומספר הפרויקטים.",
+    ctaTag:"מוכנים להתחיל?", ctaTitle:"התחילו לנהל ליקויים בצורה חכמה יותר", ctaSub:"חסכו שעות של עבודה ידנית, שפרו את השליטה בפרויקט ותיעדו כל ליקוי במקום אחד.",
+    ctaBtn1:"כניסה לאפליקציה", ctaBtn2:"יצירת קשר",
+    footerTagline:"בנוי לשוק הבנייה הישראלי 🇮🇱", footerCopy:"© 2026 SitePunch · כל הזכויות שמורות",
+    a11yLangLabel:"שפת הדף / Page Language"
+  },
+  en: {
+    dir: 'ltr', lang: 'en',
+    navLinks: ["Who It's For","Challenges","Features","How It Works","Pricing"],
+    navAccount: "My Account", navApp: "Open the App",
+    heroEyebrow: "🏗️ Punch List Management for Construction Sites",
+    heroTitle: "The punch list that manages<br>the site <span class=\"gold\">for you</span>",
+    heroSub: "Document defects on-site, assign responsibility to contractors, track progress and generate professional reports — all from one system.",
+    heroChecks: ["Photo documentation","Real-time tracking","Professional PDF reports","Hebrew | Arabic | Russian | English","Built for project managers & contractors"],
+    heroCta1: "Open the App", heroCta2: "View Pricing",
+    statLabels: ["Avg. weekly savings<br>per project manager","To open a defect<br>with photo & location","Professional report<br>completed in one click","Languages — Hebrew, Arabic,<br>Russian & English"],
+    rolesTag:"WHO IT'S FOR", rolesTitle:"Built for field teams and supervisors", rolesSub:"Every stakeholder on the project works with the same system and gets a complete real-time picture.",
+    problemsTag:"CHALLENGES", problemsTitle:"Managing defects via WhatsApp and Excel — it doesn't work", problemsSub:"Every project manager knows the pain: mixed-up lists, defects falling through the cracks, and nobody knows the status.",
+    featTag:"FEATURES", featTitle:"Everything in one place", featSub:"From field documentation to PDF report — all managed in one system.",
+    langTag:"LANGUAGES", langTitle:"Built for multilingual teams", langSub:"SitePunch supports Hebrew, Arabic, Russian and English — so every person on site can work in their own language.",
+    howTag:"HOW IT WORKS", howTitle:"Ready to use in minutes",
+    howSteps: [["Open a defect","Take a photo and fill in details — category, location, responsible party. In 10 seconds."],["Assign responsibility","Assign to a contractor or handler. They get an instant notification in their language."],["Track progress","Manage statuses and progress. A defect not closed on time triggers an automatic alert."],["Close & generate reports","Everything is documented and ready for handover. Professional PDF report in one click."]],
+    pricingTag:"PRICING", pricingTitle:"Transparent, simple, no surprises", pricingSub:"All plans include full access to all features. The difference is team size and number of projects.",
+    ctaTag:"Ready to start?", ctaTitle:"Start managing defects the smart way", ctaSub:"Save hours of manual work, improve project control and document every defect in one place.",
+    ctaBtn1:"Open the App", ctaBtn2:"Contact Us",
+    footerTagline:"Built for the Israeli construction market 🇮🇱", footerCopy:"© 2026 SitePunch · All rights reserved",
+    a11yLangLabel:"Page Language / שפת הדף"
+  },
+  ru: {
+    dir: 'ltr', lang: 'ru',
+    navLinks: ["Для кого","Проблемы","Функции","Как работает","Цены"],
+    navAccount: "Личный кабинет", navApp: "Открыть приложение",
+    heroEyebrow: "🏗️ Система управления дефектами на стройплощадке",
+    heroTitle: "Punch List, который управляет<br>объектом <span class=\"gold\">за вас</span>",
+    heroSub: "Документируйте дефекты на объекте, назначайте ответственных, отслеживайте устранение и создавайте профессиональные отчёты — всё в одной системе.",
+    heroChecks: ["Фотодокументация","Отслеживание в реальном времени","Профессиональные PDF-отчёты","Иврит | Арабский | Русский | Английский","Для прорабов и подрядчиков"],
+    heroCta1: "Открыть приложение", heroCta2: "Посмотреть цены",
+    statLabels: ["Ср. экономия в неделю<br>на прораба","Открыть дефект<br>с фото и адресом","Готовый профессиональный<br>отчёт за один клик","Языка — иврит, арабский,<br>русский и английский"],
+    rolesTag:"ДЛЯ КОГО", rolesTitle:"Создано для строителей и прорабов", rolesSub:"Все участники проекта работают в одной системе и видят актуальную картину в реальном времени.",
+    problemsTag:"ПРОБЛЕМЫ", problemsTitle:"Управлять дефектами через WhatsApp и Excel — это не работает", problemsSub:"Каждый прораб знает эту боль: перепутанные списки, потерянные дефекты, и никто не знает статус.",
+    featTag:"ФУНКЦИИ", featTitle:"Всё в одном месте", featSub:"От документирования на объекте до PDF-отчёта — всё управляется в одной системе.",
+    langTag:"ЯЗЫКИ", langTitle:"Для многоязычных команд", langSub:"SitePunch поддерживает иврит, арабский, русский и английский — чтобы каждый на объекте мог работать на своём языке.",
+    howTag:"КАК ЭТО РАБОТАЕТ", howTitle:"Готово к работе за несколько минут",
+    howSteps: [["Открываем дефект","Фотографируем и заполняем — категория, местоположение, ответственный. За 10 секунд."],["Назначаем ответственного","Привязываем к подрядчику. Он получает мгновенное уведомление на своём языке."],["Следим за устранением","Управляем статусами и прогрессом. Незакрытый дефект — автоматическое напоминание."],["Закрываем и создаём отчёты","Всё задокументировано. Профессиональный PDF-отчёт в один клик."]],
+    pricingTag:"ЦЕНЫ", pricingTitle:"Прозрачно, просто, без сюрпризов", pricingSub:"Все планы включают полный доступ ко всем функциям. Разница — в размере команды и числе проектов.",
+    ctaTag:"Готовы начать?", ctaTitle:"Начните управлять дефектами умнее", ctaSub:"Экономьте часы ручной работы, улучшайте контроль над проектом и документируйте каждый дефект в одном месте.",
+    ctaBtn1:"Открыть приложение", ctaBtn2:"Написать нам",
+    footerTagline:"Создано для израильского строительного рынка 🇮🇱", footerCopy:"© 2026 SitePunch · Все права защищены",
+    a11yLangLabel:"Язык страницы / שפת הדף"
+  },
+  ar: {
+    dir: 'rtl', lang: 'ar',
+    navLinks: ["لمن هو","التحديات","الميزات","كيف يعمل","الأسعار"],
+    navAccount: "حسابي", navApp: "افتح التطبيق",
+    heroEyebrow: "🏗️ نظام إدارة العيوب لمواقع البناء",
+    heroTitle: "قائمة الإصلاحات التي تدير<br>الموقع <span class=\"gold\">بدلاً عنك</span>",
+    heroSub: "وثّق العيوب في الموقع، عيّن المسؤوليات للمقاولين، تابع التقدم وأنشئ تقارير احترافية — كل ذلك من نظام واحد.",
+    heroChecks: ["توثيق بالصور","متابعة في الوقت الفعلي","تقارير PDF احترافية","عبري | عربي | روسي | إنجليزي","مصمم لمديري المشاريع والمقاولين"],
+    heroCta1: "افتح التطبيق", heroCta2: "عرض الأسعار",
+    statLabels: ["متوسط التوفير الأسبوعي<br>لمدير المشروع","لفتح عيب<br>مع صورة وموقع","تقرير احترافي جاهز<br>بنقرة واحدة","لغات — عبري، عربي،<br>روسي وإنجليزي"],
+    rolesTag:"لمن هو", rolesTitle:"مبني خصيصًا لفرق الميدان والإشراف", rolesSub:"جميع المشاركين في المشروع يعملون على نفس النظام ويحصلون على صورة كاملة في الوقت الفعلي.",
+    problemsTag:"التحديات", problemsTitle:"إدارة العيوب عبر واتساب وإكسل — هذا لا يعمل", problemsSub:"كل مدير مشروع يعرف هذا الألم: قوائم مختلطة، عيوب تضيع، ولا أحد يعرف الحالة.",
+    featTag:"الميزات", featTitle:"كل شيء في مكان واحد", featSub:"من التوثيق في الميدان إلى تقرير PDF — كل شيء يُدار في نظام واحد.",
+    langTag:"اللغات", langTitle:"مناسب للفرق متعددة اللغات", langSub:"يدعم SitePunch العبرية والعربية والروسية والإنجليزية — حتى يتمكن كل شخص في الموقع من العمل بلغته.",
+    howTag:"كيف يعمل", howTitle:"جاهز للعمل في دقائق",
+    howSteps: [["نفتح عيبًا","نلتقط صورة وندخل التفاصيل — الفئة والموقع والمسؤول. في 10 ثوانٍ."],["نعيّن المسؤولية","نربط بالمقاول. يتلقى إشعارًا فوريًا بلغته."],["نتابع المعالجة","ندير الحالات والتقدم. العيب غير المغلق — تنبيه تلقائي."],["نغلق وننشئ التقارير","كل شيء موثق وجاهز للتسليم. تقرير PDF احترافي بنقرة واحدة."]],
+    pricingTag:"الأسعار", pricingTitle:"شفاف، بسيط، بلا مفاجآت", pricingSub:"جميع الخطط تشمل وصولاً كاملاً لجميع الميزات. الفرق في حجم الفريق وعدد المشاريع.",
+    ctaTag:"هل أنت مستعد؟", ctaTitle:"ابدأ إدارة العيوب بطريقة أذكى", ctaSub:"وفّر ساعات من العمل اليدوي، حسّن التحكم في المشروع ووثّق كل عيب في مكان واحد.",
+    ctaBtn1:"افتح التطبيق", ctaBtn2:"تواصل معنا",
+    footerTagline:"مبني للسوق الإسرائيلي 🇮🇱", footerCopy:"© 2026 SitePunch · جميع الحقوق محفوظة",
+    a11yLangLabel:"لغة الصفحة / שפת הדף"
+  }
+};
+
+let currentLang = 'he';
+
+function switchLang(lang) {
+  currentLang = lang;
+  const t = TRANSLATIONS[lang];
+
+  // Direction & lang attr
+  document.documentElement.lang = t.lang;
+  document.documentElement.dir = t.dir;
+
+  // Active button
+  ['He','En','Ru','Ar'].forEach(l => {
+    const btn = document.getElementById('lang' + l);
+    if (btn) btn.classList.toggle('active', l.toLowerCase() === lang);
+  });
+
+  // Nav links
+  const navAnchors = document.querySelectorAll('.nav-links a');
+  t.navLinks.forEach((txt, i) => { if (navAnchors[i]) navAnchors[i].textContent = txt; });
+  const navAccount = document.querySelector('.nav-cta-account');
+  const navApp = document.querySelector('nav .nav-cta');
+  if (navAccount) navAccount.textContent = t.navAccount;
+  if (navApp) navApp.textContent = t.navApp;
+
+  // Hero
+  const eyebrow = document.querySelector('.hero-eyebrow');
+  if (eyebrow) eyebrow.textContent = t.heroEyebrow;
+  const title = document.querySelector('.hero-title');
+  if (title) title.innerHTML = t.heroTitle;
+  const sub = document.querySelector('.hero-sub');
+  if (sub) sub.textContent = t.heroSub;
+  document.querySelectorAll('.hero-check').forEach((el, i) => { if (t.heroChecks[i]) el.textContent = t.heroChecks[i]; });
+  const heroCtas = document.querySelectorAll('.hero-actions a');
+  if (heroCtas[0]) heroCtas[0].textContent = t.heroCta1;
+  if (heroCtas[1]) heroCtas[1].textContent = t.heroCta2;
+
+  // Stats
+  document.querySelectorAll('.stat-label').forEach((el, i) => { if (t.statLabels[i]) el.innerHTML = t.statLabels[i]; });
+
+  // Section helpers
+  function sec(id, tag, title, sub) {
+    const s = document.querySelector('#' + id);
+    if (!s) return;
+    const tagEl = s.querySelector('.section-tag');
+    const titleEl = s.querySelector('.section-title');
+    const subEl = s.querySelector('.section-sub');
+    if (tagEl) tagEl.textContent = tag;
+    if (titleEl) titleEl.textContent = title;
+    if (subEl) subEl.textContent = sub;
+  }
+  sec('roles',    t.rolesTag,    t.rolesTitle,    t.rolesSub);
+  sec('problems', t.problemsTag, t.problemsTitle, t.problemsSub);
+  sec('features', t.featTag,     t.featTitle,     t.featSub);
+  sec('languages',t.langTag,     t.langTitle,     t.langSub);
+  sec('how',      t.howTag,      t.howTitle,      '');
+  sec('pricing',  t.pricingTag,  t.pricingTitle,  t.pricingSub);
+
+  // How steps
+  const steps = document.querySelectorAll('#how .step');
+  t.howSteps.forEach(([h, p], i) => {
+    if (steps[i]) {
+      const h3 = steps[i].querySelector('h3');
+      const pEl = steps[i].querySelector('p');
+      if (h3) h3.textContent = h;
+      if (pEl) pEl.textContent = p;
+    }
+  });
+
+  // CTA section
+  const cta = document.querySelector('#cta');
+  if (cta) {
+    const ctaTag = cta.querySelector('.cta-tag'); if (ctaTag) ctaTag.textContent = t.ctaTag;
+    const ctaTitle = cta.querySelector('.cta-title'); if (ctaTitle) ctaTitle.textContent = t.ctaTitle;
+    const ctaSub = cta.querySelector('.cta-sub'); if (ctaSub) ctaSub.textContent = t.ctaSub;
+    const ctaBtns = cta.querySelectorAll('a');
+    if (ctaBtns[0]) ctaBtns[0].textContent = t.ctaBtn1;
+    if (ctaBtns[1]) ctaBtns[1].textContent = t.ctaBtn2;
+  }
+
+  // Footer
+  const footerLines = document.querySelectorAll('.footer-top p');
+  if (footerLines[0]) footerLines[0].textContent = t.footerTagline;
+  if (footerLines[1]) footerLines[1].textContent = t.footerCopy;
+
+  // a11y label
+  const langLabel = document.querySelector('#langGrid').previousElementSibling;
+  if (langLabel) langLabel.textContent = t.a11yLangLabel;
+}
 </script>
 
 </body>
