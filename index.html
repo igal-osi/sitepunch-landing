@@ -1792,9 +1792,25 @@ function ttsStart() {
   speechSynthesis.cancel();
   const lang = document.documentElement.lang || 'he';
   const langMap = { he:'he-IL', en:'en-US', ru:'ru-RU', ar:'ar-SA' };
+  const targetLang = langMap[lang] || 'he-IL';
+
   ttsUtterance = new SpeechSynthesisUtterance(ttsGetPageText());
-  ttsUtterance.lang  = langMap[lang] || 'he-IL';
-  ttsUtterance.rate  = ttsRate;
+  ttsUtterance.lang = targetLang;
+  ttsUtterance.rate = ttsRate;
+
+  // קולות נטענים async — מחכה אם עדיין ריק
+  const assignVoice = () => {
+    const voices = speechSynthesis.getVoices();
+    const exact  = voices.find(v => v.lang === targetLang);
+    const prefix = voices.find(v => v.lang.startsWith(lang));
+    if (exact || prefix) ttsUtterance.voice = exact || prefix;
+  };
+  if (speechSynthesis.getVoices().length) {
+    assignVoice();
+  } else {
+    speechSynthesis.addEventListener('voiceschanged', assignVoice, { once: true });
+  }
+
   ttsUtterance.onend = () => {
     ttsPlaying = false;
     const btn = document.getElementById('ttsPlayBtn');
