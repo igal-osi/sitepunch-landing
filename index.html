@@ -1458,9 +1458,9 @@ const PRICES = { starter: { monthly: 149, annual: 119 }, pro: { monthly: 349, an
 const PLANS = {
   starter: { name: 'Starter', monthlyPrice: '₪149/חודש', annualPrice: '₪119/חודש (חיוב שנתי ₪1,428)', type: 'subscription' },
   pro:     { name: 'Pro',     monthlyPrice: '₪349/חודש', annualPrice: '₪279/חודש (חיוב שנתי ₪3,348)', type: 'subscription' },
-  pack1:   { name: 'פרויקט בודד',        monthlyPrice: '₪199 חד-פעמי', annualPrice: '₪199 חד-פעמי', type: 'onetime' },
-  pack3:   { name: 'חבילת 3 פרויקטים',  monthlyPrice: '₪499 חד-פעמי', annualPrice: '₪499 חד-פעמי', type: 'onetime' },
-  pack10:  { name: 'חבילת 10 פרויקטים', monthlyPrice: '₪1,290 חד-פעמי', annualPrice: '₪1,290 חד-פעמי', type: 'onetime' },
+  pack1:   { name: 'פרויקט בודד',        monthlyPrice: '₪199 חד-פעמי', annualPrice: '₪199 חד-פעמי', type: 'onetime', months: 3 },
+  pack3:   { name: 'חבילת 3 פרויקטים',  monthlyPrice: '₪499 חד-פעמי', annualPrice: '₪499 חד-פעמי', type: 'onetime', months: 6 },
+  pack10:  { name: 'חבילת 10 פרויקטים', monthlyPrice: '₪1,290 חד-פעמי', annualPrice: '₪1,290 חד-פעמי', type: 'onetime', months: 12 },
 };
 
 function toggleBilling() {
@@ -1481,6 +1481,16 @@ function openCheckout(planKey) {
   document.body.style.overflow = 'hidden';
 }
 function showCheckoutForm(p) {
+  const today = new Date().toISOString().split('T')[0];
+  const maxDate = new Date(); maxDate.setFullYear(maxDate.getFullYear() + 2);
+  const maxDateStr = maxDate.toISOString().split('T')[0];
+
+  const dateField = p.type === 'onetime'
+    ? '<div class="form-field"><label>📅 תאריך התחלת הפרויקט</label>' +
+      '<input type="date" id="chkStartDate" min="' + today + '" max="' + maxDateStr + '" value="' + today + '" dir="ltr">' +
+      '<small style="color:var(--muted);font-size:0.75rem;margin-top:4px;display:block">הגישה תיפתח בתאריך זה ותסתיים אחרי ' + p.months + ' חודשים</small></div>'
+    : '';
+
   document.getElementById('checkoutContent').innerHTML =
     '<div class="checkout-plan-name">' + p.name + '</div>' +
     '<div class="checkout-plan-price">' + (isAnnual ? p.annualPrice : p.monthlyPrice) + '</div>' +
@@ -1488,6 +1498,7 @@ function showCheckoutForm(p) {
     '<div class="form-field"><label>אימייל</label><input type="email" id="chkEmail" placeholder="you@company.com" dir="ltr"></div>' +
     '<div class="form-field"><label>שם החברה / הפרויקט</label><input type="text" id="chkCompany" placeholder="חברת בנייה בע״מ"></div>' +
     '<div class="form-field"><label>טלפון (אופציונלי)</label><input type="tel" id="chkPhone" placeholder="050-0000000" dir="ltr"></div>' +
+    dateField +
     '<button class="checkout-submit" onclick="submitCheckout()">המשיכו לתשלום →</button>' +
     '<p class="checkout-note">🔒 תשלום מאובטח · לאחר התשלום תקבלו מייל עם פרטי כניסה תוך דקות</p>';
 }
@@ -1499,6 +1510,19 @@ async function submitCheckout() {
   const email   = document.getElementById('chkEmail').value.trim();
   const company = document.getElementById('chkCompany').value.trim();
   if (!name || !email || !company) { alert('אנא מלאו את כל השדות החובה'); return; }
+
+  const plan = PLANS[currentPlan];
+  let accessMsg = '';
+  if (plan.type === 'onetime') {
+    const startEl = document.getElementById('chkStartDate');
+    if (!startEl || !startEl.value) { alert('אנא בחרו תאריך התחלת הפרויקט'); return; }
+    const startDate = new Date(startEl.value);
+    const endDate   = new Date(startDate);
+    endDate.setMonth(endDate.getMonth() + plan.months);
+    const fmt = d => d.toLocaleDateString('he-IL', { day: '2-digit', month: '2-digit', year: 'numeric' });
+    accessMsg = '<br><br>📅 גישה לפרויקט: <strong>' + fmt(startDate) + '</strong> עד <strong>' + fmt(endDate) + '</strong>';
+  }
+
   const btn = document.querySelector('.checkout-submit');
   btn.disabled = true; btn.textContent = 'מעבד...';
   await new Promise(r => setTimeout(r, 1400));
@@ -1506,8 +1530,9 @@ async function submitCheckout() {
     '<div class="checkout-success">' +
     '<div class="success-icon">✅</div>' +
     '<h3>תודה, ' + name + '!</h3>' +
-    '<p>קיבלנו את הפרטים שלך.<br>בקרוב תועברו לדף התשלום המאובטח של Stripe.<br><br>' +
-    'לאחר התשלום תקבלו מייל עם פרטי כניסה לחשבון שלכם ב-SitePunch.</p>' +
+    '<p>קיבלנו את הפרטים שלך.<br>בקרוב תועברו לדף התשלום המאובטח של Stripe.' +
+    accessMsg +
+    '<br><br>לאחר התשלום תקבלו מייל עם פרטי כניסה לחשבון שלכם ב-SitePunch.</p>' +
     '</div>';
 }
 </script>
