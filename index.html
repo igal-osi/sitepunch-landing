@@ -340,7 +340,7 @@
   .toggle-switch.on .toggle-knob { transform: translateX(-22px); }
   .badge-save { font-size: 0.7rem; font-weight: 700; padding: 2px 8px; border-radius: 20px; background: rgba(212,175,55,0.12); color: var(--gold); border: 1px solid rgba(212,175,55,0.25); }
 
-  .pricing-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; margin-top: 30px; align-items: start; }
+  .pricing-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; margin-top: 30px; align-items: start; }
   .pricing-card {
     background: linear-gradient(145deg, rgba(16,18,26,0.92), rgba(11,12,18,0.96));
     border: 1px solid rgba(212,175,55,0.14);
@@ -770,7 +770,8 @@
     .features-layout { grid-template-columns: 1fr; gap: 40px; }
     .lang-grid { grid-template-columns: 1fr; }
     .steps::before { display: none; }
-    .pricing-grid { grid-template-columns: 1fr; }
+    .pricing-grid { grid-template-columns: 1fr 1fr; }
+    .pricing-grid .pricing-card:first-child { grid-column: 1 / -1; }
     .packs-grid { grid-template-columns: 1fr; }
     .roles-grid { grid-template-columns: 1fr; }
     .hero-checks { flex-direction: column; align-items: center; }
@@ -1024,7 +1025,7 @@
 <section id="pricing">
   <p class="section-tag reveal">מחירים</p>
   <h2 class="section-title reveal">שקוף, פשוט, ללא הפתעות</h2>
-  <p class="section-sub reveal">כל התוכניות כוללות גישה מלאה לכל הפיצ'רים. ההבדל הוא בגודל הצוות ומספר הפרויקטים.</p>
+  <p class="section-sub reveal">התחילו בחינם ושדרגו כשאתם גדלים. ללא כרטיס אשראי, ללא התחייבות.</p>
 
   <div class="pricing-toggle reveal">
     <span class="toggle-label active" id="monthlyLabel">חיוב חודשי</span>
@@ -1035,6 +1036,25 @@
   </div>
 
   <div class="pricing-grid reveal">
+    <!-- FREE -->
+    <div class="pricing-card">
+      <div class="plan-badge" style="background:rgba(107,114,128,0.18);color:#9ca3af;border-color:rgba(107,114,128,0.3)" data-key="freeBadge">חינמי לצמיתות</div>
+      <div class="plan-name" data-key="freeName">Free</div>
+      <div class="plan-desc" data-key="freeDesc">נסו את המערכת ללא עלות</div>
+      <div class="plan-price"><span class="currency">₪</span><span>0</span><span class="period">/לצמיתות</span></div>
+      <div class="plan-onboard" data-key="freeOnboard">✓ הרשמה עצמאית — מיידי</div>
+      <hr class="plan-divider">
+      <ul class="plan-features" data-key="freeFeatures">
+        <li>פרויקט אחד</li>
+        <li>עד 3 משתמשים</li>
+        <li>עד 50 ליקויים פעילים</li>
+        <li>PDF בסיסי</li>
+        <li class="muted">סינון ודוחות מתקדמים</li>
+        <li class="muted">תוכניות קומה</li>
+        <li class="muted">לוגו בדוחות</li>
+      </ul>
+      <a href="https://app.sitepunch.co.il" class="plan-cta outline" data-key="freeCta">הרשמו חינם</a>
+    </div>
     <!-- STARTER -->
     <div class="pricing-card">
       <div class="plan-name">Starter</div>
@@ -1755,8 +1775,10 @@ const TRANSLATIONS = {
     langTag:"שפות", langTitle:"מתאים לצוותים רב-לשוניים", langSub:"SitePunch תומכת בעברית, ערבית, רוסית ואנגלית — כדי שכל בעלי התפקידים באתר יוכלו לעבוד בשפה הנוחה להם.",
     howTag:"איך זה עובד", howTitle:"מוכן לעבודה תוך דקות",
     howSteps:[["פותחים ליקוי","מצלמים ומזינים פרטים — קטגוריה, מיקום ואחראי. תוך 10 שניות."],["מקצים אחריות","משייכים לקבלן או לגורם המטפל. הוא מקבל התראה מיידית בשפתו."],["עוקבים אחר טיפול","מנהלים סטטוסים והתקדמות. ליקוי שלא נסגר — מתריעים אוטומטית."],["סוגרים ומפיקים דוחות","הכל מתועד ומוכן למסירה. דוח PDF מקצועי בלחיצה אחת."]],
-    pricingTag:"מחירים", pricingTitle:"שקוף, פשוט, ללא הפתעות", pricingSub:"כל התוכניות כוללות גישה מלאה לכל הפיצ'רים. ההבדל הוא בגודל הצוות ומספר הפרויקטים.",
+    pricingTag:"מחירים", pricingTitle:"שקוף, פשוט, ללא הפתעות", pricingSub:"התחילו בחינם ושדרגו כשאתם גדלים. ללא כרטיס אשראי, ללא התחייבות.",
     billingMonthly:"חיוב חודשי", billingAnnual:"שנתי", billingSave:"חסכו 20%",
+    freeBadge:"חינמי לצמיתות", freeName:"Free", freeDesc:"נסו את המערכת ללא עלות", freeOnboard:"✓ הרשמה עצמאית — מיידי", freeCta:"הרשמו חינם",
+    freeFeatures:["פרויקט אחד","עד 3 משתמשים","עד 50 ליקויים פעילים","PDF בסיסי","סינון ודוחות מתקדמים","תוכניות קומה","לוגו בדוחות"],
     planBadge:"הכי פופולרי",
     planDescs:["קבלן קטן שרוצה להתחיל לעבוד נכון","חברה בינונית עם כמה פרויקטים מקביליים","קבוצת בנייה, יזם גדול, או רשת קבלנים"],
     planOnboard:["✓ הקמה עצמאית — חינם","✓ הקמה עצמאית — חינם","+ ₪990 הקמה וליווי אישי"],
@@ -1789,8 +1811,10 @@ const TRANSLATIONS = {
     langTag:"LANGUAGES", langTitle:"Built for multilingual teams", langSub:"SitePunch supports Hebrew, Arabic, Russian and English — so every person on site can work in their own language.",
     howTag:"HOW IT WORKS", howTitle:"Ready to use in minutes",
     howSteps:[["Open a defect","Take a photo and fill in details — category, location, responsible party. In 10 seconds."],["Assign responsibility","Assign to a contractor or handler. They get an instant notification in their language."],["Track progress","Manage statuses and progress. A defect not closed on time triggers an automatic alert."],["Close & generate reports","Everything is documented and ready for handover. Professional PDF report in one click."]],
-    pricingTag:"PRICING", pricingTitle:"Transparent, simple, no surprises", pricingSub:"All plans include full access to all features. The difference is team size and number of projects.",
+    pricingTag:"PRICING", pricingTitle:"Transparent, simple, no surprises", pricingSub:"Start free and upgrade as you grow. No credit card, no commitment.",
     billingMonthly:"Monthly billing", billingAnnual:"Annual", billingSave:"Save 20%",
+    freeBadge:"Free forever", freeName:"Free", freeDesc:"Try the system at no cost", freeOnboard:"✓ Self sign-up — instant", freeCta:"Sign up free",
+    freeFeatures:["1 project","Up to 3 users","Up to 50 active punches","Basic PDF","Advanced filters & reports","Floor plans","Logo on reports"],
     planBadge:"Most Popular",
     planDescs:["A small contractor who wants to start working right","A mid-size company with several parallel projects","A construction group, large developer, or contractor network"],
     planOnboard:["✓ Self-onboarding — free","✓ Self-onboarding — free","+ ₪990 onboarding & personal guidance"],
@@ -1823,8 +1847,10 @@ const TRANSLATIONS = {
     langTag:"ЯЗЫКИ", langTitle:"Для многоязычных команд", langSub:"SitePunch поддерживает иврит, арабский, русский и английский — чтобы каждый на объекте мог работать на своём языке.",
     howTag:"КАК ЭТО РАБОТАЕТ", howTitle:"Готово к работе за несколько минут",
     howSteps:[["Открываем дефект","Фотографируем и заполняем — категория, местоположение, ответственный. За 10 секунд."],["Назначаем ответственного","Привязываем к подрядчику. Он получает мгновенное уведомление на своём языке."],["Следим за устранением","Управляем статусами и прогрессом. Незакрытый дефект — автоматическое напоминание."],["Закрываем и создаём отчёты","Всё задокументировано. Профессиональный PDF-отчёт в один клик."]],
-    pricingTag:"ЦЕНЫ", pricingTitle:"Прозрачно, просто, без сюрпризов", pricingSub:"Все планы включают полный доступ ко всем функциям. Разница — в размере команды и числе проектов.",
+    pricingTag:"ЦЕНЫ", pricingTitle:"Прозрачно, просто, без сюрпризов", pricingSub:"Начните бесплатно и переходите на следующий план по мере роста. Без карты, без обязательств.",
     billingMonthly:"Ежемесячно", billingAnnual:"Ежегодно", billingSave:"Скидка 20%",
+    freeBadge:"Бесплатно навсегда", freeName:"Free", freeDesc:"Попробуйте систему без затрат", freeOnboard:"✓ Регистрация самостоятельно — мгновенно", freeCta:"Зарегистрироваться",
+    freeFeatures:["1 проект","До 3 пользователей","До 50 активных дефектов","Базовый PDF","Расширенные фильтры и отчёты","Планы этажей","Логотип в отчётах"],
     planBadge:"Самый популярный",
     planDescs:["Небольшой подрядчик, который хочет работать правильно","Средняя компания с несколькими параллельными проектами","Строительный холдинг, крупный девелопер или сеть подрядчиков"],
     planOnboard:["✓ Самостоятельное подключение — бесплатно","✓ Самостоятельное подключение — бесплатно","+ ₪990 подключение и личное сопровождение"],
@@ -1857,8 +1883,10 @@ const TRANSLATIONS = {
     langTag:"اللغات", langTitle:"مناسب للفرق متعددة اللغات", langSub:"يدعم SitePunch العبرية والعربية والروسية والإنجليزية — حتى يتمكن كل شخص في الموقع من العمل بلغته.",
     howTag:"كيف يعمل", howTitle:"جاهز للعمل في دقائق",
     howSteps:[["نفتح عيبًا","نلتقط صورة وندخل التفاصيل — الفئة والموقع والمسؤول. في 10 ثوانٍ."],["نعيّن المسؤولية","نربط بالمقاول. يتلقى إشعارًا فوريًا بلغته."],["نتابع المعالجة","ندير الحالات والتقدم. العيب غير المغلق — تنبيه تلقائي."],["نغلق وننشئ التقارير","كل شيء موثق وجاهز للتسليم. تقرير PDF احترافي بنقرة واحدة."]],
-    pricingTag:"الأسعار", pricingTitle:"شفاف، بسيط، بلا مفاجآت", pricingSub:"جميع الخطط تشمل وصولاً كاملاً لجميع الميزات. الفرق في حجم الفريق وعدد المشاريع.",
+    pricingTag:"الأسعار", pricingTitle:"شفاف، بسيط، بلا مفاجآت", pricingSub:"ابدأ مجانًا وطوّر خطتك مع نموّك. بدون بطاقة ائتمان، بدون التزام.",
     billingMonthly:"فوترة شهرية", billingAnnual:"سنوي", billingSave:"وفّر 20%",
+    freeBadge:"مجاني للأبد", freeName:"Free", freeDesc:"جرّب النظام بدون تكلفة", freeOnboard:"✓ تسجيل ذاتي — فوري", freeCta:"سجّل مجانًا",
+    freeFeatures:["مشروع واحد","حتى 3 مستخدمين","حتى 50 عيبًا نشطًا","PDF أساسي","فلاتر وتقارير متقدمة","مخططات الطوابق","الشعار في التقارير"],
     planBadge:"الأكثر شيوعًا",
     planDescs:["مقاول صغير يريد البدء بالعمل الصحيح","شركة متوسطة مع عدة مشاريع متوازية","مجموعة بناء أو مطور كبير أو شبكة مقاولين"],
     planOnboard:["✓ إعداد ذاتي — مجاني","✓ إعداد ذاتي — مجاني","+ ₪990 إعداد ومتابعة شخصية"],
@@ -1984,19 +2012,29 @@ function switchLang(lang) {
     annualLabel.childNodes[0].textContent = t.billingAnnual + ' ';
   }
 
-  // Pricing cards
+  // Pricing cards — index 0 = Free, index 1-3 = Starter/Pro/Enterprise
   document.querySelectorAll('.pricing-card').forEach((card, i) => {
-    if (!t.planDescs[i]) return;
     const badge   = card.querySelector('.plan-badge');
     const desc    = card.querySelector('.plan-desc');
     const onboard = card.querySelector('.plan-onboard');
     const cta     = card.querySelector('.plan-cta');
     const lis     = card.querySelectorAll('.plan-features li');
-    if (badge)   badge.textContent   = t.planBadge;
-    if (desc)    desc.textContent    = t.planDescs[i];
-    if (onboard) onboard.textContent = t.planOnboard[i];
-    if (cta)     cta.textContent     = t.planCtas[i];
-    if (t.planFeatures[i]) lis.forEach((li, j) => { if (t.planFeatures[i][j]) li.textContent = t.planFeatures[i][j]; });
+    if (i === 0) {
+      // Free card
+      if (badge)   badge.textContent   = t.freeBadge;
+      if (desc)    desc.textContent    = t.freeDesc;
+      if (onboard) onboard.textContent = t.freeOnboard;
+      if (cta)     cta.textContent     = t.freeCta;
+      if (t.freeFeatures) lis.forEach((li, j) => { if (t.freeFeatures[j]) li.textContent = t.freeFeatures[j]; });
+    } else {
+      const pi = i - 1; // paid plan index
+      if (!t.planDescs[pi]) return;
+      if (badge)   badge.textContent   = t.planBadge;
+      if (desc)    desc.textContent    = t.planDescs[pi];
+      if (onboard) onboard.textContent = t.planOnboard[pi];
+      if (cta)     cta.textContent     = t.planCtas[pi];
+      if (t.planFeatures[pi]) lis.forEach((li, j) => { if (t.planFeatures[pi][j]) li.textContent = t.planFeatures[pi][j]; });
+    }
   });
 
   // Packs title
