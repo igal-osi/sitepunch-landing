@@ -1259,6 +1259,21 @@
     </div>
   </div>
 
+  <!-- הקראה -->
+  <div class="a11y-section" id="a11yReadSection">
+    <div class="a11y-section-title">🔊 הקראת דף</div>
+    <div style="display:flex;gap:7px;margin-bottom:8px">
+      <button id="ttsPlayBtn" onclick="ttsToggle()" style="flex:1;background:rgba(109,40,217,0.18);border:1px solid rgba(124,58,237,0.35);border-radius:9px;padding:9px 6px;color:#c4b5fd;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;transition:all 0.15s">▶ הפעל הקראה</button>
+      <button onclick="ttsStop()" style="background:rgba(239,68,68,0.12);border:1px solid rgba(239,68,68,0.25);border-radius:9px;padding:9px 10px;color:#f87171;font-size:14px;cursor:pointer;transition:all 0.15s" title="עצור">■</button>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px">
+      <span style="font-size:11px;color:rgba(200,200,210,0.5);white-space:nowrap">קצב:</span>
+      <input type="range" id="ttsRate" min="0.5" max="2" step="0.1" value="1" oninput="ttsUpdateRate(this.value)"
+        style="flex:1;accent-color:#7c3aed;cursor:pointer">
+      <span id="ttsRateLabel" style="font-size:11px;color:rgba(200,200,210,0.5);min-width:26px">×1</span>
+    </div>
+  </div>
+
   <!-- קישורים -->
   <div class="a11y-links">
     <button class="a11y-link-btn" onclick="openLegal('accessibility');toggleA11y()">📄 הצהרת נגישות</button>
@@ -1732,6 +1747,7 @@ function toggleKeyboardFocus() {
 }
 
 function resetA11y() {
+  ttsStop();
   fontScale = 0; contrastMode = 'normal'; bwMode = false;
   underlineLinks = false; dyslexia = false; stopAnim = false; keyboardFocus = false;
   document.documentElement.style.fontSize = '';
@@ -1740,6 +1756,64 @@ function resetA11y() {
   setContrast('normal');
   ['a11y-bw-style','a11y-link-style','a11y-dyslexia-style','a11y-anim-style','a11y-focus-style']
     .forEach(id => injectStyle(id, ''));
+}
+
+// ── TTS (Text-to-Speech) ─────────────────────────────────────
+let ttsUtterance = null;
+let ttsPlaying   = false;
+let ttsRate      = 1;
+
+function ttsGetPageText() {
+  const sections = document.querySelectorAll('h1,h2,h3,p,li,a.btn-gold-main,a.btn-outline-gold');
+  return Array.from(sections)
+    .map(el => el.innerText?.trim())
+    .filter(t => t && t.length > 1)
+    .join('. ');
+}
+
+function ttsToggle() {
+  if (!window.speechSynthesis) { alert('הדפדפן שלך אינו תומך בהקראה'); return; }
+  if (ttsPlaying) {
+    speechSynthesis.pause();
+    ttsPlaying = false;
+    document.getElementById('ttsPlayBtn').textContent = '▶ המשך הקראה';
+  } else {
+    if (speechSynthesis.paused) {
+      speechSynthesis.resume();
+    } else {
+      ttsStart();
+    }
+    ttsPlaying = true;
+    document.getElementById('ttsPlayBtn').textContent = '⏸ השהה הקראה';
+  }
+}
+
+function ttsStart() {
+  speechSynthesis.cancel();
+  const lang = document.documentElement.lang || 'he';
+  const langMap = { he:'he-IL', en:'en-US', ru:'ru-RU', ar:'ar-SA' };
+  ttsUtterance = new SpeechSynthesisUtterance(ttsGetPageText());
+  ttsUtterance.lang  = langMap[lang] || 'he-IL';
+  ttsUtterance.rate  = ttsRate;
+  ttsUtterance.onend = () => {
+    ttsPlaying = false;
+    const btn = document.getElementById('ttsPlayBtn');
+    if (btn) btn.textContent = '▶ הפעל הקראה';
+  };
+  speechSynthesis.speak(ttsUtterance);
+}
+
+function ttsStop() {
+  speechSynthesis.cancel();
+  ttsPlaying = false;
+  const btn = document.getElementById('ttsPlayBtn');
+  if (btn) btn.textContent = '▶ הפעל הקראה';
+}
+
+function ttsUpdateRate(val) {
+  ttsRate = parseFloat(val);
+  document.getElementById('ttsRateLabel').textContent = '×' + ttsRate.toFixed(1).replace('.0','');
+  if (ttsPlaying) { ttsStop(); ttsStart(); ttsPlaying = true; document.getElementById('ttsPlayBtn').textContent = '⏸ השהה הקראה'; }
 }
 
 // init normal contrast active
