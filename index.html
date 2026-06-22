@@ -2157,7 +2157,8 @@ function switchLang(lang) {
   document.querySelectorAll('.footer-links a').forEach((el, i) => { if (t.footerLinks[i]) el.textContent = t.footerLinks[i]; });
 
   // a11y panel label
-  const langLabel = document.querySelector('#langGrid').previousElementSibling;
+  const langGrid = document.querySelector('#langGrid');
+  const langLabel = langGrid ? langGrid.previousElementSibling : null;
   if (langLabel) langLabel.textContent = t.a11yLangLabel;
 }
 </script>
