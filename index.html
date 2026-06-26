@@ -1085,7 +1085,7 @@
       <div class="plan-onboard">✓ הקמה עצמאית — חינם</div>
       <hr class="plan-divider">
       <ul class="plan-features">
-        <li>פרויקטים ללא הגבלה</li>
+        <li>עד 100 פרויקטים פעילים</li>
         <li>עד 50 משתמשים</li>
         <li>PDF עם לוגו לקוח</li>
         <li>ייצוא Excel ו-CSV</li>
@@ -1104,7 +1104,8 @@
       <div class="plan-onboard">+ ₪990 הקמה וליווי אישי בשטח</div>
       <hr class="plan-divider">
       <ul class="plan-features">
-        <li>פרויקטים וצוותים ללא הגבלה</li>
+        <li>פרויקטים ללא הגבלה</li>
+        <li>עד 200 משתמשים</li>
         <li>המערכת תחת שם וצבעי החברה שלכם</li>
         <li>חיבור למערכות ERP / חיצוניות (API)</li>
         <li>גרפים, סטטיסטיקות ו-Pivot</li>
@@ -1129,6 +1130,26 @@
     <div class="pack-card">
       <div class="pack-info"><h4>חבילת 10 פרויקטים</h4><p>שנה · משתמשים ללא הגבלה</p></div>
       <div class="pack-right"><div class="pack-price">₪1,290</div><button class="pack-cta" onclick="openCheckout('pack10')">רכשו →</button></div>
+    </div>
+  </div>
+
+  <div class="packs-title reveal" data-key="extrasTitle">הוסיפו לחבילה שלכם — אקסטרות</div>
+  <div class="packs-grid reveal" id="extrasGrid">
+    <div class="pack-card">
+      <div class="pack-info"><h4 data-key="extra1Name">+10 פרויקטים</h4><p data-key="extra1Sub">Pro ומעלה · לחודש</p></div>
+      <div class="pack-right"><div class="pack-price">₪79</div><a href="mailto:office@sitepunch.co.il?subject=Extra%20Projects" class="pack-cta">פרטים →</a></div>
+    </div>
+    <div class="pack-card">
+      <div class="pack-info"><h4 data-key="extra2Name">+25 פרויקטים</h4><p data-key="extra2Sub">Pro ומעלה · לחודש</p></div>
+      <div class="pack-right"><div class="pack-price">₪149</div><a href="mailto:office@sitepunch.co.il?subject=Extra%20Projects" class="pack-cta">פרטים →</a></div>
+    </div>
+    <div class="pack-card">
+      <div class="pack-info"><h4 data-key="extra3Name">+10 משתמשים</h4><p data-key="extra3Sub">כל חבילה · לחודש</p></div>
+      <div class="pack-right"><div class="pack-price">₪59</div><a href="mailto:office@sitepunch.co.il?subject=Extra%20Users" class="pack-cta">פרטים →</a></div>
+    </div>
+    <div class="pack-card">
+      <div class="pack-info"><h4 data-key="extra4Name">+50 משתמשים</h4><p data-key="extra4Sub">Enterprise · לחודש</p></div>
+      <div class="pack-right"><div class="pack-price">₪199</div><a href="mailto:office@sitepunch.co.il?subject=Extra%20Users" class="pack-cta">פרטים →</a></div>
     </div>
   </div>
 </section>
@@ -1367,7 +1388,7 @@ function handleOverlayClick(e) { if (e.target === document.getElementById('featu
 
 const KB = [
   { keys: ['מחיר','עולה','עלות','כמה','תשלום','תוכנית','תכנית','מנוי','starter','pro','enterprise','חינם','ניסיון'],
-    ans: '💰 SitePunch מציעה שלוש תוכניות: <b>Starter ₪149/חודש</b> (עד 3 פרויקטים, 10 משתמשים), <b>Pro ₪349/חודש</b> (פרויקטים ללא הגבלה, 50 משתמשים), ו-<b>Enterprise ₪890/חודש</b> (ללא הגבלה + לוגו לבן). אפשר גם לרכוש פרויקט בודד ב-₪199 ללא מנוי חודשי. כל התוכניות כוללות PDF אוטומטי, תמיכה רב-לשונית ודשבורד מנהל.' },
+    ans: '💰 SitePunch מציעה שלוש תוכניות: <b>Starter ₪149/חודש</b> (עד 3 פרויקטים, 10 משתמשים), <b>Pro ₪349/חודש</b> (עד 100 פרויקטים, 50 משתמשים), ו-<b>Enterprise ₪890/חודש</b> (פרויקטים ללא הגבלה, עד 200 משתמשים + לוגו לבן). אפשר גם לרכוש פרויקט בודד ב-₪199 ללא מנוי חודשי, או חבילות אקסטרה לפרויקטים ומשתמשים נוספים. כל התוכניות כוללות PDF אוטומטי, תמיכה רב-לשונית ודשבורד מנהל.' },
   { keys: ['להתחיל','מתחיל','הטמעה','onboarding','הקמה','כמה זמן','מהיר','מורכב','קשה','פשוט'],
     ans: '🚀 הטמעה ב-SitePunch לוקחת פחות מ-30 דקות: פותחים פרויקט, מגדירים צוות, ומתחילים לתעד. ב-Starter ו-Pro ההקמה היא עצמאית וחינמית. ב-Enterprise יש ליווי אישי כולל הדרכת צוות בשטח.' },
   { keys: ['אינטרנט','offline','אופליין','4g','קישור','חיבור','רשת','גרוע','שטח','בלי נט'],
@@ -1397,7 +1418,7 @@ const KB = [
   { keys: ['תמיכה','עזרה','שירות','בעיה','שגיאה','לא עובד','פנייה','צ\'אט','מייל'],
     ans: '🆘 Starter — תמיכה במייל עד 48 שעות. Pro — צ\'אט חי בשעות עסקים. Enterprise — SLA מועדף עם מענה עד 4 שעות.' },
   { keys: ['כמה פרויקט','פרויקטים','מספר','מקביל','בו זמנית','הגבלה','ללא הגבלה'],
-    ans: '📋 Starter: עד 3 פרויקטים פעילים במקביל. Pro ו-Enterprise: פרויקטים ללא הגבלה.' },
+    ans: '📋 Starter: עד 3 פרויקטים פעילים. Pro: עד 100 פרויקטים. Enterprise: ללא הגבלה. צריכים יותר? יש חבילות אקסטרה של +10 או +25 פרויקטים בתוספת ₪79–₪149 לחודש.' },
   { keys: ['דמו','demo','ניסיון','לנסות','תקופת','חינם','ללא תשלום','free','trial'],
     ans: '🎯 אנחנו מציעים דמו אישי חינמי — 20-30 דקות עם הצוות שלנו. שלחו מייל ל-office@sitepunch.co.il.' },
   { keys: ['לבטל','ביטול','cancel','קנס','התחייבות','חוזה','חודש','שנה'],
@@ -1405,7 +1426,7 @@ const KB = [
   { keys: ['לוגו','לבן','white label','מיתוג','ברנד'],
     ans: '🏷️ ב-Enterprise יש לוגו לבן מלא: הדוחות יוצאים עם הלוגו שלכם בלי אזכור SitePunch.' },
   { keys: ['צוות','עובד','עובדים','כמה אנשים','משתמשים','user','להוסיף','הזמנה'],
-    ans: '👷 מוסיפים משתמשים בקלות — שולחים הזמנה במייל ובחמש דקות הם בפנים. Starter: עד 10, Pro: עד 50, Enterprise: ללא הגבלה.' },
+    ans: '👷 מוסיפים משתמשים בקלות — שולחים הזמנה במייל ובחמש דקות הם בפנים. Starter: עד 10, Pro: עד 50, Enterprise: עד 200. צריכים יותר? יש חבילות אקסטרה של +10 או +50 משתמשים.' },
   { keys: ['מחשב','לפטופ','טאבלט','ipad','desktop','דסקטופ'],
     ans: '💻 המערכת רספונסיבית מלאה — עובדת על מחשב, טאבלט וסמארטפון.' },
   { keys: ['עדכון','עדכונים','גרסה','חדש','פיצ\'ר חדש'],
@@ -1433,7 +1454,7 @@ const KB = [
   { keys: ['חשבונית','מס','חשבון','receipt','ע.מ','עוסק'],
     ans: '🧾 כל לקוח מקבל חשבונית מס ישראלית לכל חיוב — מתאים לניכוי מס עסקי.' },
   { keys: ['הבדל','starter לעומת','pro לעומת','איזו תוכנית','מה מתאים','להשוות'],
-    ans: '🤔 <b>Starter</b> — לקבלן קטן עם 1–3 פרויקטים, עד 10 אנשים. <b>Pro</b> — לחברה עם פרויקטים מרובים, עד 50 משתמשים. <b>Enterprise</b> — לקבוצות גדולות עם לוגו לבן וליווי אישי.' },
+    ans: '🤔 <b>Starter</b> — לקבלן קטן עם 1–3 פרויקטים, עד 10 אנשים. <b>Pro</b> — לחברה עם עד 100 פרויקטים, עד 50 משתמשים. <b>Enterprise</b> — לקבוצות גדולות, פרויקטים ללא הגבלה, עד 200 משתמשים, לוגו לבן וליווי אישי. בכל חבילה אפשר להוסיף פרויקטים ומשתמשים כחבילות אקסטרה.' },
   { keys: ['לחשב','עלות כוללת','roi','כדאיות','השקעה','להחזיר'],
     ans: '💡 חיסכון 4 שעות × ₪150 לשעה = ₪600 לשבוע = <b>₪2,400 לחודש</b>. עלות Pro: ₪349. ההשקעה מוחזרת בפחות משבוע.' },
   { keys: [],
@@ -1877,9 +1898,11 @@ const TRANSLATIONS = {
     planDescs:["קבלן קטן שרוצה להתחיל לעבוד נכון","חברה בינונית עם כמה פרויקטים מקביליים","קבוצת בנייה, יזם גדול, או רשת קבלנים"],
     planOnboard:["✓ הקמה עצמאית — חינם","✓ הקמה עצמאית — חינם","+ ₪990 הקמה וליווי אישי"],
     planCtas:["התחילו עכשיו","התחילו עכשיו","דברו איתנו"],
-    planFeatures:[["עד 3 פרויקטים פעילים","עד 10 משתמשים","PDF אוטומטי","ייצוא Excel ו-CSV","גרפים, סטטיסטיקות ו-Pivot","עברית, ערבית, רוסית ואנגלית","תמיכה במייל","לוגו לבן"],["פרויקטים ללא הגבלה","עד 50 משתמשים","PDF עם לוגו לקוח","ייצוא Excel ו-CSV","גרפים, סטטיסטיקות ו-Pivot","עברית, ערבית, רוסית ואנגלית","דשבורד מנהל מתקדם","תמיכה מועדפת"],["פרויקטים וצוותים ללא הגבלה","המערכת תחת שם וצבעי החברה שלכם","חיבור למערכות ERP / חיצוניות (API)","גרפים, סטטיסטיקות ו-Pivot","הדרכת צוות אישית בשטח","תמיכה ישירה עם זמן תגובה מובטח","הגדרות תהליך מותאמות לחברה שלכם"]],
+    planFeatures:[["עד 3 פרויקטים פעילים","עד 10 משתמשים","PDF אוטומטי","ייצוא Excel ו-CSV","גרפים, סטטיסטיקות ו-Pivot","עברית, ערבית, רוסית ואנגלית","תמיכה במייל","לוגו לבן"],["עד 100 פרויקטים פעילים","עד 50 משתמשים","PDF עם לוגו לקוח","ייצוא Excel ו-CSV","גרפים, סטטיסטיקות ו-Pivot","עברית, ערבית, רוסית ואנגלית","דשבורד מנהל מתקדם","תמיכה מועדפת"],["פרויקטים ללא הגבלה","עד 200 משתמשים","המערכת תחת שם וצבעי החברה שלכם","חיבור למערכות ERP / חיצוניות (API)","גרפים, סטטיסטיקות ו-Pivot","הדרכת צוות אישית בשטח","תמיכה ישירה עם זמן תגובה מובטח","הגדרות תהליך מותאמות לחברה שלכם"]],
     packsTitle:"או — קנו פרויקטים ללא מנוי",
     packCards:[["פרויקט בודד","3 חודשים · עד 10 משתמשים","רכשו →"],["חבילת 3 פרויקטים","6 חודשים · עד 20 משתמשים","רכשו →"],["חבילת 10 פרויקטים","שנה · משתמשים ללא הגבלה","רכשו →"]],
+    extrasTitle:"הוסיפו לחבילה שלכם — אקסטרות",
+    extrasCards:[["+ 10 פרויקטים","Pro ומעלה · לחודש","₪79","פרטים →"],["+ 25 פרויקטים","Pro ומעלה · לחודש","₪149","פרטים →"],["+ 10 משתמשים","כל חבילה · לחודש","₪59","פרטים →"],["+ 50 משתמשים","Enterprise · לחודש","₪199","פרטים →"]],
     ctaTag:"מוכנים להתחיל?", ctaTitle:"התחילו לנהל ליקויים בצורה חכמה יותר", ctaSub:"חסכו שעות של עבודה ידנית, שפרו את השליטה בפרויקט ותיעדו כל ליקוי במקום אחד.",
     ctaBtn1:"כניסה לאפליקציה", ctaBtn2:"יצירת קשר",
     footerTagline:"בנוי לשוק הבנייה הישראלי 🇮🇱", footerCopy:"© 2026 SitePunch · כל הזכויות שמורות",
@@ -1913,9 +1936,11 @@ const TRANSLATIONS = {
     planDescs:["A small contractor who wants to start working right","A mid-size company with several parallel projects","A construction group, large developer, or contractor network"],
     planOnboard:["✓ Self-onboarding — free","✓ Self-onboarding — free","+ ₪990 onboarding & personal guidance"],
     planCtas:["Get Started","Get Started","Talk to Us"],
-    planFeatures:[["Up to 3 active projects","Up to 10 users","Automatic PDF","Excel & CSV export","Charts, analytics & Pivot","Hebrew, Arabic, Russian & English","Email support","White label"],["Unlimited projects","Up to 50 users","PDF with client logo","Excel & CSV export","Charts, analytics & Pivot","Hebrew, Arabic, Russian & English","Advanced admin dashboard","Priority support"],["Unlimited projects & teams","Platform branded with your company name & colors","Connect to ERP / external systems (API)","Charts, analytics & Pivot","Personal on-site team training","Direct support with guaranteed response time","Workflow settings tailored to your company"]],
+    planFeatures:[["Up to 3 active projects","Up to 10 users","Automatic PDF","Excel & CSV export","Charts, analytics & Pivot","Hebrew, Arabic, Russian & English","Email support","White label"],["Up to 100 active projects","Up to 50 users","PDF with client logo","Excel & CSV export","Charts, analytics & Pivot","Hebrew, Arabic, Russian & English","Advanced admin dashboard","Priority support"],["Unlimited projects","Up to 200 users","Platform branded with your company name & colors","Connect to ERP / external systems (API)","Charts, analytics & Pivot","Personal on-site team training","Direct support with guaranteed response time","Workflow settings tailored to your company"]],
     packsTitle:"Or — buy projects without a subscription",
     packCards:[["Single Project","3 months · up to 10 users","Buy →"],["3-Project Pack","6 months · up to 20 users","Buy →"],["10-Project Pack","1 year · unlimited users","Buy →"]],
+    extrasTitle:"Add to your plan — extras",
+    extrasCards:[["+ 10 Projects","Pro & above · per month","₪79","Details →"],["+ 25 Projects","Pro & above · per month","₪149","Details →"],["+ 10 Users","Any plan · per month","₪59","Details →"],["+ 50 Users","Enterprise · per month","₪199","Details →"]],
     ctaTag:"Ready to start?", ctaTitle:"Start managing defects the smart way", ctaSub:"Save hours of manual work, improve project control and document every defect in one place.",
     ctaBtn1:"Open the App", ctaBtn2:"Contact Us",
     footerTagline:"Built for the Israeli construction market 🇮🇱", footerCopy:"© 2026 SitePunch · All rights reserved",
@@ -1949,9 +1974,11 @@ const TRANSLATIONS = {
     planDescs:["Небольшой подрядчик, который хочет работать правильно","Средняя компания с несколькими параллельными проектами","Строительный холдинг, крупный девелопер или сеть подрядчиков"],
     planOnboard:["✓ Самостоятельное подключение — бесплатно","✓ Самостоятельное подключение — бесплатно","+ ₪990 подключение и личное сопровождение"],
     planCtas:["Начать","Начать","Связаться с нами"],
-    planFeatures:[["До 3 активных проектов","До 10 пользователей","Автоматический PDF","Экспорт Excel и CSV","Графики, аналитика и Pivot","Иврит, арабский, русский и английский","Поддержка по email","White label"],["Неограниченные проекты","До 50 пользователей","PDF с логотипом клиента","Экспорт Excel и CSV","Графики, аналитика и Pivot","Иврит, арабский, русский и английский","Расширенная панель менеджера","Приоритетная поддержка"],["Неограниченные проекты и команды","Система под названием и цветами вашей компании","Подключение к ERP / внешним системам (API)","Графики, аналитика и Pivot","Личное обучение команды на объекте","Прямая поддержка с гарантированным временем ответа","Настройки процесса под вашу компанию"]],
+    planFeatures:[["До 3 активных проектов","До 10 пользователей","Автоматический PDF","Экспорт Excel и CSV","Графики, аналитика и Pivot","Иврит, арабский, русский и английский","Поддержка по email","White label"],["До 100 активных проектов","До 50 пользователей","PDF с логотипом клиента","Экспорт Excel и CSV","Графики, аналитика и Pivot","Иврит, арабский, русский и английский","Расширенная панель менеджера","Приоритетная поддержка"],["Неограниченные проекты","До 200 пользователей","Система под названием и цветами вашей компании","Подключение к ERP / внешним системам (API)","Графики, аналитика и Pivot","Личное обучение команды на объекте","Прямая поддержка с гарантированным временем ответа","Настройки процесса под вашу компанию"]],
     packsTitle:"Или — купите проекты без подписки",
     packCards:[["Один проект","3 месяца · до 10 пользователей","Купить →"],["Пакет 3 проекта","6 месяцев · до 20 пользователей","Купить →"],["Пакет 10 проектов","1 год · неограниченные пользователи","Купить →"]],
+    extrasTitle:"Добавьте к плану — экстра-пакеты",
+    extrasCards:[["+ 10 проектов","Pro и выше · в месяц","₪79","Подробнее →"],["+ 25 проектов","Pro и выше · в месяц","₪149","Подробнее →"],["+ 10 пользователей","Любой план · в месяц","₪59","Подробнее →"],["+ 50 пользователей","Enterprise · в месяц","₪199","Подробнее →"]],
     ctaTag:"Готовы начать?", ctaTitle:"Начните управлять дефектами умнее", ctaSub:"Экономьте часы ручной работы, улучшайте контроль над проектом и документируйте каждый дефект в одном месте.",
     ctaBtn1:"Открыть приложение", ctaBtn2:"Написать нам",
     footerTagline:"Создано для израильского строительного рынка 🇮🇱", footerCopy:"© 2026 SitePunch · Все права защищены",
@@ -1985,9 +2012,11 @@ const TRANSLATIONS = {
     planDescs:["مقاول صغير يريد البدء بالعمل الصحيح","شركة متوسطة مع عدة مشاريع متوازية","مجموعة بناء أو مطور كبير أو شبكة مقاولين"],
     planOnboard:["✓ إعداد ذاتي — مجاني","✓ إعداد ذاتي — مجاني","+ ₪990 إعداد ومتابعة شخصية"],
     planCtas:["ابدأ الآن","ابدأ الآن","تواصل معنا"],
-    planFeatures:[["حتى 3 مشاريع نشطة","حتى 10 مستخدمين","PDF تلقائي","تصدير Excel و CSV","رسوم بيانية وإحصاءات وPivot","عبري، عربي، روسي وإنجليزي","دعم بالبريد","الشعار الأبيض"],["مشاريع غير محدودة","حتى 50 مستخدمًا","PDF مع شعار العميل","تصدير Excel و CSV","رسوم بيانية وإحصاءات وPivot","عبري، عربي، روسي وإنجليزي","لوحة تحكم متقدمة","دعم مفضّل"],["مشاريع وفرق غير محدودة","النظام بشعار وألوان شركتك","ربط مع أنظمة ERP / خارجية (API)","رسوم بيانية وإحصاءات وPivot","تدريب شخصي للفريق في الموقع","دعم مباشر مع وقت استجابة مضمون","إعدادات العمل مخصصة لشركتك"]],
+    planFeatures:[["حتى 3 مشاريع نشطة","حتى 10 مستخدمين","PDF تلقائي","تصدير Excel و CSV","رسوم بيانية وإحصاءات وPivot","عبري، عربي، روسي وإنجليزي","دعم بالبريد","الشعار الأبيض"],["حتى 100 مشروع نشط","حتى 50 مستخدمًا","PDF مع شعار العميل","تصدير Excel و CSV","رسوم بيانية وإحصاءات وPivot","عبري، عربي، روسي وإنجليزي","لوحة تحكم متقدمة","دعم مفضّل"],["مشاريع غير محدودة","حتى 200 مستخدم","النظام بشعار وألوان شركتك","ربط مع أنظمة ERP / خارجية (API)","رسوم بيانية وإحصاءات وPivot","تدريب شخصي للفريق في الموقع","دعم مباشر مع وقت استجابة مضمون","إعدادات العمل مخصصة لشركتك"]],
     packsTitle:"أو — اشترِ مشاريع بدون اشتراك",
     packCards:[["مشروع واحد","3 أشهر · حتى 10 مستخدمين","اشترِ →"],["حزمة 3 مشاريع","6 أشهر · حتى 20 مستخدمًا","اشترِ →"],["حزمة 10 مشاريع","سنة · مستخدمون غير محدودين","اشترِ →"]],
+    extrasTitle:"أضف إلى خطتك — حزم إضافية",
+    extrasCards:[["+ 10 مشاريع","Pro وما فوق · شهريًا","₪79","تفاصيل →"],["+ 25 مشروعًا","Pro وما فوق · شهريًا","₪149","تفاصيل →"],["+ 10 مستخدمين","أي خطة · شهريًا","₪59","تفاصيل →"],["+ 50 مستخدمًا","Enterprise · شهريًا","₪199","تفاصيل →"]],
     ctaTag:"هل أنت مستعد؟", ctaTitle:"ابدأ إدارة العيوب بطريقة أذكى", ctaSub:"وفّر ساعات من العمل اليدوي، حسّن التحكم في المشروع ووثّق كل عيب في مكان واحد.",
     ctaBtn1:"افتح التطبيق", ctaBtn2:"تواصل معنا",
     footerTagline:"مبني للسوق الإسرائيلي 🇮🇱", footerCopy:"© 2026 SitePunch · جميع الحقوق محفوظة",
@@ -2131,12 +2160,13 @@ function switchLang(lang) {
     }
   });
 
-  // Packs title
-  const packsTitle = document.querySelector('.packs-title');
-  if (packsTitle) packsTitle.textContent = t.packsTitle;
+  // Packs titles (two: one for packs, one for extras)
+  const packsTitles = document.querySelectorAll('.packs-title');
+  if (packsTitles[0]) packsTitles[0].textContent = t.packsTitle;
+  if (packsTitles[1] && t.extrasTitle) packsTitles[1].textContent = t.extrasTitle;
 
-  // Pack cards
-  document.querySelectorAll('.pack-card').forEach((card, i) => {
+  // Pack cards (only the 3 in the main packs grid, not extras)
+  document.querySelectorAll('.packs-grid:not(#extrasGrid) .pack-card').forEach((card, i) => {
     if (!t.packCards[i]) return;
     const h4  = card.querySelector('h4');
     const p   = card.querySelector('p');
@@ -2145,6 +2175,21 @@ function switchLang(lang) {
     if (p)   p.textContent   = t.packCards[i][1];
     if (btn) btn.textContent = t.packCards[i][2];
   });
+
+  // Extras cards
+  if (t.extrasCards) {
+    document.querySelectorAll('#extrasGrid .pack-card').forEach((card, i) => {
+      if (!t.extrasCards[i]) return;
+      const h4   = card.querySelector('h4');
+      const p    = card.querySelector('p');
+      const price = card.querySelector('.pack-price');
+      const btn  = card.querySelector('.pack-cta');
+      if (h4)    h4.textContent    = t.extrasCards[i][0];
+      if (p)     p.textContent     = t.extrasCards[i][1];
+      if (price) price.textContent = t.extrasCards[i][2];
+      if (btn)   btn.textContent   = t.extrasCards[i][3];
+    });
+  }
 
   // CTA section
   const cta = document.querySelector('#cta');
