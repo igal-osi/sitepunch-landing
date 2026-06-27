@@ -1854,7 +1854,15 @@ function ttsUpdateRate(val) {
 }
 
 // init normal contrast active
-document.addEventListener('DOMContentLoaded', function() { setContrast('normal'); });
+document.addEventListener('DOMContentLoaded', function() {
+  setContrast('normal');
+  // ── Referral code capture ──
+  const ref = new URLSearchParams(window.location.search).get('ref');
+  if (ref) {
+    localStorage.setItem('sp_ref_code', ref.toUpperCase().trim());
+    console.log('[SitePunch] Referral code saved:', ref);
+  }
+});
 
 document.addEventListener('click', function(e) {
   if (a11yOpen && !e.target.closest('.a11y-panel') && !e.target.closest('.a11y-btn')) {
