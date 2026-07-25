@@ -780,6 +780,30 @@
   .ai-send:hover { filter: brightness(1.1); }
   .ai-send:disabled { opacity: 0.5; cursor: not-allowed; }
 
+  /* ── Install guide modal ── */
+  .install-steps { display: flex; flex-direction: column; gap: 14px; }
+  .install-step {
+    display: flex; align-items: flex-start; gap: 14px;
+    background: rgba(20,23,34,0.8); border: 1px solid rgba(212,175,55,0.1);
+    border-radius: 12px; padding: 16px 18px;
+  }
+  .install-step-num {
+    flex-shrink: 0; width: 30px; height: 30px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--gold), var(--gold-end));
+    color: #1a1000; font-weight: 800; font-size: 0.95rem;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .install-step-icon { flex-shrink: 0; width: 34px; height: 34px; color: var(--gold); }
+  .install-step-icon svg { width: 100%; height: 100%; }
+  .install-step-text { flex: 1; padding-top: 4px; }
+  .install-step-text b { display: block; font-size: 0.92rem; font-weight: 700; color: var(--white); margin-bottom: 3px; }
+  .install-step-text span { font-size: 0.84rem; color: var(--muted); line-height: 1.6; }
+  .install-note {
+    background: rgba(212,175,55,0.07); border: 1px solid rgba(212,175,55,0.2);
+    border-radius: 10px; padding: 10px 14px; font-size: 0.82rem; color: var(--gold);
+    margin-bottom: 16px;
+  }
+
   /* ── RESPONSIVE ── */
   @media (max-width: 720px) {
     .nav-links { display: none; }
@@ -807,6 +831,7 @@
     <li><a href="#features">פיצ'רים</a></li>
     <li><a href="#how">איך זה עובד</a></li>
     <li><a href="#pricing">מחירים</a></li>
+    <li><a onclick="openInstallModal()" style="cursor:pointer;">📱 התקנה בנייד</a></li>
   </ul>
   <div style="display:flex;align-items:center;gap:10px;">
     <a href="https://account.sitepunch.co.il" class="nav-cta-account">אזור מנויים</a>
@@ -1358,6 +1383,93 @@
   </div>
 </div>
 
+<!-- INSTALL GUIDE MODAL -->
+<div class="modal-overlay" id="installModal" onclick="handleInstallOverlayClick(event)">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h2>📱 התקנת SitePunch כאפליקציה</h2>
+      <button class="modal-close" onclick="closeInstallModal()">✕</button>
+    </div>
+    <div class="modal-feat-tabs">
+      <button class="feat-tab active" id="installTabIos" onclick="selectInstallTab('ios')">🍎 אייפון (iOS)</button>
+      <button class="feat-tab" id="installTabAndroid" onclick="selectInstallTab('android')">🤖 אנדרואיד</button>
+    </div>
+    <div class="modal-body">
+
+      <!-- iOS steps -->
+      <div id="installStepsIos">
+        <div class="install-note">חשוב: ההתקנה עובדת רק דרך דפדפן <b>Safari</b> — לא Chrome או דפדפן אחר באייפון.</div>
+        <div class="install-steps">
+          <div class="install-step">
+            <div class="install-step-num">1</div>
+            <div class="install-step-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z" opacity="0"/><path d="M12 2v13"/><path d="m8 6 4-4 4 4"/><rect x="4" y="10" width="16" height="11" rx="2"/></svg>
+            </div>
+            <div class="install-step-text"><b>פתחו את האתר ב-Safari</b><span>גשו לכתובת sitepunch.co.il או app.sitepunch.co.il בדפדפן Safari</span></div>
+          </div>
+          <div class="install-step">
+            <div class="install-step-num">2</div>
+            <div class="install-step-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V3"/><path d="m7 8 5-5 5 5"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg>
+            </div>
+            <div class="install-step-text"><b>הקישו על כפתור השיתוף</b><span>הריבוע עם החץ כלפי מעלה, בסרגל התחתון של הדפדפן</span></div>
+          </div>
+          <div class="install-step">
+            <div class="install-step-num">3</div>
+            <div class="install-step-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M12 8v8M8 12h8"/></svg>
+            </div>
+            <div class="install-step-text"><b>בחרו "הוספה למסך הבית"</b><span>גללו למטה ברשימת האפשרויות עד "Add to Home Screen"</span></div>
+          </div>
+          <div class="install-step">
+            <div class="install-step-num">4</div>
+            <div class="install-step-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            </div>
+            <div class="install-step-text"><b>הקישו "הוסף" בפינה העליונה</b><span>אייקון SitePunch יופיע במסך הבית, ונפתח כמו אפליקציה — במסך מלא, בלי סרגלי דפדפן</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Android steps -->
+      <div id="installStepsAndroid" style="display:none;">
+        <div class="install-note">ההתקנה עובדת בדפדפן <b>Chrome</b> (ברירת המחדל ברוב מכשירי האנדרואיד).</div>
+        <div class="install-steps">
+          <div class="install-step">
+            <div class="install-step-num">1</div>
+            <div class="install-step-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z" opacity="0"/><path d="M12 2v13"/><path d="m8 6 4-4 4 4"/><rect x="4" y="10" width="16" height="11" rx="2"/></svg>
+            </div>
+            <div class="install-step-text"><b>פתחו את האתר ב-Chrome</b><span>גשו לכתובת sitepunch.co.il או app.sitepunch.co.il</span></div>
+          </div>
+          <div class="install-step">
+            <div class="install-step-num">2</div>
+            <div class="install-step-icon">
+              <svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="12" cy="19" r="1.8"/></svg>
+            </div>
+            <div class="install-step-text"><b>הקישו על שלוש הנקודות</b><span>תפריט הדפדפן, בפינה הימנית העליונה של המסך</span></div>
+          </div>
+          <div class="install-step">
+            <div class="install-step-num">3</div>
+            <div class="install-step-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v13"/><path d="m7 12 5 5 5-5"/><path d="M5 21h14"/></svg>
+            </div>
+            <div class="install-step-text"><b>בחרו "התקנת אפליקציה"</b><span>או "הוספה למסך הבית" (הניסוח משתנה מעט בין גרסאות Chrome)</span></div>
+          </div>
+          <div class="install-step">
+            <div class="install-step-num">4</div>
+            <div class="install-step-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            </div>
+            <div class="install-step-text"><b>אשרו את ההתקנה</b><span>SitePunch יופיע כאפליקציה במסך הבית ובמגירת האפליקציות, כמו כל אפליקציה אחרת</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
 <script>
 (function() {
   const revealEls = document.querySelectorAll('.reveal');
@@ -1397,6 +1509,16 @@ let currentFeat = 0;
 function openFeaturesModal() { document.getElementById('featuresModal').classList.add('open'); document.body.style.overflow = 'hidden'; selectFeat(0); }
 function closeFeaturesModal() { document.getElementById('featuresModal').classList.remove('open'); document.body.style.overflow = ''; }
 function handleOverlayClick(e) { if (e.target === document.getElementById('featuresModal')) closeFeaturesModal(); }
+
+function openInstallModal() { document.getElementById('installModal').classList.add('open'); document.body.style.overflow = 'hidden'; }
+function closeInstallModal() { document.getElementById('installModal').classList.remove('open'); document.body.style.overflow = ''; }
+function handleInstallOverlayClick(e) { if (e.target === document.getElementById('installModal')) closeInstallModal(); }
+function selectInstallTab(tab) {
+  document.getElementById('installTabIos').classList.toggle('active', tab === 'ios');
+  document.getElementById('installTabAndroid').classList.toggle('active', tab === 'android');
+  document.getElementById('installStepsIos').style.display = tab === 'ios' ? '' : 'none';
+  document.getElementById('installStepsAndroid').style.display = tab === 'android' ? '' : 'none';
+}
 
 const KB = [
   { keys: ['מחיר','עולה','עלות','כמה','תשלום','תוכנית','תכנית','מנוי','starter','pro','enterprise','חינם','ניסיון'],
