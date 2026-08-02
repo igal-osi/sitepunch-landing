@@ -1808,15 +1808,31 @@ function selectFeat(idx) {
   document.getElementById('aiAnswer').innerHTML = '<div class="ai-text" style="color:var(--muted)">בחרו שאלה מוצעת למעלה, או הקלידו שאלה משלכם 👆</div>';
 }
 
+function escapeHtml(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
 function sendAiQuestion() {
   const input = document.getElementById('aiInput');
   const q = input.value.trim();
   if (!q) return;
   input.value = '';
   document.getElementById('aiAnswer').innerHTML = '<div class="ai-loading"><span></span><span></span><span></span></div>';
-  setTimeout(function() {
-    document.getElementById('aiAnswer').innerHTML = '<div class="ai-text">' + smartAnswer(q) + '</div>';
-  }, 420);
+
+  fetch('/api/chat', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ question: q }),
+  })
+    .then(function(r) { if (!r.ok) throw new Error('bad_status'); return r.json(); })
+    .then(function(data) {
+      if (!data || !data.answer) throw new Error('no_answer');
+      document.getElementById('aiAnswer').innerHTML = '<div class="ai-text">' + escapeHtml(data.answer).replace(/\n/g, '<br>') + '</div>';
+    })
+    .catch(function() {
+      // Groq לא זמין/לא מוגדר — נופלים בחזרה לתשובות המובנות
+      document.getElementById('aiAnswer').innerHTML = '<div class="ai-text">' + smartAnswer(q) + '</div>';
+    });
 }
 
 document.getElementById('aiInput').addEventListener('keydown', function(e) { if (e.key === 'Enter') sendAiQuestion(); });
