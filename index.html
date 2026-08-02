@@ -37,6 +37,31 @@
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  /* ── BRAND ICONS (replaces emoji) ── */
+  .bi { display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; vertical-align: -0.15em; }
+  .bi svg { width: 1em; height: 1em; display: block; }
+  .bi-gold    { color: #f5c85b; }
+  .bi-blue    { color: #9aa5ff; }
+  .bi-green   { color: #6ee7a8; }
+  .bi-red     { color: #fb8b95; }
+  .bi-neutral { color: #aeb7d0; }
+  .bi-box {
+    width: 34px; height: 34px; border-radius: 12px; flex-shrink: 0;
+    display: inline-flex; align-items: center; justify-content: center;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), 0 8px 18px var(--bi-shadow, rgba(0,0,0,0.18));
+    border: 1px solid var(--bi-border, rgba(255,255,255,0.12));
+    background: var(--bi-bg, rgba(255,255,255,0.06));
+  }
+  .bi-box svg { width: 18px; height: 18px; }
+  .bi-box.bi-lg { width: 52px; height: 52px; border-radius: 16px; }
+  .bi-box.bi-lg svg { width: 26px; height: 26px; }
+  .bi-box.bi-gold    { --bi-bg: linear-gradient(145deg, rgba(245,200,91,0.18), rgba(118,77,18,0.10)); --bi-border: rgba(245,200,91,0.32); --bi-shadow: rgba(245,200,91,0.16); color: #f5c85b; }
+  .bi-box.bi-blue     { --bi-bg: linear-gradient(145deg, rgba(99,113,238,0.18), rgba(50,60,170,0.10)); --bi-border: rgba(129,140,248,0.30); --bi-shadow: rgba(99,113,238,0.16); color: #9aa5ff; }
+  .bi-box.bi-green   { --bi-bg: linear-gradient(145deg, rgba(34,197,94,0.16), rgba(21,128,61,0.08)); --bi-border: rgba(74,222,128,0.28); --bi-shadow: rgba(34,197,94,0.14); color: #6ee7a8; }
+  .bi-box.bi-red     { --bi-bg: linear-gradient(145deg, rgba(239,68,68,0.16), rgba(127,29,29,0.08)); --bi-border: rgba(248,113,113,0.30); --bi-shadow: rgba(239,68,68,0.14); color: #fb8b95; }
+  .bi-box.bi-neutral { --bi-bg: linear-gradient(145deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03)); --bi-border: rgba(255,255,255,0.12); --bi-shadow: rgba(0,0,0,0.18); color: #aeb7d0; }
+
   html { scroll-behavior: smooth; overflow-x: hidden; background: var(--bg); filter: brightness(1.60); }
   body {
     font-family: 'Heebo', 'Segoe UI', Arial, sans-serif;
@@ -235,7 +260,9 @@
     display: flex; align-items: center; justify-content: center;
     font-size: 1.5rem; margin-bottom: 16px;
     box-shadow: 0 2px 10px rgba(212,175,55,0.1);
+    color: #f5c85b;
   }
+  .role-icon svg { width: 24px; height: 24px; display: block; }
   .role-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; color: var(--white); }
   .role-card p  { font-size: 0.85rem; color: var(--muted); line-height: 1.65; }
 
@@ -256,7 +283,9 @@
     background: rgba(212,175,55,0.08); border: 1px solid rgba(212,175,55,0.18);
     display: flex; align-items: center; justify-content: center;
     font-size: 1.4rem; margin-bottom: 16px;
+    color: #fb8b95;
   }
+  .problem-icon svg { width: 22px; height: 22px; display: block; }
   .problem-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; color: var(--white); }
   .problem-card p  { font-size: 0.85rem; color: var(--muted); line-height: 1.65; }
 
@@ -287,7 +316,8 @@
     background: radial-gradient(ellipse at center, rgba(212,175,55,0.04) 0%, transparent 70%);
   }
   .fv-content { position: relative; z-index: 2; text-align: center; padding: 32px; }
-  .fv-icon { font-size: 3.5rem; margin-bottom: 16px; display: block; }
+  .fv-icon { margin-bottom: 16px; display: block; }
+  .fv-icon svg { width: 56px; height: 56px; }
   .fv-label { font-family: 'Inter', sans-serif; font-weight: 700; font-size: 1.1rem; color: var(--gold); }
   .fv-desc  { font-size: 0.85rem; color: var(--muted); margin-top: 8px; line-height: 1.65; }
 
@@ -488,7 +518,8 @@
   .checkout-submit:hover { filter: brightness(1.08); transform: translateY(-1px); }
   .checkout-submit:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
   .checkout-success { text-align: center; padding: 20px 0; }
-  .checkout-success .success-icon { font-size: 3rem; margin-bottom: 16px; }
+  .checkout-success .success-icon { margin-bottom: 16px; }
+  .checkout-success .success-icon svg { width: 48px; height: 48px; }
   .checkout-success h3 { font-family: 'Inter', sans-serif; font-weight: 800; font-size: 1.2rem; margin-bottom: 10px; color: var(--gold); }
   .checkout-success p { font-size: 0.88rem; color: var(--muted); line-height: 1.6; }
 
@@ -808,7 +839,8 @@
   .feat-tab.active { background: rgba(212,175,55,0.1); border-color: rgba(212,175,55,0.3); color: var(--gold); }
   .modal-body { flex: 1; overflow-y: auto; padding: 24px; display: flex; flex-direction: column; gap: 20px; }
   .feat-static { background: rgba(20,23,34,0.8); border: 1px solid rgba(212,175,55,0.1); border-radius: 12px; padding: 20px; }
-  .feat-static .fi-icon { font-size: 2rem; margin-bottom: 12px; }
+  .feat-static .fi-icon { margin-bottom: 12px; }
+  .feat-static .fi-icon svg { width: 32px; height: 32px; }
   .feat-static h3 { font-weight: 800; font-size: 1rem; margin-bottom: 8px; }
   .feat-static p { font-size: 0.88rem; color: var(--muted); line-height: 1.65; }
   .ai-section { border: 1px solid rgba(212,175,55,0.15); border-radius: 12px; overflow: hidden; }
@@ -899,6 +931,43 @@
 </head>
 <body>
 
+<script>
+// ── Brand icon set — same visual language as the SitePunch app (feather-style
+// outline SVG, 24x24, currentColor). Used instead of emoji across the site.
+const ICON_SVG = {
+  camera:    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>',
+  users:     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>',
+  chart:     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>',
+  file:      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>',
+  globe:     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>',
+  bell:      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>',
+  search:    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg>',
+  building:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M9 21v-5h6v5"/><path d="M8 7h.01"/><path d="M12 7h.01"/><path d="M16 7h.01"/><path d="M8 11h.01"/><path d="M12 11h.01"/><path d="M16 11h.01"/></svg>',
+  briefcase: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>',
+  hardhat:   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18v-2a8 8 0 0 1 16 0v2"/><path d="M2 18h20"/><line x1="12" y1="4" x2="12" y2="8"/></svg>',
+  wrench:    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 1 1-5.4 5.4l-6 6a1.5 1.5 0 0 0 2.1 2.1l6-6a4 4 0 0 1 5.4-5.4z"/></svg>',
+  tag:       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L3 13V3h10l7.59 7.59a2 2 0 0 1 0 2.82z"/><circle cx="7.5" cy="7.5" r=".5"/></svg>',
+  question:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/><circle cx="12" cy="12" r="10"/></svg>',
+  folder:    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h5l2 2h7a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>',
+  check:     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20,6 9,17 4,12"/></svg>',
+  x:         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>',
+  phone:     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>',
+  sparkle:   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l1.8 5.2L19 9l-5.2 1.8L12 16l-1.8-5.2L5 9l5.2-1.8L12 2z"/><path d="M19 15l.9 2.6 2.6.9-2.6.9L19 21l-.9-2.6-2.6-.9 2.6-.9L19 15z"/></svg>',
+  lock:      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>',
+  sun:       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="M4.93 4.93l1.41 1.41"/><path d="M17.66 17.66l1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="M4.93 19.07l1.41-1.41"/><path d="M17.66 6.34l1.41-1.41"/></svg>',
+  moon:      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A8.8 8.8 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>',
+  square:    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="5" width="14" height="14" rx="2"/></svg>',
+  link:      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>',
+  motionOff: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>',
+  volume:    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11,5 6,9 2,9 2,15 6,15 11,19"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>',
+  undo:      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1,4 1,10 7,10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>',
+  send:      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22,2 15,22 11,13 2,9"/></svg>',
+  calendar:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h18"/></svg>',
+  mail:      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>',
+};
+function bi(name, tone) { return '<span class="bi bi-' + (tone||'gold') + '">' + (ICON_SVG[name]||'') + '</span>'; }
+</script>
+
 <!-- NAV -->
 <nav>
   <div class="nav-logo">
@@ -910,8 +979,8 @@
     <li><a href="#features">פיצ'רים</a></li>
     <li><a href="#how">איך זה עובד</a></li>
     <li><a href="#pricing">מחירים</a></li>
-    <li><a onclick="openInstallModal()" style="cursor:pointer;">📱 התקנה בנייד</a></li>
-    <li><a onclick="openHelpModal()" style="cursor:pointer;">📘 מדריך משתמש</a></li>
+    <li><a onclick="openInstallModal()" style="cursor:pointer;"><span class="bi bi-gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></span> התקנה בנייד</a></li>
+    <li><a onclick="openHelpModal()" style="cursor:pointer;"><span class="bi bi-gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg></span> מדריך משתמש</a></li>
   </ul>
   <div style="display:flex;align-items:center;gap:10px;">
     <a href="https://account.sitepunch.co.il" class="nav-cta-account">אזור מנויים</a>
@@ -929,7 +998,7 @@
   </div>
 
   <div class="hero-content">
-    <p class="hero-eyebrow">🏗️ מערכת ניהול ליקויים לאתרי בנייה</p>
+    <p class="hero-eyebrow"><span class="bi bi-gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M9 21v-5h6v5"/><path d="M8 7h.01"/><path d="M12 7h.01"/><path d="M16 7h.01"/><path d="M8 11h.01"/><path d="M12 11h.01"/><path d="M16 11h.01"/></svg></span><span class="eyebrow-text">מערכת ניהול ליקויים לאתרי בנייה</span></p>
     <h1 class="hero-title">
       פנצ' ליסט שמנהל<br>
       את האתר <span class="gold">בשבילך</span>
@@ -978,32 +1047,32 @@
   <p class="section-sub reveal">כל הגורמים המעורבים בפרויקט עובדים מול אותה מערכת ומקבלים תמונת מצב מלאה בזמן אמת.</p>
   <div class="roles-grid">
     <div class="role-card reveal">
-      <div class="role-icon">🔍</div>
+      <div class="role-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg></div>
       <h3>מפקחי איכות</h3>
       <p>עוברים על רשימת ליקויים, מאשרים טיפול, מחזירים לפתיחה אם הביצוע לא מספק — עם הערות ותמונה. כל היסטוריית הליקוי שמורה עד הסגירה הסופית.</p>
     </div>
     <div class="role-card reveal">
-      <div class="role-icon">🧑‍💼</div>
+      <div class="role-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div>
       <h3>מנהלי פרויקטים</h3>
       <p>רואים תמונת מצב עדכנית של כל הליקויים בכל הפרויקטים — אחוזי סגירה, ימים פתוחים, ליקויים בסיכון. דוח PDF לפגישה בלחיצה אחת.</p>
     </div>
     <div class="role-card reveal">
-      <div class="role-icon">👷</div>
+      <div class="role-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18v-2a8 8 0 0 1 16 0v2"/><path d="M2 18h20"/><line x1="12" y1="4" x2="12" y2="8"/></svg></div>
       <h3>מנהלי עבודה</h3>
       <p>פותחים ליקוי מהטלפון תוך 10 שניות — צילום, קטגוריה, מיקום — ומוקצה ישירות לקבלן הרלוונטי. הכל מתועד אוטומטית.</p>
     </div>
     <div class="role-card reveal">
-      <div class="role-icon">🔧</div>
+      <div class="role-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 1 1-5.4 5.4l-6 6a1.5 1.5 0 0 0 2.1 2.1l6-6a4 4 0 0 1 5.4-5.4z"/></svg></div>
       <h3>קבלנים</h3>
       <p>מקבלים רשימת ליקויים פתוחים שמוקצים אליהם בלבד, בשפתם. מצלמים תמונת "אחרי" לאישור ביצוע — ומנהל העבודה מקבל התראה מיידית.</p>
     </div>
     <div class="role-card reveal">
-      <div class="role-icon">🏢</div>
+      <div class="role-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M9 21v-5h6v5"/><path d="M8 7h.01"/><path d="M12 7h.01"/><path d="M16 7h.01"/><path d="M8 11h.01"/><path d="M12 11h.01"/><path d="M16 11h.01"/></svg></div>
       <h3>חברות פיקוח</h3>
       <p>מנהלות מספר פרויקטים מקביליים ממקום אחד. דוחות מקצועיים ללקוחות, ניהול צוות פיקוח מלא והרשאות לפי תפקיד.</p>
     </div>
     <div class="role-card reveal">
-      <div class="role-icon">💼</div>
+      <div class="role-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
       <h3>יזמים</h3>
       <p>שקיפות מלאה על מצב הפרויקט בכל רגע. הנתונים מוצגים בצורה ברורה — כמה ליקויים פתוחים, כמה סגורים, מה בסיכון.</p>
     </div>
@@ -1017,22 +1086,22 @@
   <p class="section-sub reveal">מנהל פרויקט ממוצע מבזבז 4–6 שעות בשבוע על מעקב ידני, הכנת דוחות ותיאומים — שכולם יכולים להיות אוטומטיים.</p>
   <div class="problems-grid">
     <div class="problem-card reveal">
-      <div class="problem-icon">🔖</div>
+      <div class="problem-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L3 13V3h10l7.59 7.59a2 2 0 0 1 0 2.82z"/><circle cx="7.5" cy="7.5" r=".5"/></svg></div>
       <h3>ליקויים שנשכחים</h3>
       <p>ללא מעקב מסודר קשה לדעת מה טופל ומה עדיין פתוח. ליקוי שנשכח = פגם שמגיע למסירה ועולה פי עשרה לתיקון.</p>
     </div>
     <div class="problem-card reveal">
-      <div class="problem-icon">❓</div>
+      <div class="problem-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/><circle cx="12" cy="12" r="10"/></svg></div>
       <h3>חוסר אחריות</h3>
       <p>לא תמיד ברור מי אחראי לטיפול בכל ליקוי. SitePunch מקצה אחראי לכל ליקוי ומתריעה כשהוא לא נסגר בזמן.</p>
     </div>
     <div class="problem-card reveal">
-      <div class="problem-icon">📂</div>
+      <div class="problem-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h5l2 2h7a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></div>
       <h3>ריבוי גרסאות</h3>
       <p>קבצים, תמונות והודעות מפוזרים בין עשרות צ'אטים ומייל. אי אפשר לחפש לפי פרויקט ואין שום דרך לדעת מה עדכני.</p>
     </div>
     <div class="problem-card reveal">
-      <div class="problem-icon">⏰</div>
+      <div class="problem-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
       <h3>מסירות שמתעכבות</h3>
       <p>ליקויים פתוחים גורמים לעיכובים מיותרים במסירת הפרויקט. עלות כל שבוע עיכוי עלולה להגיע לעשרות אלפי שקלים.</p>
     </div>
@@ -1046,34 +1115,34 @@
   <p class="section-sub reveal">כל פיצ'ר נבנה אחרי שיחות עם קבלנים ומהנדסים שעובדים בשטח ביום-יום.</p>
   <div class="features-layout">
     <div class="feature-list" id="featureList">
-      <div class="feature-item active" data-icon="📸" data-label="יצירת ליקויים מהשטח" data-desc="פותחים ליקוי תוך 10 שניות: תמונה, מיקום, קטגוריה — ומוקצה לאחראי. גם בלי אינטרנט.">
-        <h3><span>📸</span> יצירת ליקויים מהשטח</h3>
+      <div class="feature-item active" data-icon="camera" data-label="יצירת ליקויים מהשטח" data-desc="פותחים ליקוי תוך 10 שניות: תמונה, מיקום, קטגוריה — ומוקצה לאחראי. גם בלי אינטרנט.">
+        <h3><span class="bi bi-gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></span> יצירת ליקויים מהשטח</h3>
         <p>פותחים ליקוי תוך 10 שניות: תמונה, מיקום, קטגוריה — ומוקצה לאחראי. גם בלי אינטרנט.</p>
       </div>
-      <div class="feature-item" data-icon="🤳" data-label="צילום תמונות ישירות מהטלפון" data-desc="מצלמים לפני ואחרי הטיפול — הכל נשמר בענן ומופיע אוטומטית בדוח ה-PDF.">
-        <h3><span>🤳</span> צילום תמונות ישירות מהטלפון</h3>
+      <div class="feature-item" data-icon="camera" data-label="צילום תמונות ישירות מהטלפון" data-desc="מצלמים לפני ואחרי הטיפול — הכל נשמר בענן ומופיע אוטומטית בדוח ה-PDF.">
+        <h3><span class="bi bi-gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></span> צילום תמונות ישירות מהטלפון</h3>
         <p>מצלמים לפני ואחרי הטיפול — הכל נשמר בענן ומופיע אוטומטית בדוח ה-PDF.</p>
       </div>
-      <div class="feature-item" data-icon="👥" data-label="שיוך לאחריות קבלנים" data-desc="כל ליקוי מוקצה לאחראי ספציפי. המערכת עוקבת ומתריעה כשהוא לא נסגר בזמן.">
-        <h3><span>👥</span> שיוך לאחריות קבלנים</h3>
+      <div class="feature-item" data-icon="users" data-label="שיוך לאחריות קבלנים" data-desc="כל ליקוי מוקצה לאחראי ספציפי. המערכת עוקבת ומתריעה כשהוא לא נסגר בזמן.">
+        <h3><span class="bi bi-gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span> שיוך לאחריות קבלנים</h3>
         <p>כל ליקוי מוקצה לאחראי ספציפי. המערכת עוקבת ומתריעה כשהוא לא נסגר בזמן.</p>
       </div>
-      <div class="feature-item" data-icon="📊" data-label="מעקב סטטוסים ודשבורד" data-desc="ראו אחוזי סגירה, ליקויים פתוחים לפי קבלן, ומגמות — ממבט אחד. ללא Excel.">
-        <h3><span>📊</span> מעקב סטטוסים ודשבורד</h3>
+      <div class="feature-item" data-icon="chart" data-label="מעקב סטטוסים ודשבורד" data-desc="ראו אחוזי סגירה, ליקויים פתוחים לפי קבלן, ומגמות — ממבט אחד. ללא Excel.">
+        <h3><span class="bi bi-gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></span> מעקב סטטוסים ודשבורד</h3>
         <p>ראו אחוזי סגירה, ליקויים פתוחים לפי קבלן, ומגמות — ממבט אחד. ללא Excel.</p>
       </div>
-      <div class="feature-item" data-icon="📄" data-label="דוחות PDF מקצועיים" data-desc="לוגו הפרויקט, כל הליקויים, תמונות, תאריכים — דוח מקצועי שנוצר בלחיצה אחת ונשלח ישירות.">
-        <h3><span>📄</span> דוחות PDF מקצועיים</h3>
+      <div class="feature-item" data-icon="file" data-label="דוחות PDF מקצועיים" data-desc="לוגו הפרויקט, כל הליקויים, תמונות, תאריכים — דוח מקצועי שנוצר בלחיצה אחת ונשלח ישירות.">
+        <h3><span class="bi bi-gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg></span> דוחות PDF מקצועיים</h3>
         <p>לוגו הפרויקט, כל הליקויים, תמונות, תאריכים — דוח מקצועי שנוצר בלחיצה אחת ונשלח ישירות.</p>
       </div>
-      <div class="feature-item" data-icon="🌐" data-label="תמיכה במספר שפות" data-desc="עברית, ערבית, רוסית ואנגלית — כל עובד עובד בשפתו שלו.">
-        <h3><span>🌐</span> תמיכה במספר שפות</h3>
+      <div class="feature-item" data-icon="globe" data-label="תמיכה במספר שפות" data-desc="עברית, ערבית, רוסית ואנגלית — כל עובד עובד בשפתו שלו.">
+        <h3><span class="bi bi-gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span> תמיכה במספר שפות</h3>
         <p>עברית, ערבית, רוסית ואנגלית — כל עובד עובד בשפתו שלו.</p>
       </div>
     </div>
     <div class="feature-visual" id="featureVisual">
       <div class="fv-content">
-        <span class="fv-icon" id="fvIcon">📸</span>
+        <span class="fv-icon bi-gold" id="fvIcon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></span>
         <div class="fv-label" id="fvLabel">יצירת ליקויים מהשטח</div>
         <div class="fv-desc" id="fvDesc">פותחים ליקוי תוך 10 שניות: תמונה, מיקום, קטגוריה — ומוקצה לאחראי. גם בלי אינטרנט.</div>
       </div>
@@ -1271,7 +1340,7 @@
 <!-- CHECKOUT MODAL -->
 <div class="checkout-overlay" id="checkoutOverlay" onclick="handleCheckoutOverlay(event)">
   <div class="checkout-box">
-    <button class="checkout-close" onclick="closeCheckout()">✕</button>
+    <button class="checkout-close" onclick="closeCheckout()"><span class="bi bi-neutral"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span></button>
     <div id="checkoutContent">
       <div class="checkout-plan-name" id="checkoutPlanName"></div>
       <div class="checkout-plan-price" id="checkoutPlanPrice"></div>
@@ -1280,7 +1349,7 @@
       <div class="form-field"><label>שם החברה / הפרויקט</label><input type="text" id="chkCompany" placeholder="חברת בנייה בע״מ"></div>
       <div class="form-field"><label>טלפון (אופציונלי)</label><input type="tel" id="chkPhone" placeholder="050-0000000" dir="ltr"></div>
       <button class="checkout-submit" id="checkoutSubmitBtn" onclick="submitCheckout()">המשיכו לתשלום →</button>
-      <p class="checkout-note">🔒 תשלום מאובטח · לאחר התשלום תקבלו מייל עם פרטי כניסה תוך דקות</p>
+      <p class="checkout-note"><span class="bi bi-gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span> תשלום מאובטח · לאחר התשלום תקבלו מייל עם פרטי כניסה תוך דקות</p>
     </div>
   </div>
 </div>
@@ -1327,7 +1396,7 @@
   <div class="legal-box">
     <div class="legal-header">
       <h2 id="legalTitle">תנאי שימוש</h2>
-      <button class="legal-close" onclick="closeLegal()">✕</button>
+      <button class="legal-close" onclick="closeLegal()"><span class="bi bi-neutral"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span></button>
     </div>
     <div class="legal-body" id="legalBody"></div>
   </div>
@@ -1341,8 +1410,8 @@
 <button class="chat-fab" id="chatFab" onclick="toggleChat()" title="שאלו את SitePunch AI" aria-label="פתח צ'אט עם סוכן AI"><span class="chat-fab-ai">AI</span><span class="chat-fab-sub">CHAT</span></button>
 <div class="chat-panel" id="chatPanel" role="dialog" aria-label="צ'אט SitePunch AI">
   <div class="chat-ph">
-    <span class="chat-ph-title">🤖 SitePunch AI</span>
-    <button class="chat-ph-close" onclick="toggleChat()" aria-label="סגור">✕</button>
+    <span class="chat-ph-title"><span class="bi bi-gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l1.8 5.2L19 9l-5.2 1.8L12 16l-1.8-5.2L5 9l5.2-1.8L12 2z"/><path d="M19 15l.9 2.6 2.6.9-2.6.9L19 21l-.9-2.6-2.6-.9 2.6-.9L19 15z"/></svg></span> SitePunch AI</span>
+    <button class="chat-ph-close" onclick="toggleChat()" aria-label="סגור"><span class="bi bi-neutral"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span></button>
   </div>
   <div class="chat-messages" id="chatMessages">
     <div class="chat-msg bot">היי! 👋 אני עוזר ה-AI של SitePunch. שאלו אותי על תמחור, פיצ'רים, הטמעה — כל מה שתרצו לדעת.</div>
@@ -1354,7 +1423,7 @@
   </div>
   <div class="chat-input-row">
     <input class="chat-input" id="chatInput" placeholder="הקלידו שאלה..." autocomplete="off">
-    <button class="chat-send" id="chatSendBtn" onclick="sendChatMessage()" aria-label="שלח">➤</button>
+    <button class="chat-send" id="chatSendBtn" onclick="sendChatMessage()" aria-label="שלח"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;transform:scaleX(-1)"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22,2 15,22 11,13 2,9"/></svg></button>
   </div>
 </div>
 
@@ -1362,16 +1431,16 @@
 <div class="a11y-panel" id="a11yPanel" role="dialog" aria-label="תפריט נגישות">
   <div class="a11y-ph">
     <span class="a11y-ph-title">♿ אפשרויות נגישות</span>
-    <button class="a11y-ph-close" onclick="toggleA11y()" aria-label="סגור">✕</button>
+    <button class="a11y-ph-close" onclick="toggleA11y()" aria-label="סגור"><span class="bi bi-neutral"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span></button>
   </div>
 
   <!-- גודל טקסט -->
   <div class="a11y-section">
     <div class="a11y-section-title">גודל טקסט</div>
     <div class="a11y-font-row">
-      <button class="a11y-font-btn" onclick="changeFont(-1)" aria-label="הקטן טקסט">🔍− הקטנה</button>
+      <button class="a11y-font-btn" onclick="changeFont(-1)" aria-label="הקטן טקסט">− הקטנה</button>
       <span class="a11y-font-counter" id="fontCounter">0</span>
-      <button class="a11y-font-btn" onclick="changeFont(1)" aria-label="הגדל טקסט">הגדלה 🔍+</button>
+      <button class="a11y-font-btn" onclick="changeFont(1)" aria-label="הגדל טקסט">הגדלה +</button>
     </div>
   </div>
 
@@ -1379,10 +1448,10 @@
   <div class="a11y-section">
     <div class="a11y-section-title">ניגודיות</div>
     <div class="a11y-contrast-grid">
-      <button class="a11y-contrast-opt" id="cNormal" onclick="setContrast('normal')">☀️ רגיל</button>
+      <button class="a11y-contrast-opt" id="cNormal" onclick="setContrast('normal')"><span class="bi bi-neutral"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/></svg></span> רגיל</button>
       <button class="a11y-contrast-opt" id="cHigh"   onclick="setContrast('high')">◑ גבוהה</button>
-      <button class="a11y-contrast-opt" id="cLight"  onclick="setContrast('light')">🔆 בהיר</button>
-      <button class="a11y-contrast-opt" id="cDark"   onclick="setContrast('dark')">🌙 כהה</button>
+      <button class="a11y-contrast-opt" id="cLight"  onclick="setContrast('light')"><span class="bi bi-gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="M4.93 4.93l1.41 1.41"/><path d="M17.66 17.66l1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="M4.93 19.07l1.41-1.41"/><path d="M17.66 6.34l1.41-1.41"/></svg></span> בהיר</button>
+      <button class="a11y-contrast-opt" id="cDark"   onclick="setContrast('dark')"><span class="bi bi-blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A8.8 8.8 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></span> כהה</button>
     </div>
   </div>
 
@@ -1390,11 +1459,11 @@
   <div class="a11y-section">
     <div class="a11y-section-title">הגדרות נוספות</div>
     <div class="a11y-toggle-row" role="button" tabindex="0" onclick="toggleBW()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleBW()}" aria-label="שחור-לבן">
-      <span class="a11y-toggle-label">🔲 שחור-לבן</span>
+      <span class="a11y-toggle-label"><span class="bi bi-neutral"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="5" width="14" height="14" rx="2"/></svg></span> שחור-לבן</span>
       <div class="a11y-switch" id="swBW" aria-hidden="true"></div>
     </div>
     <div class="a11y-toggle-row" role="button" tabindex="0" onclick="toggleUnderline()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleUnderline()}" aria-label="הדגש קישורים">
-      <span class="a11y-toggle-label">🔗 הדגש קישורים</span>
+      <span class="a11y-toggle-label"><span class="bi bi-blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></span> הדגש קישורים</span>
       <div class="a11y-switch" id="swLinks" aria-hidden="true"></div>
     </div>
     <div class="a11y-toggle-row" role="button" tabindex="0" onclick="toggleDyslexia()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleDyslexia()}" aria-label="פונט קריא לדיסלקציה">
@@ -1402,11 +1471,11 @@
       <div class="a11y-switch" id="swDyslexia" aria-hidden="true"></div>
     </div>
     <div class="a11y-toggle-row" role="button" tabindex="0" onclick="toggleAnim()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleAnim()}" aria-label="ביטול אנימציות">
-      <span class="a11y-toggle-label">💨 ביטול אנימציות</span>
+      <span class="a11y-toggle-label"><span class="bi bi-red"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg></span> ביטול אנימציות</span>
       <div class="a11y-switch" id="swAnim" aria-hidden="true"></div>
     </div>
     <div class="a11y-toggle-row" role="button" tabindex="0" onclick="toggleKeyboardFocus()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleKeyboardFocus()}" aria-label="ניווט מקלדת">
-      <span class="a11y-toggle-label">⌨️ ניווט מקלדת</span>
+      <span class="a11y-toggle-label"><span class="bi bi-neutral"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M6 8h.01"/><path d="M10 8h.01"/><path d="M14 8h.01"/><path d="M18 8h.01"/><path d="M6 12h.01"/><path d="M10 12h.01"/><path d="M14 12h.01"/><path d="M18 12h.01"/><path d="M6 16h12"/></svg></span> ניווט מקלדת</span>
       <div class="a11y-switch" id="swKeyboard" aria-hidden="true"></div>
     </div>
   </div>
@@ -1424,7 +1493,7 @@
 
   <!-- הקראה -->
   <div class="a11y-section" id="a11yReadSection">
-    <div class="a11y-section-title">🔊 הקראת דף</div>
+    <div class="a11y-section-title"><span class="bi bi-gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11,5 6,9 2,9 2,15 6,15 11,19"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg></span> הקראת דף</div>
     <div style="display:flex;gap:7px;margin-bottom:8px">
       <button id="ttsPlayBtn" onclick="ttsToggle()" style="flex:1;background:rgba(109,40,217,0.18);border:1px solid rgba(124,58,237,0.35);border-radius:9px;padding:9px 6px;color:#c4b5fd;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;transition:all 0.15s">▶ הפעל הקראה</button>
       <button onclick="ttsStop()" style="background:rgba(239,68,68,0.12);border:1px solid rgba(239,68,68,0.25);border-radius:9px;padding:9px 10px;color:#f87171;font-size:14px;cursor:pointer;transition:all 0.15s" title="עצור">■</button>
@@ -1439,30 +1508,30 @@
 
   <!-- קישורים -->
   <div class="a11y-links">
-    <button class="a11y-link-btn" onclick="openLegal('accessibility');toggleA11y()">📄 הצהרת נגישות</button>
-    <button class="a11y-link-btn" onclick="openLegal('terms');toggleA11y()">📄 תנאי שימוש</button>
+    <button class="a11y-link-btn" onclick="openLegal('accessibility');toggleA11y()"><span class="bi bi-gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg></span> הצהרת נגישות</button>
+    <button class="a11y-link-btn" onclick="openLegal('terms');toggleA11y()"><span class="bi bi-gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg></span> תנאי שימוש</button>
   </div>
 
-  <button class="a11y-reset" onclick="resetA11y()">↺ איפוס כל ההגדרות</button>
+  <button class="a11y-reset" onclick="resetA11y()"><span class="bi bi-red"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1,4 1,10 7,10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg></span> איפוס כל ההגדרות</button>
 </div>
 
 <!-- FEATURES MODAL -->
 <div class="modal-overlay" id="featuresModal" onclick="handleOverlayClick(event)">
   <div class="modal-box">
     <div class="modal-header">
-      <h2>🔍 פיצ'רים של SitePunch</h2>
-      <button class="modal-close" onclick="closeFeaturesModal()">✕</button>
+      <h2><span class="bi bi-gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg></span> פיצ'רים של SitePunch</h2>
+      <button class="modal-close" onclick="closeFeaturesModal()"><span class="bi bi-neutral"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span></button>
     </div>
     <div class="modal-feat-tabs">
-      <button class="feat-tab active" onclick="selectFeat(0)">📸 תיעוד</button>
-      <button class="feat-tab" onclick="selectFeat(1)">📊 דשבורד</button>
-      <button class="feat-tab" onclick="selectFeat(2)">📄 PDF</button>
-      <button class="feat-tab" onclick="selectFeat(3)">👥 הרשאות</button>
-      <button class="feat-tab" onclick="selectFeat(4)">🔔 התראות</button>
+      <button class="feat-tab active" onclick="selectFeat(0)"><span class="bi bi-gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></span> תיעוד</button>
+      <button class="feat-tab" onclick="selectFeat(1)"><span class="bi bi-gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></span> דשבורד</button>
+      <button class="feat-tab" onclick="selectFeat(2)"><span class="bi bi-gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg></span> PDF</button>
+      <button class="feat-tab" onclick="selectFeat(3)"><span class="bi bi-gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span> הרשאות</button>
+      <button class="feat-tab" onclick="selectFeat(4)"><span class="bi bi-gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></span> התראות</button>
     </div>
     <div class="modal-body">
       <div class="feat-static" id="featStatic">
-        <div class="fi-icon">📸</div>
+        <div class="fi-icon bi-gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></div>
         <h3>יצירת ליקויים מהשטח</h3>
         <p>פותחים ליקוי תוך 10 שניות: תמונה, מיקום, קטגוריה — ומוקצה לאחראי. גם בלי אינטרנט.</p>
       </div>
@@ -1488,12 +1557,12 @@
 <div class="modal-overlay" id="installModal" onclick="handleInstallOverlayClick(event)">
   <div class="modal-box">
     <div class="modal-header">
-      <h2>📱 התקנת SitePunch כאפליקציה</h2>
-      <button class="modal-close" onclick="closeInstallModal()">✕</button>
+      <h2><span class="bi bi-gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></span> התקנת SitePunch כאפליקציה</h2>
+      <button class="modal-close" onclick="closeInstallModal()"><span class="bi bi-neutral"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span></button>
     </div>
     <div class="modal-feat-tabs">
-      <button class="feat-tab active" id="installTabIos" onclick="selectInstallTab('ios')">🍎 אייפון (iOS)</button>
-      <button class="feat-tab" id="installTabAndroid" onclick="selectInstallTab('android')">🤖 אנדרואיד</button>
+      <button class="feat-tab active" id="installTabIos" onclick="selectInstallTab('ios')"><span class="bi bi-neutral"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></span> אייפון (iOS)</button>
+      <button class="feat-tab" id="installTabAndroid" onclick="selectInstallTab('android')"><span class="bi bi-green"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></span> אנדרואיד</button>
     </div>
     <div class="modal-body">
 
@@ -1575,8 +1644,8 @@
 <div class="modal-overlay" id="helpModal" onclick="handleHelpOverlayClick(event)">
   <div class="modal-box">
     <div class="modal-header">
-      <h2>📘 מדריך המשתמש של SitePunch</h2>
-      <button class="modal-close" onclick="closeHelpModal()">✕</button>
+      <h2><span class="bi bi-gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg></span> מדריך המשתמש של SitePunch</h2>
+      <button class="modal-close" onclick="closeHelpModal()"><span class="bi bi-neutral"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span></button>
     </div>
     <div class="modal-feat-tabs" id="helpTabs"></div>
     <div class="modal-body" id="helpBody"></div>
@@ -1601,7 +1670,7 @@
     item.addEventListener('click', () => {
       items.forEach(i => i.classList.remove('active'));
       item.classList.add('active');
-      icon.textContent  = item.dataset.icon;
+      icon.innerHTML    = ICON_SVG[item.dataset.icon] || '';
       label.textContent = item.dataset.label;
       desc.textContent  = item.dataset.desc;
     });
@@ -1611,11 +1680,11 @@
 
 <script>
 const FEATURES = [
-  { icon: '📸', name: 'יצירת ליקויים מהשטח', desc: 'פותחים ליקוי תוך 10 שניות: תמונה, מיקום, קטגוריה — ומוקצה לאחראי. גם בלי אינטרנט.' },
-  { icon: '📊', name: 'דשבורד מנהל בזמן אמת', desc: 'ראו אחוזי סגירה, ליקויים פתוחים לפי קבלן, ומגמות — ממבט אחד. ללא Excel.' },
-  { icon: '📄', name: 'PDF אוטומטי עם לוגו', desc: 'לוגו הלקוח + הקבלן, כל הליקויים, תמונות, תאריכים — דוח מקצועי שנשלח ישירות.' },
-  { icon: '👥', name: 'הרשאות לפי תפקיד', desc: 'מפקח רואה הכל. עובד שטח רואה רק מה שרלוונטי אליו. כל תפקיד מקבל בדיוק מה שצריך.' },
-  { icon: '🔔', name: 'התראות ותזכורות', desc: 'ליקוי שלא נסגר בזמן? התראה אוטומטית לאחראי ולמנהל. לא יכול לפספס.' },
+  { icon: 'camera', name: 'יצירת ליקויים מהשטח', desc: 'פותחים ליקוי תוך 10 שניות: תמונה, מיקום, קטגוריה — ומוקצה לאחראי. גם בלי אינטרנט.' },
+  { icon: 'chart', name: 'דשבורד מנהל בזמן אמת', desc: 'ראו אחוזי סגירה, ליקויים פתוחים לפי קבלן, ומגמות — ממבט אחד. ללא Excel.' },
+  { icon: 'file', name: 'PDF אוטומטי עם לוגו', desc: 'לוגו הלקוח + הקבלן, כל הליקויים, תמונות, תאריכים — דוח מקצועי שנשלח ישירות.' },
+  { icon: 'users', name: 'הרשאות לפי תפקיד', desc: 'מפקח רואה הכל. עובד שטח רואה רק מה שרלוונטי אליו. כל תפקיד מקבל בדיוק מה שצריך.' },
+  { icon: 'bell', name: 'התראות ותזכורות', desc: 'ליקוי שלא נסגר בזמן? התראה אוטומטית לאחראי ולמנהל. לא יכול לפספס.' },
 ];
 let currentFeat = 0;
 
@@ -1893,7 +1962,7 @@ function askSuggestion(btn) {
 function selectFeat(idx) {
   currentFeat = idx;
   const f = FEATURES[idx];
-  document.getElementById('featStatic').innerHTML = '<div class="fi-icon">' + f.icon + '</div><h3>' + f.name + '</h3><p>' + f.desc + '</p>';
+  document.getElementById('featStatic').innerHTML = '<div class="fi-icon bi-gold">' + (ICON_SVG[f.icon]||'') + '</div><h3>' + f.name + '</h3><p>' + f.desc + '</p>';
   document.querySelectorAll('.feat-tab').forEach((t,i) => t.classList.toggle('active', i===idx));
   document.getElementById('aiSuggestions').innerHTML = renderSuggestions(idx);
   document.getElementById('aiAnswer').innerHTML = '<div class="ai-text" style="color:var(--muted)">בחרו שאלה מוצעת למעלה, או הקלידו שאלה משלכם 👆</div>';
@@ -2027,7 +2096,7 @@ function showCheckoutForm(p) {
   const maxDateStr = maxDate.toISOString().split('T')[0];
 
   const dateField = p.type === 'onetime'
-    ? '<div class="form-field"><label>📅 תאריך התחלת הפרויקט</label>' +
+    ? '<div class="form-field"><label>' + bi('calendar','gold') + ' תאריך התחלת הפרויקט</label>' +
       '<input type="date" id="chkStartDate" min="' + today + '" max="' + maxDateStr + '" value="' + today + '" dir="ltr">' +
       '<small style="color:var(--muted);font-size:0.75rem;margin-top:4px;display:block">הגישה תיפתח בתאריך זה ותסתיים אחרי ' + p.months + ' חודשים</small></div>'
     : '';
@@ -2041,7 +2110,7 @@ function showCheckoutForm(p) {
     '<div class="form-field"><label>טלפון (אופציונלי)</label><input type="tel" id="chkPhone" placeholder="050-0000000" dir="ltr"></div>' +
     dateField +
     '<button class="checkout-submit" onclick="submitCheckout()">המשיכו לתשלום →</button>' +
-    '<p class="checkout-note">🔒 תשלום מאובטח · לאחר התשלום תקבלו מייל עם פרטי כניסה תוך דקות</p>';
+    '<p class="checkout-note">' + bi('lock','gold') + ' תשלום מאובטח · לאחר התשלום תקבלו מייל עם פרטי כניסה תוך דקות</p>';
 }
 function closeCheckout() { document.getElementById('checkoutOverlay').classList.remove('open'); document.body.style.overflow = ''; }
 function handleCheckoutOverlay(e) { if (e.target === document.getElementById('checkoutOverlay')) closeCheckout(); }
@@ -2061,7 +2130,7 @@ async function submitCheckout() {
     const endDate   = new Date(startDate);
     endDate.setMonth(endDate.getMonth() + plan.months);
     const fmt = d => d.toLocaleDateString('he-IL', { day: '2-digit', month: '2-digit', year: 'numeric' });
-    accessMsg = '<br><br>📅 גישה לפרויקט: <strong>' + fmt(startDate) + '</strong> עד <strong>' + fmt(endDate) + '</strong>';
+    accessMsg = '<br><br>' + bi('calendar','gold') + ' גישה לפרויקט: <strong>' + fmt(startDate) + '</strong> עד <strong>' + fmt(endDate) + '</strong>';
   }
 
   const btn = document.querySelector('.checkout-submit');
@@ -2069,7 +2138,7 @@ async function submitCheckout() {
   await new Promise(r => setTimeout(r, 1400));
   document.getElementById('checkoutContent').innerHTML =
     '<div class="checkout-success">' +
-    '<div class="success-icon">✅</div>' +
+    '<div class="success-icon">' + bi('check','green') + '</div>' +
     '<h3>תודה, ' + name + '!</h3>' +
     '<p>קיבלנו את הפרטים שלך.<br>בקרוב תועברו לדף התשלום המאובטח של Stripe.' +
     accessMsg +
@@ -2161,7 +2230,7 @@ const LEGAL = {
       </ul>
       <h3>פניות נגישות</h3>
       <p>נתקלתם בבעיית נגישות? נשמח לשמוע ולתקן:</p>
-      <p>📧 <a href="mailto:office@sitepunch.co.il" style="color:var(--gold)">office@sitepunch.co.il</a></p>
+      <p><span class="bi bi-gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></span> <a href="mailto:office@sitepunch.co.il" style="color:var(--gold)">office@sitepunch.co.il</a></p>
       <p>נשתדל להגיב תוך 5 ימי עסקים.</p>
       <h3>תאריך עדכון</h3>
       <p style="color:var(--muted);font-size:0.8rem;">הצהרה זו עודכנה לאחרונה ביוני 2026.</p>
@@ -2364,7 +2433,7 @@ const TRANSLATIONS = {
     dir: 'rtl', lang: 'he',
     navLinks: ["למי מיועד","האתגרים","פיצ'רים","איך זה עובד","מחירים"],
     navAccount: "אזור מנויים", navApp: "כניסה לאפליקציה",
-    heroEyebrow: "🏗️ מערכת ניהול ליקויים לאתרי בנייה",
+    heroEyebrow: "מערכת ניהול ליקויים לאתרי בנייה",
     heroTitle: "פנצ' ליסט שמנהל<br>את האתר <span class=\"gold\">בשבילך</span>",
     heroSub: "תעדו ליקויים מהשטח, הקצו אחריות לקבלנים, עקבו אחרי טיפול והפיקו דוחות מקצועיים — הכל ממערכת אחת.",
     heroChecks: ["תיעוד עם תמונות","מעקב בזמן אמת","דוחות PDF מקצועיים","עברית | ערבית | רוסית | אנגלית","מותאם למנהלי פרויקטים וקבלנים"],
@@ -2402,7 +2471,7 @@ const TRANSLATIONS = {
     dir: 'ltr', lang: 'en',
     navLinks: ["Who It's For","Challenges","Features","How It Works","Pricing"],
     navAccount: "My Account", navApp: "Open the App",
-    heroEyebrow: "🏗️ Punch List Management for Construction Sites",
+    heroEyebrow: "Punch List Management for Construction Sites",
     heroTitle: "The punch list that manages<br>the site <span class=\"gold\">for you</span>",
     heroSub: "Document defects on-site, assign responsibility to contractors, track progress and generate professional reports — all from one system.",
     heroChecks: ["Photo documentation","Real-time tracking","Professional PDF reports","Hebrew | Arabic | Russian | English","Built for project managers & contractors"],
@@ -2440,7 +2509,7 @@ const TRANSLATIONS = {
     dir: 'ltr', lang: 'ru',
     navLinks: ["Для кого","Проблемы","Функции","Как работает","Цены"],
     navAccount: "Личный кабинет", navApp: "Открыть приложение",
-    heroEyebrow: "🏗️ Система управления дефектами на стройплощадке",
+    heroEyebrow: "Система управления дефектами на стройплощадке",
     heroTitle: "Punch List, который управляет<br>объектом <span class=\"gold\">за вас</span>",
     heroSub: "Документируйте дефекты на объекте, назначайте ответственных, отслеживайте устранение и создавайте профессиональные отчёты — всё в одной системе.",
     heroChecks: ["Фотодокументация","Отслеживание в реальном времени","Профессиональные PDF-отчёты","Иврит | Арабский | Русский | Английский","Для прорабов и подрядчиков"],
@@ -2478,7 +2547,7 @@ const TRANSLATIONS = {
     dir: 'rtl', lang: 'ar',
     navLinks: ["لمن هو","التحديات","الميزات","كيف يعمل","الأسعار"],
     navAccount: "حسابي", navApp: "افتح التطبيق",
-    heroEyebrow: "🏗️ نظام إدارة العيوب لمواقع البناء",
+    heroEyebrow: "نظام إدارة العيوب لمواقع البناء",
     heroTitle: "قائمة الإصلاحات التي تدير<br>الموقع <span class=\"gold\">بدلاً عنك</span>",
     heroSub: "وثّق العيوب في الموقع، عيّن المسؤوليات للمقاولين، تابع التقدم وأنشئ تقارير احترافية — كل ذلك من نظام واحد.",
     heroChecks: ["توثيق بالصور","متابعة في الوقت الفعلي","تقارير PDF احترافية","عبري | عربي | روسي | إنجليزي","مصمم لمديري المشاريع والمقاولين"],
@@ -2536,8 +2605,8 @@ function switchLang(lang) {
   if (navApp) navApp.textContent = t.navApp;
 
   // Hero
-  const eyebrow = document.querySelector('.hero-eyebrow');
-  if (eyebrow) eyebrow.textContent = t.heroEyebrow;
+  const eyebrowText = document.querySelector('.hero-eyebrow .eyebrow-text');
+  if (eyebrowText) eyebrowText.textContent = t.heroEyebrow;
   const heroTitle = document.querySelector('.hero-title');
   if (heroTitle) heroTitle.innerHTML = t.heroTitle;
   const heroSub = document.querySelector('.hero-sub');
