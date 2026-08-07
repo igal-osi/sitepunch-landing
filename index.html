@@ -222,20 +222,18 @@
     aspect-ratio: 9 / 19.5;
     background: linear-gradient(160deg, #1c1e28, #0c0d13);
     border: 2px solid rgba(212,175,55,0.35);
-    border-radius: 30px;
-    padding: 7px;
+    border-radius: 26px;
+    padding: 5px;
     box-shadow: 0 20px 60px rgba(0,0,0,0.55), 0 0 0 1px rgba(212,175,55,0.08), 0 0 44px rgba(212,175,55,0.14);
     position: relative;
   }
-  .hero-phone::before {
-    content: ''; position: absolute; top: 7px; left: 50%; transform: translateX(-50%);
-    width: 36%; height: 12px; background: #0c0d13; border-radius: 10px; z-index: 5;
-  }
-  .ph-stack { position: relative; width: 100%; height: 100%; background: #0b0c12; border-radius: 24px; overflow: hidden; }
+  /* no fake notch — the real screenshots already carry their own status bar */
+  .ph-stack { position: relative; width: 100%; height: 100%; background: #0b0c12; border-radius: 21px; overflow: hidden; }
   .ph-screen {
     position: absolute; inset: 0;
     opacity: 0; transform: scale(.97);
     animation: phScreenCycle 10s ease-in-out infinite;
+    will-change: opacity, transform;
   }
   .ph-screen img {
     width: 100%; height: 100%; object-fit: cover; object-position: top center;
@@ -264,15 +262,24 @@
     pointer-events: none;
   }
   @keyframes phTap {
-    0%, 9%    { box-shadow: 0 0 0 0 rgba(232,184,0,0.65); transform: scale(1); }
-    11%       { box-shadow: 0 0 0 10px rgba(232,184,0,0); transform: scale(.85); }
-    14%, 100% { box-shadow: 0 0 0 0 rgba(232,184,0,0); transform: scale(1); }
+    0%, 16%   { box-shadow: 0 0 0 0 rgba(232,184,0,0.65); transform: scale(1); }
+    18%       { box-shadow: 0 0 0 10px rgba(232,184,0,0); transform: scale(.85); }
+    20%, 100% { box-shadow: 0 0 0 0 rgba(232,184,0,0); transform: scale(1); }
   }
 
+  /* reduced motion: keep the real screens cycling (that's informational
+     content, not decorative motion) — just drop the scale-pop and the tap
+     pulse, which are the parts actually meant to be suppressed */
+  @keyframes phScreenCycleReduced {
+    0%   { opacity: 0; }
+    3%   { opacity: 1; }
+    22%  { opacity: 1; }
+    27%  { opacity: 0; }
+    100% { opacity: 0; }
+  }
   @media (prefers-reduced-motion: reduce) {
-    .ph-screen, .ph-tap { animation: none !important; }
-    .ph-s1 { opacity: 1; transform: none; }
-    .ph-s2, .ph-s3, .ph-s4 { display: none; }
+    .ph-screen { animation-name: phScreenCycleReduced; transform: none; }
+    .ph-tap { animation: none !important; opacity: 0; }
   }
   @media (max-width: 520px) {
     .hero-phone-wrap { margin-top: 32px; }
