@@ -203,6 +203,73 @@
   }
   .hero-check::before { content: '✓'; color: var(--gold); font-weight: 800; }
 
+  /* ── HERO PHONE MOCKUP ── */
+  .hero-phone-wrap {
+    margin-top: 44px;
+    display: flex; justify-content: center;
+    opacity: 0; animation: fadeUp .7s .95s forwards;
+  }
+  .hero-phone {
+    width: clamp(150px, 19vw, 200px);
+    aspect-ratio: 9 / 19.5;
+    background: linear-gradient(160deg, #1c1e28, #0c0d13);
+    border: 2px solid rgba(212,175,55,0.35);
+    border-radius: 30px;
+    padding: 7px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.55), 0 0 0 1px rgba(212,175,55,0.08), 0 0 44px rgba(212,175,55,0.14);
+    position: relative;
+  }
+  .hero-phone::before {
+    content: ''; position: absolute; top: 7px; left: 50%; transform: translateX(-50%);
+    width: 36%; height: 12px; background: #0c0d13; border-radius: 10px; z-index: 5;
+  }
+  .ph-stack { position: relative; width: 100%; height: 100%; background: #0b0c12; border-radius: 24px; overflow: hidden; }
+  .ph-screen {
+    position: absolute; inset: 0;
+    opacity: 0; transform: scale(.97);
+    animation: phScreenCycle 10s ease-in-out infinite;
+  }
+  .ph-screen img {
+    width: 100%; height: 100%; object-fit: cover; object-position: top center;
+    display: block;
+  }
+  .ph-s1 { animation-delay: 0s; }
+  .ph-s2 { animation-delay: -2.5s; }
+  .ph-s3 { animation-delay: -5s; }
+  .ph-s4 { animation-delay: -7.5s; }
+
+  @keyframes phScreenCycle {
+    0%   { opacity: 0; transform: scale(.97); }
+    3%   { opacity: 1; transform: scale(1); }
+    22%  { opacity: 1; transform: scale(1); }
+    27%  { opacity: 0; transform: scale(.97); }
+    100% { opacity: 0; }
+  }
+
+  /* screen 1: real empty-list screenshot — tap the gold camera button (real UI, real position) */
+  .ph-tap {
+    position: absolute; right: 11.5%; bottom: 21%;
+    width: 15%; aspect-ratio: 1;
+    border-radius: 50%;
+    box-shadow: 0 0 0 0 rgba(232,184,0,0.65);
+    animation: phTap 10s ease-in-out infinite;
+    pointer-events: none;
+  }
+  @keyframes phTap {
+    0%, 9%    { box-shadow: 0 0 0 0 rgba(232,184,0,0.65); transform: scale(1); }
+    11%       { box-shadow: 0 0 0 10px rgba(232,184,0,0); transform: scale(.85); }
+    14%, 100% { box-shadow: 0 0 0 0 rgba(232,184,0,0); transform: scale(1); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ph-screen, .ph-tap { animation: none !important; }
+    .ph-s1 { opacity: 1; transform: none; }
+    .ph-s2, .ph-s3, .ph-s4 { display: none; }
+  }
+  @media (max-width: 520px) {
+    .hero-phone-wrap { margin-top: 32px; }
+  }
+
   /* ── STATS STRIP ── */
   .stats-strip {
     border-top: 1px solid rgba(212,175,55,0.1);
@@ -967,6 +1034,7 @@ const ICON_SVG = {
   send:      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22,2 15,22 11,13 2,9"/></svg>',
   calendar:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h18"/></svg>',
   mail:      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>',
+  wifiOff:   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="1" y1="1" x2="23" y2="23"/><path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"/><path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"/><path d="M10.71 5.05A16 16 0 0 1 22.58 9"/><path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>',
 };
 function bi(name, tone) { return '<span class="bi bi-' + (tone||'gold') + '">' + (ICON_SVG[name]||'') + '</span>'; }
 </script>
@@ -1019,6 +1087,31 @@ function bi(name, tone) { return '<span class="bi bi-' + (tone||'gold') + '">' +
       <span class="hero-check">דוחות PDF מקצועיים</span>
       <span class="hero-check">עברית | ערבית | רוסית | אנגלית</span>
       <span class="hero-check">מותאם למנהלי פרויקטים וקבלנים</span>
+    </div>
+
+    <div class="hero-phone-wrap" aria-hidden="true">
+      <div class="hero-phone">
+        <div class="ph-stack">
+
+          <div class="ph-screen ph-s1">
+            <img src="hero-demo/1-empty.jpg" alt="" loading="eager">
+            <div class="ph-tap"></div>
+          </div>
+
+          <div class="ph-screen ph-s2">
+            <img src="hero-demo/2-mark.jpg" alt="" loading="eager">
+          </div>
+
+          <div class="ph-screen ph-s3">
+            <img src="hero-demo/3-form.jpg" alt="" loading="eager">
+          </div>
+
+          <div class="ph-screen ph-s4">
+            <img src="hero-demo/4-success.jpg" alt="" loading="eager">
+          </div>
+
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -1125,6 +1218,10 @@ function bi(name, tone) { return '<span class="bi bi-' + (tone||'gold') + '">' +
       <div class="feature-item" data-icon="camera" data-label="צילום תמונות ישירות מהטלפון" data-desc="מצלמים לפני ואחרי הטיפול — הכל נשמר בענן ומופיע אוטומטית בדוח ה-PDF.">
         <h3><span class="bi bi-gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></span> צילום תמונות ישירות מהטלפון</h3>
         <p>מצלמים לפני ואחרי הטיפול — הכל נשמר בענן ומופיע אוטומטית בדוח ה-PDF.</p>
+      </div>
+      <div class="feature-item" data-icon="wifiOff" data-label="עבודה מלאה גם בלי אינטרנט" data-desc="פותחים ליקוי, מצלמים ומעדכנים סטטוס גם בלי קליטה — קומת מרתף, שטח פתוח, מעלית. הכל נשמר במכשיר ומסתנכרן אוטומטית ברגע שחוזר החיבור, בלי לאבד כלום.">
+        <h3><span class="bi bi-gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="1" y1="1" x2="23" y2="23"/><path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"/><path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"/><path d="M10.71 5.05A16 16 0 0 1 22.58 9"/><path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg></span> עבודה מלאה גם בלי אינטרנט</h3>
+        <p>פותחים ליקוי, מצלמים ומעדכנים סטטוס גם בלי קליטה — קומת מרתף, שטח פתוח, מעלית. הכל נשמר במכשיר ומסתנכרן אוטומטית ברגע שחוזר החיבור, בלי לאבד כלום.</p>
       </div>
       <div class="feature-item" data-icon="users" data-label="שיוך לאחריות קבלנים" data-desc="כל ליקוי מוקצה לאחראי ספציפי. המערכת עוקבת ומתריעה כשהוא לא נסגר בזמן.">
         <h3><span class="bi bi-gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span> שיוך לאחריות קבלנים</h3>
@@ -1531,6 +1628,7 @@ function bi(name, tone) { return '<span class="bi bi-' + (tone||'gold') + '">' +
       <button class="feat-tab" onclick="selectFeat(2)"><span class="bi bi-gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg></span> PDF</button>
       <button class="feat-tab" onclick="selectFeat(3)"><span class="bi bi-gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span> הרשאות</button>
       <button class="feat-tab" onclick="selectFeat(4)"><span class="bi bi-gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></span> התראות</button>
+      <button class="feat-tab" onclick="selectFeat(5)"><span class="bi bi-gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="1" y1="1" x2="23" y2="23"/><path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"/><path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"/><path d="M10.71 5.05A16 16 0 0 1 22.58 9"/><path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg></span> אופליין</button>
     </div>
     <div class="modal-body">
       <div class="feat-static" id="featStatic">
@@ -1688,6 +1786,7 @@ const FEATURES = [
   { icon: 'file', name: 'PDF אוטומטי עם לוגו', desc: 'לוגו הלקוח + הקבלן, כל הליקויים, תמונות, תאריכים — דוח מקצועי שנשלח ישירות.' },
   { icon: 'users', name: 'הרשאות לפי תפקיד', desc: 'מפקח רואה הכל. עובד שטח רואה רק מה שרלוונטי אליו. כל תפקיד מקבל בדיוק מה שצריך.' },
   { icon: 'bell', name: 'התראות ותזכורות', desc: 'ליקוי שלא נסגר בזמן? התראה אוטומטית לאחראי ולמנהל. לא יכול לפספס.' },
+  { icon: 'wifiOff', name: 'עבודה מלאה גם בלי אינטרנט', desc: 'פותחים ליקוי, מצלמים ומעדכנים סטטוס גם בלי קליטה — קומת מרתף, שטח פתוח, מעלית. הכל נשמר במכשיר ומסתנכרן אוטומטית ברגע שחוזר החיבור, בלי לאבד כלום.' },
 ];
 let currentFeat = 0;
 
@@ -1865,7 +1964,7 @@ const KB = [
   { keys: ['להתחיל','מתחיל','הטמעה','onboarding','הקמה','כמה זמן','מהיר','מורכב','קשה','פשוט'],
     ans: '🚀 הטמעה ב-SitePunch לוקחת פחות מ-30 דקות: פותחים פרויקט, מגדירים צוות, ומתחילים לתעד. ב-Starter ו-Pro ההקמה היא עצמאית וחינמית. ב-Enterprise יש ליווי אישי כולל הדרכת צוות בשטח.' },
   { keys: ['אינטרנט','offline','אופליין','4g','קישור','חיבור','רשת','גרוע','שטח','בלי נט'],
-    ans: '📡 SitePunch עובדת גם ללא אינטרנט. מתעדים ליקויים בשטח — גם בקומה תחתונה, גם בשטח בלי קליטה — ובמכה שיש קישור הכל מסתנכרן אוטומטית.' },
+    ans: '📡 SitePunch עובדת גם לגמרי בלי אינטרנט: פותחים ליקוי חדש, מצלמים תמונות ומעדכנים סטטוס — גם בקומה תחתונה, גם בשטח בלי קליטה. הכל נשמר על המכשיר, וברגע שיש חיבור הכל מסתנכרן אוטומטית לבד, בלי לאבד כלום ובלי כפילויות.' },
   { keys: ['שפה','שפות','עברית','ערבית','רוסית','ערבי','רוסי','עובד זר','לועזי','תרגום'],
     ans: '🌍 SitePunch תומכת ב-<b>עברית, ערבית, רוסית ואנגלית</b> — כולל ממשק RTL מלא לערבית. כל עובד רואה את המערכת בשפתו שלו.' },
   { keys: ['תמונה','תמונות','מצלמה','תיעוד','לצלם','צילום','קובץ','מדיה'],
@@ -1940,6 +2039,7 @@ const FEAT_SUGGESTIONS = [
   ['איך נראה ה-PDF?', 'אפשר לשים את הלוגו שלי?', 'כמה זמן לוצר הדוח?', 'PDF כולל תמונות?'],
   ['מה ההבדל בין תפקידים?', 'האם עובד שטח רואה כל הפרויקטים?', 'איך מוסיפים משתמש חדש?', 'אפשר לשנות הרשאות?'],
   ['מתי מגיעות התראות?', 'מי מקבל את ההתראה?', 'אפשר להגדיר זמן טיפול?', 'יש התראות WhatsApp?'],
+  ['מה בדיוק עובד בלי אינטרנט?', 'איך זה מסתנכרן כשחוזר החיבור?', 'התמונות גם נשמרות אופליין?', 'יש סיכון לאבד נתונים?'],
 ];
 
 function smartAnswer(q) {
@@ -2010,6 +2110,8 @@ function toggleChat() {
   document.getElementById('chatPanel').classList.toggle('open', chatOpen);
   document.getElementById('chatFab').classList.toggle('open', chatOpen);
   if (chatOpen) document.getElementById('chatInput').focus();
+  // פתיחת הצ'אט סוגרת תפריטים צפים אחרים (למשל נגישות) שלא יישארו פתוחים זה על זה
+  if (chatOpen && a11yOpen) toggleA11y();
 }
 
 function appendChatMsg(text, who) {
@@ -2268,6 +2370,8 @@ function injectStyle(id, css) {
 function toggleA11y() {
   a11yOpen = !a11yOpen;
   document.getElementById('a11yPanel').classList.toggle('open', a11yOpen);
+  // אותו עיקרון בכיוון ההפוך — פתיחת תפריט הנגישות סוגרת צ'אט פתוח
+  if (a11yOpen && chatOpen) toggleChat();
 }
 
 function changeFont(dir) {
