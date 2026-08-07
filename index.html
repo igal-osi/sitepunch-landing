@@ -110,6 +110,7 @@
     transition: filter .2s, transform .15s;
     text-decoration: none;
     box-shadow: 0 3px 0 #8a6a00, 0 6px 18px rgba(180,140,0,0.35);
+    white-space: nowrap;
   }
   .nav-cta:hover { filter: brightness(1.08); transform: translateY(-1px); }
   .nav-cta:active { transform: translateY(2px); }
@@ -1015,6 +1016,19 @@
   /* ── RESPONSIVE ── */
   @media (max-width: 720px) {
     .nav-links { display: none; }
+    nav { padding: 0 4vw; }
+    .nav-logo img { height: 32px; }
+    .nav-cta { padding: 8px 14px; font-size: 0.8rem; }
+    .nav-cta-account { padding: 7px 11px; font-size: 0.74rem; }
+  }
+  /* מכשירים צרים מ-6.5" בערך (≤380px) — עוד צמצום, כדי שכפתור "כניסה
+     לאפליקציה" לא ייכנס לשורה כפולה כשאין מספיק רוחב */
+  @media (max-width: 380px) {
+    nav { padding: 0 3vw; }
+    .nav-logo img { height: 28px; }
+    .nav-cta { padding: 7px 11px; font-size: 0.74rem; }
+    .nav-cta-account { padding: 6px 9px; font-size: 0.68rem; }
+  }
     .features-layout { grid-template-columns: 1fr; gap: 40px; }
     .lang-grid { grid-template-columns: 1fr; }
     .steps::before { display: none; }
