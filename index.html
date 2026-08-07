@@ -41,6 +41,14 @@
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+  /* iOS Safari auto-zooms the whole page on focus of any text input/select
+     under 16px — the chat and checkout inputs were 0.85rem (~13.6px), which
+     is exactly what triggered the "page zoomed in, need to pinch out" bug.
+     Forcing 16px on mobile disables that native zoom, no JS needed. */
+  @media (max-width: 768px) {
+    input, textarea, select { font-size: 16px !important; }
+  }
+
   /* ── BRAND ICONS (replaces emoji) ── */
   .bi { display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; vertical-align: -0.15em; }
   .bi svg { width: 1em; height: 1em; display: block; }
