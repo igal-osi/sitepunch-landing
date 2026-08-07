@@ -239,10 +239,14 @@
     width: 100%; height: 100%; object-fit: cover; object-position: top center;
     display: block;
   }
+  /* positive delays stagger the loop start forward (1→2→3→4) — a negative
+     delay fast-forwards an element INTO its cycle, which visually plays
+     the sequence backwards; positive delay just holds it at the base
+     (opacity:0) style until its turn, then it loops in place forever */
   .ph-s1 { animation-delay: 0s; }
-  .ph-s2 { animation-delay: -2.5s; }
-  .ph-s3 { animation-delay: -5s; }
-  .ph-s4 { animation-delay: -7.5s; }
+  .ph-s2 { animation-delay: 2.5s; }
+  .ph-s3 { animation-delay: 5s; }
+  .ph-s4 { animation-delay: 7.5s; }
 
   @keyframes phScreenCycle {
     0%   { opacity: 0; transform: scale(.97); }
