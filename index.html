@@ -33,10 +33,18 @@
     --gold-border: rgba(212,175,55,0.25);
     --primary:  #6d28d9;
     --primary2: #7c3aed;
+    --purple:   #a855f7;
+    --purple-thin: rgba(168,85,247,0.4);
     --white:    #f0f0f5;
     --muted:    #6b7280;
     --border:   rgba(212,175,55,0.12);
     --r:        14px;
+    /* real punch-status colors — used only inside product-proof / data markers, never as section backgrounds */
+    --status-open:      #ef4444;
+    --status-progress:  #38bdf8;
+    --status-pending:   #a855f7;
+    --status-paused:    #64748b;
+    --status-closed:    #22c55e;
     --font-sans: 'IBM Plex Sans Hebrew', 'IBM Plex Sans Arabic', 'IBM Plex Sans', 'Segoe UI', Arial, sans-serif;
     --font-mono: 'IBM Plex Mono', 'Courier New', monospace;
   }
@@ -59,28 +67,27 @@
   .bi-green   { color: #6ee7a8; }
   .bi-red     { color: #fb8b95; }
   .bi-neutral { color: #aeb7d0; }
+  /* Icons carry meaning; they are not miniature gradient cards. */
   .bi-box {
-    width: 34px; height: 34px; border-radius: 12px; flex-shrink: 0;
+    width: auto; height: auto; border: 0; border-radius: 0; flex-shrink: 0;
     display: inline-flex; align-items: center; justify-content: center;
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), 0 8px 18px var(--bi-shadow, rgba(0,0,0,0.18));
-    border: 1px solid var(--bi-border, rgba(255,255,255,0.12));
-    background: var(--bi-bg, rgba(255,255,255,0.06));
+    box-shadow: none; background: transparent;
   }
   .bi-box svg { width: 18px; height: 18px; }
-  .bi-box.bi-lg { width: 52px; height: 52px; border-radius: 16px; }
+  .bi-box.bi-lg { width: auto; height: auto; border-radius: 0; }
   .bi-box.bi-lg svg { width: 26px; height: 26px; }
-  .bi-box.bi-gold    { --bi-bg: linear-gradient(145deg, rgba(245,200,91,0.18), rgba(118,77,18,0.10)); --bi-border: rgba(245,200,91,0.32); --bi-shadow: rgba(245,200,91,0.16); color: #f5c85b; }
-  .bi-box.bi-blue     { --bi-bg: linear-gradient(145deg, rgba(99,113,238,0.18), rgba(50,60,170,0.10)); --bi-border: rgba(129,140,248,0.30); --bi-shadow: rgba(99,113,238,0.16); color: #9aa5ff; }
-  .bi-box.bi-green   { --bi-bg: linear-gradient(145deg, rgba(34,197,94,0.16), rgba(21,128,61,0.08)); --bi-border: rgba(74,222,128,0.28); --bi-shadow: rgba(34,197,94,0.14); color: #6ee7a8; }
-  .bi-box.bi-red     { --bi-bg: linear-gradient(145deg, rgba(239,68,68,0.16), rgba(127,29,29,0.08)); --bi-border: rgba(248,113,113,0.30); --bi-shadow: rgba(239,68,68,0.14); color: #fb8b95; }
-  .bi-box.bi-neutral { --bi-bg: linear-gradient(145deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03)); --bi-border: rgba(255,255,255,0.12); --bi-shadow: rgba(0,0,0,0.18); color: #aeb7d0; }
+  .bi-box.bi-gold    { color: #f5c85b; }
+  .bi-box.bi-blue     { color: #9aa5ff; }
+  .bi-box.bi-green   { color: #6ee7a8; }
+  .bi-box.bi-red     { color: #fb8b95; }
+  .bi-box.bi-neutral { color: #aeb7d0; }
 
-  html { scroll-behavior: smooth; overflow-x: hidden; background: var(--bg); filter: brightness(1.60); }
+  html { scroll-behavior: smooth; overflow-x: hidden; background: var(--bg); }
   body {
     font-family: var(--font-sans);
     background: var(--bg);
     color: var(--white);
-    direction: rtl;
+    direction: inherit;
     overflow-x: hidden;
     min-height: 100%;
   }
@@ -90,24 +97,57 @@
     position: fixed; top: 0; right: 0; left: 0; z-index: 100;
     display: flex; align-items: center; justify-content: space-between;
     padding: 0 6vw;
-    height: 76px;
-    background: rgba(11,12,18,0.92);
-    backdrop-filter: blur(20px);
+    height: 80px;
+    background: rgba(11,12,18,0.95);
+    backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--gold-border);
-    box-shadow: 0 2px 20px rgba(0,0,0,0.5), 0 1px 0 rgba(212,175,55,0.08);
+    box-shadow: none;
+    overflow: visible;
   }
-  .nav-logo { display: flex; align-items: center; gap: 10px; }
-  .nav-logo img { height: 64px; width: auto; object-fit: contain; }
-  .nav-links { display: flex; gap: 28px; list-style: none; }
+  nav::before {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    background-image: linear-gradient(rgba(212,175,55,.045) 1px, transparent 1px), linear-gradient(90deg, rgba(212,175,55,.045) 1px, transparent 1px);
+    background-size: 32px 32px;
+    background-position: center;
+    mask-image: linear-gradient(90deg, transparent, #000 16%, #000 84%, transparent);
+  }
+  nav > * { position: relative; z-index: 1; }
+  .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .nav-logo img { height: 56px; width: auto; object-fit: contain; }
+  .nav-links { display: flex; gap: 22px; list-style: none; align-items: center; }
   .nav-links a {
-    color: var(--muted); text-decoration: none; font-size: 0.88rem;
-    font-weight: 600; transition: color .2s; letter-spacing: 0.01em;
+    position: relative; color: #a8adb9; text-decoration: none; font-size: 0.79rem;
+    font-weight: 600; transition: color .2s; letter-spacing: 0.01em; white-space: nowrap;
   }
+  .nav-links a::before { content: attr(data-index); margin-inline-end: 7px; color: rgba(168,85,247,.78); font: .55rem var(--font-mono); letter-spacing: .04em; }
+  .nav-links a::after { content: ''; position: absolute; inset-inline: 0; bottom: -9px; height: 1px; background: var(--gold); transform: scaleX(0); transform-origin: inline-start; transition: transform .2s ease; }
   .nav-links a:hover { color: var(--gold); }
+  .nav-links a:hover::after, .nav-links a:focus-visible::after { transform: scaleX(1); }
+  .nav-resources { position: relative; }
+  .nav-resources summary {
+    list-style: none; cursor: pointer; color: #a8adb9; font-size: .77rem; font-weight: 600; white-space: nowrap;
+    padding: 8px 0; transition: color .2s;
+  }
+  .nav-resources summary::-webkit-details-marker { display: none; }
+  .nav-resources summary::after { content: '+'; margin-inline-start: 7px; color: var(--gold); font: .7rem var(--font-mono); }
+  .nav-resources[open] summary, .nav-resources summary:hover { color: var(--white); }
+  .nav-resources[open] summary::after { content: '−'; }
+  .nav-resource-menu {
+    position: absolute; top: calc(100% + 14px); inset-inline-end: 0; width: 220px;
+    background: #0c0e14; border: 1px solid rgba(212,175,55,.25); border-top: 2px solid var(--gold);
+    padding: 8px 0; box-shadow: 0 20px 45px rgba(0,0,0,.45);
+  }
+  .nav-resource-menu button {
+    width: 100%; min-height: 42px; padding: 10px 16px; border: 0; background: transparent; color: #b7bcc7;
+    display: flex; align-items: center; justify-content: space-between; gap: 16px; text-align: start; cursor: pointer;
+    font: 600 .78rem var(--font-sans); transition: color .2s, background .2s;
+  }
+  .nav-resource-menu button::after { content: '↗'; color: var(--gold); font-family: var(--font-mono); }
+  .nav-resource-menu button:hover, .nav-resource-menu button:focus-visible { color: var(--white); background: rgba(212,175,55,.06); outline: none; }
   .nav-cta {
     background: var(--gold);
     color: #1a1000;
-    border: none; padding: 9px 20px; border-radius: 8px;
+    border: none; padding: 10px 19px; border-radius: 4px;
     font-weight: 800; font-size: 0.88rem; cursor: pointer;
     transition: filter .2s;
     text-decoration: none;
@@ -116,201 +156,160 @@
   .nav-cta:hover { filter: brightness(1.08); }
   .nav-cta-account {
     border: 1px solid var(--gold-border); color: var(--gold);
-    padding: 8px 16px; border-radius: 10px;
+    padding: 9px 15px; border-radius: 4px;
     font-weight: 700; font-size: 0.82rem; cursor: pointer;
     text-decoration: none; transition: border-color .2s, background .2s;
     background: rgba(212,175,55,0.05);
     white-space: nowrap;
   }
   .nav-cta-account:hover { border-color: rgba(212,175,55,0.5); background: rgba(212,175,55,0.1); }
+  .nav-help { display: none; }
 
   /* ── HERO ── */
   #hero {
-    min-height: 100vh;
-    min-height: 100svh;
+    min-height: max(720px, 94vh);
+    min-height: max(720px, 94svh);
     display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    text-align: center;
-    padding: 102px 6vw 56px;
+    justify-content: center;
+    padding: 70px 0 0;
     position: relative; overflow: hidden;
   }
   .hero-bg {
     position: absolute; inset: 0; z-index: 0;
     background:
-      linear-gradient(180deg, rgba(11,12,18,0) 0%, #0b0c12 92%),
-      repeating-linear-gradient(0deg,  rgba(212,175,55,0.05) 0 1px, transparent 1px 88px),
-      repeating-linear-gradient(90deg, rgba(212,175,55,0.05) 0 1px, transparent 1px 88px),
+      linear-gradient(180deg, rgba(11,12,18,0) 0%, #0b0c12 96%),
+      repeating-linear-gradient(0deg,  rgba(212,175,55,0.035) 0 1px, transparent 1px 108px),
+      repeating-linear-gradient(90deg, rgba(212,175,55,0.035) 0 1px, transparent 1px 108px),
       var(--bg);
   }
-  .hero-content { position: relative; z-index: 2; }
-
-  .hero-eyebrow {
-    display: inline-flex; align-items: center; gap: 8px;
-    font-size: 0.75rem; font-weight: 700; letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--gold);
-    border-bottom: 1px solid var(--gold-border);
-    padding: 0 0 6px;
-    margin-bottom: 24px;
-    opacity: 0; animation: fadeUp .6s .2s forwards;
+  /* technical registration marks — decorative corner crosshairs only, echoing a drafting sheet */
+  .hero-marks span {
+    position: absolute; z-index: 2; width: 14px; height: 14px;
+    opacity: 0.35;
   }
+  .hero-marks span::before, .hero-marks span::after { content: ''; position: absolute; background: var(--gold); }
+  .hero-marks span::before { top: 50%; left: 0; width: 100%; height: 1px; transform: translateY(-50%); }
+  .hero-marks span::after  { left: 50%; top: 0; height: 100%; width: 1px; transform: translateX(-50%); }
+  .hero-marks .m-tl { top: 24px; right: 24px; }
+  .hero-marks .m-tr { top: 24px; left: 24px; }
+  .hero-marks .m-bl { bottom: 24px; right: 24px; }
+  .hero-marks .m-br { bottom: 24px; left: 24px; }
+  .hero-grid {
+    position: relative; z-index: 2;
+    display: grid; grid-template-columns: minmax(0,0.86fr) minmax(0,1.14fr);
+    gap: clamp(28px, 5vw, 96px);
+    width: 100%; min-height: calc(max(720px, 94vh) - 70px);
+  }
+  .hero-content { align-self: center; padding-inline-start: 6vw; }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 12px; margin-bottom: 28px;
+    color: #b9bec9; font-size: 0.76rem; font-weight: 600; letter-spacing: .05em;
+  }
+  .hero-eyebrow::before { content: ''; width: 34px; height: 1px; background: var(--gold); }
+  .eyebrow-index { color: var(--purple); font-family: var(--font-mono); font-size: .66rem; letter-spacing: .08em; }
+
   .hero-title {
-    font-weight: 700; font-size: clamp(2.6rem, 6vw, 5rem);
-    line-height: 1.06; letter-spacing: -0.02em; max-width: 840px;
+    font-weight: 700; font-size: clamp(3.15rem, 5.7vw, 6.1rem);
+    line-height: 0.98; letter-spacing: -0.035em;
     color: var(--white);
-    opacity: 0; animation: fadeUp .7s .35s forwards;
+    opacity: 0; animation: fadeUp .7s .2s forwards;
   }
   .hero-title .gold { color: var(--gold); }
   .hero-sub {
-    margin-top: 22px;
-    font-size: clamp(1rem, 1.8vw, 1.18rem);
-    color: rgba(200,200,210,0.85); max-width: 580px; line-height: 1.75;
-    opacity: 0; animation: fadeUp .6s .5s forwards;
+    margin-top: 24px;
+    font-size: clamp(1rem, 1.3vw, 1.16rem);
+    color: rgba(224,225,231,0.78); line-height: 1.8; max-width: 37ch;
+    opacity: 0; animation: fadeUp .6s .4s forwards;
   }
   .hero-actions {
-    display: flex; gap: 14px; margin-top: 40px; justify-content: center; flex-wrap: wrap;
-    opacity: 0; animation: fadeUp .6s .65s forwards;
+    display: flex; align-items: center; gap: 30px; margin-top: 38px; flex-wrap: wrap;
+    opacity: 0; animation: fadeUp .6s .55s forwards;
   }
   .btn-gold-main {
     background: var(--gold);
     color: #1a1000;
-    padding: 15px 34px; border-radius: 8px;
+    padding: 15px 34px; border-radius: 4px;
     font-weight: 900; font-size: 1.02rem;
     text-decoration: none; transition: filter .2s;
     letter-spacing: 0.02em;
   }
   .btn-gold-main:hover { filter: brightness(1.08); }
   .btn-outline-gold {
-    border: 1px solid var(--gold-border); color: var(--gold);
-    padding: 14px 28px; border-radius: 8px;
-    font-weight: 700; font-size: 1rem; text-decoration: none;
-    transition: border-color .2s, background .2s, color .2s;
-    background: transparent; cursor: pointer; font-family: inherit;
+    color: var(--white);
+    font-weight: 600; font-size: 0.95rem; text-decoration: none;
+    border-bottom: 1px solid rgba(240,240,245,0.35);
+    padding: 2px 0 4px; background: none; border-radius: 0;
+    transition: border-color .2s, color .2s;
+    cursor: pointer; font-family: inherit;
   }
-  .btn-outline-gold:hover { border-color: rgba(212,175,55,0.5); background: rgba(212,175,55,0.1); color: #f5d87a; }
+  .btn-outline-gold:hover { border-color: var(--gold); color: var(--gold); }
 
-  .hero-checks {
-    display: flex; flex-wrap: wrap; gap: 10px 20px; justify-content: center;
-    margin-top: 20px;
-    opacity: 0; animation: fadeUp .6s .8s forwards;
-  }
-  .hero-check {
-    display: flex; align-items: center; gap: 6px;
-    font-size: 0.82rem; color: rgba(200,200,210,0.7); font-weight: 600;
-  }
-  .hero-check::before { content: '✓'; color: var(--gold); font-weight: 800; }
-
-  /* short mobile viewports: tighter hero rhythm so the CTA row clears the
-     fixed action stack (chat/whatsapp/a11y) instead of sitting under it */
-  @media (max-width: 480px) {
-    #hero { padding-top: 72px; }
-    .hero-eyebrow { margin-bottom: 10px; }
-    .hero-sub { margin-top: 10px; }
-    .hero-actions { margin-top: 10px; }
-    .hero-checks { margin-top: 14px; }
-  }
-
-  /* ── HERO PHONE MOCKUP ── */
-  .hero-phone-wrap {
-    margin-top: 44px;
-    display: flex; justify-content: center;
-    opacity: 0; animation: fadeUp .7s .95s forwards;
-  }
-  .hero-phone {
-    width: clamp(150px, 19vw, 200px);
-    aspect-ratio: 9 / 19.5;
-    background: var(--bg2);
-    border: 1px solid rgba(212,175,55,0.3);
-    border-radius: 10px;
-    padding: 4px;
+  /* ── HERO PHOTO (real site photo, dominant, touching the outer edge) ── */
+  .hero-visual {
     position: relative;
+    height: 100%; min-height: calc(max(720px, 94vh) - 70px);
+    opacity: 0; animation: fadeUp .8s .3s forwards;
   }
-  .hero-phone-caption {
-    margin-top: 10px; text-align: center;
-    font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: .08em;
-    text-transform: uppercase; color: var(--muted);
-  }
-  /* no fake notch — the real screenshots already carry their own status bar */
-  .ph-stack { position: relative; width: 100%; height: 100%; background: #0b0c12; border-radius: 6px; overflow: hidden; }
-  .ph-screen {
+  .hero-photo {
     position: absolute; inset: 0;
-    opacity: 0; transform: scale(.97);
-    animation: phScreenCycle 10s ease-in-out infinite;
-    will-change: opacity, transform;
+    overflow: hidden;
   }
-  .ph-screen img {
-    width: 100%; height: 100%; object-fit: cover; object-position: top center;
+  .hero-photo img {
+    width: 100%; height: 100%; object-fit: cover; object-position: 68% 40%;
     display: block;
   }
-  /* positive delays stagger the loop start forward (1→2→3→4) — a negative
-     delay fast-forwards an element INTO its cycle, which visually plays
-     the sequence backwards; positive delay just holds it at the base
-     (opacity:0) style until its turn, then it loops in place forever */
-  .ph-s1 { animation-delay: 0s; }
-  .ph-s2 { animation-delay: 2.5s; }
-  .ph-s3 { animation-delay: 5s; }
-  .ph-s4 { animation-delay: 7.5s; }
-
-  @keyframes phScreenCycle {
-    0%   { opacity: 0; transform: scale(.97); }
-    3%   { opacity: 1; transform: scale(1); }
-    22%  { opacity: 1; transform: scale(1); }
-    27%  { opacity: 0; transform: scale(.97); }
-    100% { opacity: 0; }
+  .hero-photo-mask {
+    position: absolute; inset: 0;
+    background: linear-gradient(90deg, rgba(11,12,18,0.72) 0%, rgba(11,12,18,0.04) 36%, transparent 70%), linear-gradient(180deg, transparent 50%, rgba(11,12,18,0.34) 100%);
   }
 
-  /* screen 1: real empty-list screenshot — tap the gold camera button (real UI, real position) */
-  .ph-tap {
-    position: absolute; right: 11.5%; bottom: 21%;
-    width: 15%; aspect-ratio: 1;
-    border-radius: 50%;
-    box-shadow: 0 0 0 0 rgba(232,184,0,0.65);
-    animation: phTap 10s ease-in-out infinite;
-    pointer-events: none;
+  @media (max-width: 900px) {
+    #hero { min-height: auto; padding: 70px 6vw 0; }
+    .hero-grid { grid-template-columns: 1fr; gap: 0; }
+    .hero-content { padding: 48px 0 38px; }
+    .hero-eyebrow { margin-bottom: 22px; }
+    .hero-visual { min-height: 52vh; margin-inline-end: -6vw; margin-inline-start: -6vw; }
+    .hero-marks { display: none; }
   }
-  @keyframes phTap {
-    0%, 16%   { box-shadow: 0 0 0 0 rgba(232,184,0,0.65); transform: scale(1); }
-    18%       { box-shadow: 0 0 0 10px rgba(232,184,0,0); transform: scale(.85); }
-    20%, 100% { box-shadow: 0 0 0 0 rgba(232,184,0,0); transform: scale(1); }
+  @media (max-width: 340px) {
+    /* Keep a deliberate gap between the primary CTA and the restored floating tool stack. */
+    .hero-actions .btn-gold-main { padding-inline: 24px; }
   }
 
-  /* reduced motion: keep the real screens cycling (that's informational
-     content, not decorative motion) — just drop the scale-pop and the tap
-     pulse, which are the parts actually meant to be suppressed */
-  @keyframes phScreenCycleReduced {
-    0%   { opacity: 0; }
-    3%   { opacity: 1; }
-    22%  { opacity: 1; }
-    27%  { opacity: 0; }
-    100% { opacity: 0; }
+  /* ── PRODUCT PROOF STRIP ── */
+  #proof {
+    display: grid; grid-template-columns: minmax(0,1.12fr) minmax(250px,.48fr);
+    align-items: center; gap: clamp(42px, 9vw, 160px); padding: 74px 10vw 88px;
+    background: #0e1119;
+    border-bottom: 1px solid rgba(212,175,55,0.2);
   }
-  @media (prefers-reduced-motion: reduce) {
-    .ph-screen { animation-name: phScreenCycleReduced; transform: none; }
-    .ph-tap { animation: none !important; opacity: 0; }
+  .proof-text { display: block; }
+  .proof-num {
+    font-family: var(--font-mono); font-size: 0.75rem; color: var(--gold);
+    letter-spacing: 0.08em; margin-bottom: 16px;
   }
-  @media (max-width: 520px) {
-    .hero-phone-wrap { margin-top: 32px; }
+  .proof-title {
+    font-size: clamp(1.3rem, 2.1vw, 1.9rem); font-weight: 700; line-height: 1.3;
+    max-width: 34ch;
   }
-
-  /* ── CAPABILITY ROW ── */
-  .stats-strip {
-    border-top: 1px solid rgba(212,175,55,0.1);
-    border-bottom: 1px solid rgba(212,175,55,0.1);
-    padding: 22px 6vw;
-    background: rgba(10,11,16,0.98);
-    display: flex; justify-content: center; align-items: center; gap: clamp(20px,4vw,48px);
-    flex-wrap: wrap; text-align: center;
+  .proof-markers { display: flex; gap: 10px; margin-top: 26px; }
+  .proof-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--dot); display: inline-block; }
+  #proof .proof-shot { width: min(100%, 350px); justify-self: center; border-top: 1px solid var(--purple-thin); border-bottom: 1px solid rgba(212,175,55,0.18); padding: 16px 0; position: relative; }
+  #proof .proof-shot::before { content: 'APP / SITEPUNCH'; position: absolute; top: -11px; right: 0; background: #0e1119; padding-left: 14px; font: 500 0.64rem/1 var(--font-mono); color: var(--purple); letter-spacing: .1em; direction: ltr; }
+  #proof .proof-shot img { width: 100%; height: auto; display: block; object-fit: contain; background: #090b10; }
+  .proof-caption {
+    font-family: var(--font-mono); font-size: 0.7rem; color: var(--muted);
+    margin-top: 14px; letter-spacing: 0.02em;
   }
-  .stat-val { display: none; }
-  .stat-label {
-    font-size: 0.85rem; font-weight: 600; color: var(--white);
-    padding: 0 clamp(10px,2vw,24px);
-    border-inline-start: 1px solid rgba(212,175,55,0.25);
+  @media (max-width: 720px) {
+    #proof { grid-template-columns: 1fr; gap: 34px; padding: 58px 6vw; }
+    .proof-text { display: block; }
+    .proof-markers { margin-top: 20px; }
+    .proof-title { max-width: none; }
   }
-  .stat-label:first-child { border-inline-start: none; padding-inline-start: 0; }
 
   /* ── SECTION SHARED ── */
-  section { padding: 64px 6vw; }
+  section { padding: clamp(76px, 9vw, 132px) 6vw; }
   .section-tag {
     font-size: 0.72rem; font-weight: 600; letter-spacing: .14em;
     text-transform: uppercase; color: var(--gold);
@@ -320,118 +319,174 @@
   }
   .section-title {
     font-weight: 700;
-    font-size: clamp(1.8rem,3.5vw,2.8rem); letter-spacing: -0.02em;
-    line-height: 1.15; max-width: 640px;
+    font-size: clamp(2rem,3.8vw,3.45rem); letter-spacing: -0.03em;
+    line-height: 1.08; max-width: 720px;
   }
   .section-sub { color: var(--muted); margin-top: 14px; font-size: 1rem; line-height: 1.75; max-width: 540px; }
 
-  /* ── ROLES ── */
-  #roles { background: linear-gradient(180deg, var(--bg2) 0%, var(--bg) 100%); }
+  /* ── ROLES — editorial field image + team register ── */
+  #roles { padding: 0; background: var(--bg); border-bottom: 1px solid var(--line); }
+  .roles-layout { display: grid; grid-template-columns: minmax(320px,.88fr) minmax(0,1.12fr); min-height: 850px; direction: ltr; }
+  .roles-media { position: relative; overflow: hidden; min-height: 100%; border-inline-end: 1px solid rgba(212,175,55,.2); }
+  .roles-media img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
+  .roles-media::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 50%, rgba(8,10,15,.82)); pointer-events: none; }
+  .roles-media-label { position: absolute; z-index: 2; right: 24px; left: 24px; bottom: 24px; padding-top: 12px; border-top: 1px solid var(--gold); font: .68rem var(--font-mono); color: rgba(240,240,245,.8); letter-spacing: .08em; direction: ltr; }
+  .roles-copy { padding: clamp(70px,8vw,124px) 6vw; direction: inherit; }
   .roles-grid {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr));
-    gap: 16px; margin-top: 30px;
+    display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0 clamp(24px, 4vw, 72px); margin-top: 56px;
   }
   .role-card {
-    background: var(--bg2);
-    border: 1px solid rgba(212,175,55,0.14);
-    border-radius: 8px; padding: 28px;
-    transition: border-color .2s;
+    display: grid; grid-template-columns: 42px minmax(0,1fr); column-gap: 14px;
+    padding: 30px 0 28px; border-top: 1px solid rgba(212,175,55,0.2);
   }
-  .role-card:hover { border-color: rgba(212,175,55,0.38); }
-  .role-icon {
-    display: flex; align-items: center; justify-content: center;
-    width: 24px; height: 24px; margin-bottom: 16px;
-    color: var(--gold);
-  }
-  .role-icon svg { width: 24px; height: 24px; display: block; }
-  .role-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; color: var(--white); }
-  .role-card p  { font-size: 0.85rem; color: var(--muted); line-height: 1.65; }
+  .role-icon { display: none; }
+  .role-card::before { grid-row: 1 / span 2; color: var(--gold); font: 600 .68rem/1 var(--font-mono); letter-spacing: .08em; padding-top: 4px; }
+  .role-card:nth-child(1)::before { content: '01'; }.role-card:nth-child(2)::before { content: '02'; }.role-card:nth-child(3)::before { content: '03'; }
+  .role-card:nth-child(4)::before { content: '04'; }.role-card:nth-child(5)::before { content: '05'; }.role-card:nth-child(6)::before { content: '06'; }
+  .role-card h3 { grid-column: 2; font-size: 1.08rem; font-weight: 700; margin-bottom: 10px; color: var(--white); }
+  .role-card p  { grid-column: 2; font-size: 0.9rem; color: #8d94a2; line-height: 1.75; max-width: 38ch; }
 
-  /* ── PROBLEMS ── */
-  #problems { background: var(--bg); }
-  .problems-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px,1fr)); gap: 16px; margin-top: 30px; }
+  /* ── OPERATING PROOF — verified product capabilities, no invented metrics ── */
+  #operating-proof { padding: 0 6vw; background: #090b10; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .operating-proof-head { display: grid; grid-template-columns: minmax(0,1fr) minmax(260px,.62fr); gap: 48px; align-items: end; padding: 74px 0 52px; }
+  .operating-proof-intro { color: var(--muted); font-size: .92rem; line-height: 1.75; max-width: 46ch; }
+  .operating-proof-grid { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); border-top: 1px solid rgba(212,175,55,.24); }
+  .operating-proof-item { position: relative; min-height: 240px; padding: 28px 24px 34px; border-inline-start: 1px solid var(--line); }
+  .operating-proof-item:first-child { border-inline-start: 0; }
+  .operating-proof-num { display: block; margin-bottom: 68px; color: var(--purple); font: .7rem var(--font-mono); letter-spacing: .08em; direction: ltr; }
+  .operating-proof-item h3 { margin-bottom: 10px; color: var(--white); font-size: 1.02rem; }
+  .operating-proof-item p { color: var(--muted); font-size: .82rem; line-height: 1.65; }
+
+  /* ── PROBLEMS — flat divided list ── */
+  #problems { background: var(--bg2); }
+  .problems-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 clamp(30px, 7vw, 120px); margin-top: 56px; }
   .problem-card {
-    background: var(--bg2);
-    border: 1px solid rgba(212,175,55,0.12);
-    border-radius: 8px; padding: 28px;
-    transition: border-color .2s;
+    padding: 30px 0 26px; border-top: 1px solid rgba(212,175,55,0.18);
   }
-  .problem-card:hover { border-color: rgba(212,175,55,0.32); }
   .problem-icon {
     display: flex; align-items: center; justify-content: center;
-    width: 22px; height: 22px; margin-bottom: 16px;
+    width: 20px; height: 20px; margin-bottom: 16px;
     color: var(--muted);
   }
-  .problem-icon svg { width: 22px; height: 22px; display: block; }
-  .problem-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; color: var(--white); }
-  .problem-card p  { font-size: 0.85rem; color: var(--muted); line-height: 1.65; }
+  .problem-icon svg { width: 20px; height: 20px; display: block; }
+  .problem-card h3 { font-size: 1.14rem; font-weight: 700; margin-bottom: 10px; color: var(--white); }
+  .problem-card p  { font-size: 0.92rem; color: #8d94a2; line-height: 1.75; max-width: 50ch; }
 
-  /* ── FEATURES ── */
-  #features { background: linear-gradient(180deg, var(--bg2) 0%, var(--bg) 100%); }
-  .features-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; margin-top: 22px; }
-  .feature-list { display: flex; flex-direction: column; gap: 0; }
+  /* ── FEATURES — a static capability register, no tabs or demo panel ── */
+  #features { background: var(--bg2); border-top: 1px solid rgba(212,175,55,0.14); border-bottom: 1px solid rgba(212,175,55,0.14); }
+  .features-layout { display: block; margin-top: 50px; }
+  .feature-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 clamp(32px, 7vw, 120px); border-top: 1px solid rgba(212,175,55,0.2); }
   .feature-item {
-    padding: 20px 0; border-bottom: 1px solid rgba(212,175,55,0.1);
-    cursor: pointer; transition: padding-right .2s;
+    display: grid; grid-template-columns: 46px minmax(0,1fr); column-gap: 16px;
+    padding: 28px 0; border-bottom: 1px solid rgba(212,175,55,0.18);
+    cursor: default;
   }
-  .feature-item:first-child { border-top: 1px solid rgba(212,175,55,0.1); }
-  .feature-item.active { padding-right: 14px; border-right: 3px solid var(--gold); margin-right: -3px; }
-  .feature-item h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; color: var(--white); }
-  .feature-item.active h3 { color: var(--gold); }
-  .feature-item p  { font-size: 0.85rem; color: var(--muted); line-height: 1.65; max-height: 0; overflow: hidden; transition: max-height .35s; }
-  .feature-item.active p { max-height: 100px; }
-  .feature-visual {
-    background: var(--bg2);
-    border: 1px solid rgba(212,175,55,0.18);
-    border-radius: 8px; min-height: 320px;
-    display: flex; align-items: center; justify-content: center;
-    position: relative; overflow: hidden;
-  }
+  .feature-item::before { grid-row: 1 / span 2; color: var(--purple); font: 600 .68rem/1 var(--font-mono); letter-spacing: .08em; padding-top: 4px; }
+  .feature-item:nth-child(1)::before { content: '01'; }.feature-item:nth-child(2)::before { content: '02'; }.feature-item:nth-child(3)::before { content: '03'; }
+  .feature-item:nth-child(4)::before { content: '04'; }.feature-item:nth-child(5)::before { content: '05'; }.feature-item:nth-child(6)::before { content: '06'; }.feature-item:nth-child(7)::before { content: '07'; }
+  .feature-item.active { padding-right: 0; border-right: 0; margin-right: 0; }
+  .feature-item h3 { grid-column: 2; font-size: 1rem; font-weight: 700; margin-bottom: 8px; display: block; color: var(--white); }
+  .feature-item h3 span { display: none; }
+  .feature-item.active h3 { color: var(--white); }
+  .feature-item p  { grid-column: 2; font-size: 0.86rem; color: var(--muted); line-height: 1.65; max-height: none; overflow: visible; }
+  .feature-item.active p { max-height: none; }
+  .feature-visual { display: none; }
   .fv-content { position: relative; z-index: 2; text-align: center; padding: 32px; }
   .fv-icon { margin-bottom: 16px; display: block; }
   .fv-icon svg { width: 40px; height: 40px; color: var(--gold); }
   .fv-label { font-weight: 700; font-size: 1.1rem; color: var(--gold); }
   .fv-desc  { font-size: 0.85rem; color: var(--muted); margin-top: 8px; line-height: 1.65; }
 
-  /* ── LANGUAGES ── */
-  #languages { background: var(--bg); }
-  .lang-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; margin-top: 30px; }
+  /* ── LANGUAGES — flat divided list ── */
+  #languages { background: var(--bg2); }
+  .lang-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 0 32px; margin-top: 40px; }
   .lang-card {
-    background: var(--bg2);
-    border: 1px solid rgba(212,175,55,0.14);
-    border-radius: 8px; padding: 32px 24px; text-align: center;
-    transition: border-color .2s;
+    padding: 24px 0 4px; border-top: 1px solid rgba(212,175,55,0.16);
+    text-align: start;
   }
-  .lang-card:hover { border-color: rgba(212,175,55,0.38); }
   .lang-flag {
-    font-size: 2rem; font-weight: 700; margin-bottom: 14px;
+    font-size: 0.85rem; font-weight: 700; margin-bottom: 14px;
     font-family: var(--font-mono);
-    width: 44px; height: 44px; border-radius: 6px;
-    background: transparent; border: 1px solid var(--gold-border);
-    display: flex; align-items: center; justify-content: center;
-    color: var(--gold); margin-left: auto; margin-right: auto;
+    color: var(--gold);
   }
   .lang-name { font-weight: 700; font-size: 1.05rem; margin-bottom: 6px; }
-  .lang-native { font-size: 1rem; color: var(--gold); font-weight: 600; margin-bottom: 10px; }
+  .lang-native { font-size: 0.95rem; color: var(--gold); font-weight: 600; margin-bottom: 10px; }
   .lang-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.55; }
 
-  /* ── HOW IT WORKS ── */
-  #how { background: linear-gradient(180deg, var(--bg2) 0%, var(--bg) 100%); }
-  .steps { display: grid; grid-template-columns: repeat(4,1fr); gap: 0; margin-top: 40px; }
-  .step {
-    text-align: start; padding: 16px 24px 0 0;
-    border-top: 1px solid rgba(212,175,55,0.3);
+  /* ── HOW IT WORKS — an operational sequence, not a SaaS tab set ── */
+  #how {
+    padding: clamp(76px, 9vw, 132px) 6vw;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    background: var(--bg2);
   }
-  .step-num {
-    font-family: var(--font-mono); font-weight: 600;
-    font-size: 0.8rem; letter-spacing: .06em; color: var(--gold);
-    margin-bottom: 10px;
+  .how-layout { display: grid; grid-template-columns: minmax(240px, .7fr) minmax(0, 1.3fr); gap: clamp(44px, 8vw, 132px); align-items: center; max-width: 1280px; margin: 0 auto; direction: ltr; }
+  .workflow-stage {
+    position: relative; width: min(100%, 240px); height: auto; aspect-ratio: 420 / 912; justify-self: center;
+    min-height: 0; border: 1px solid rgba(212,175,55,.32); overflow: hidden;
+    background-color: #080a0f;
+    background-image: linear-gradient(rgba(212,175,55,.045) 1px, transparent 1px), linear-gradient(90deg, rgba(212,175,55,.045) 1px, transparent 1px);
+    background-size: 28px 28px; isolation: isolate;
   }
-  .step h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 8px; color: var(--white); }
-  .step p  { font-size: 0.82rem; color: var(--muted); line-height: 1.65; }
-  @media (max-width: 720px) {
-    .steps { grid-template-columns: 1fr; gap: 20px; }
-    .step { padding: 16px 0 0; }
+  .workflow-stage::before { content: ''; position: absolute; top: 20px; right: 20px; width: 44px; height: 44px; border-top: 1px solid var(--gold); border-right: 1px solid var(--gold); z-index: 2; pointer-events: none; }
+  .workflow-stage::after { content: 'SITEPUNCH / FIELD WORKFLOW'; position: absolute; right: 22px; bottom: 18px; z-index: 2; color: rgba(240,240,245,.72); font: .62rem var(--font-mono); letter-spacing: .09em; direction: ltr; }
+  .workflow-stage img {
+    position: absolute; inset: 0; width: 100%; height: 100%; min-height: 0;
+    object-fit: contain; object-position: center; display: block; opacity: 0;
+    transform: translateY(8px); transition: opacity .42s ease, transform .42s ease;
+    will-change: opacity, transform;
+  }
+  .workflow-stage img.is-active { opacity: 1; transform: translateY(0); }
+  .workflow-index { position: absolute; left: 18px; top: 18px; z-index: 2; padding: 7px 9px; border-inline-start: 2px solid var(--purple-thin); background: rgba(8,10,15,.82); color: var(--gold); font: .68rem var(--font-mono); letter-spacing: .08em; direction: ltr; }
+  .how-content { direction: inherit; min-width: 0; }
+  .workflow-steps { display: grid; grid-template-columns: 1fr; gap: 0; margin-top: 42px; }
+  .workflow-step {
+    position: relative; width: 100%; appearance: none; border: 0; border-top: 1px solid var(--line); background: transparent; color: inherit; cursor: pointer; text-align: start;
+    display: grid; grid-template-columns: 58px minmax(0,1fr); gap: 18px; padding: 22px 0; transition: color .2s ease, padding-inline .2s ease;
+  }
+  .workflow-step:last-child { border-bottom: 1px solid var(--line); }
+  .workflow-step::before { content: ''; position: absolute; inset-block: 0; inset-inline-end: 0; width: 2px; background: transparent; transition: background .2s ease; }
+  .workflow-step::after { content: ''; position: absolute; top: -1px; inset-inline-start: 0; height: 1px; width: 0; background: var(--gold); }
+  .workflow-step:hover, .workflow-step:focus-visible { padding-inline-end: 10px; outline: none; }
+  .workflow-step:focus-visible { box-shadow: inset 0 0 0 1px var(--gold); }
+  .workflow-step.is-active::before { background: var(--gold); }
+  .workflow-step.is-active::after { animation: workflow-progress 4.2s linear forwards; }
+  .workflow-step.is-active h3 { color: var(--gold); }
+  .workflow-step.is-active .step-num { color: var(--white); }
+  .step-num { font-family: var(--font-mono); font-size: 1rem; color: var(--gold); padding-top: 2px; }
+  .workflow-step h3 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; color: var(--white); transition: color .2s ease; }
+  .workflow-step p  { font-size: .85rem; color: var(--muted); line-height: 1.65; max-width: 42ch; }
+  @keyframes workflow-progress { from { width: 0; } to { width: 100%; } }
+  @media (prefers-reduced-motion: reduce) {
+    .workflow-stage img { transition: none; }
+    .workflow-step.is-active::after { animation: none; width: 100%; }
+  }
+  @media (max-width: 900px) {
+    #how { padding: 56px 6vw; }
+    .how-layout { grid-template-columns: 1fr; gap: 46px; }
+    .workflow-stage { width: min(100%, 220px); height: auto; }
+  }
+  @media (max-width: 480px) {
+    .workflow-stage { width: min(100%, 200px); height: auto; }
+    .workflow-step { grid-template-columns: 40px minmax(0,1fr); gap: 14px; padding: 18px 0; }
+  }
+
+  /* ── INDUSTRIES — wide photo chapters, no small cards ── */
+  #industries { padding: clamp(76px, 9vw, 132px) 0 0; background: var(--bg); }
+  #industries .section-header { padding: 0 6vw; }
+  .industries-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; margin-top: 56px; background: rgba(212,175,55,0.18); }
+  .industry-panel { position: relative; aspect-ratio: 4 / 5; background: var(--bg2); overflow: hidden; }
+  .industry-panel img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .industry-panel::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(11,12,18,0) 55%, rgba(11,12,18,0.9) 100%); }
+  .industry-marker { position: absolute; top: 22px; right: 22px; left: 22px; z-index: 2; border-top: 2px solid var(--gold); padding-top: 10px; }
+  .industry-num { font-family: var(--font-mono); font-size: 0.72rem; color: var(--gold); letter-spacing: 0.06em; }
+  .industry-caption { position: absolute; bottom: 22px; right: 22px; left: 22px; z-index: 2; }
+  .industry-caption h3 { font-size: 1.05rem; font-weight: 700; color: var(--white); margin-bottom: 6px; }
+  .industry-caption p { font-size: 0.8rem; color: rgba(240,240,245,0.75); line-height: 1.55; }
+  @media (max-width: 900px) {
+    .industries-row { grid-template-columns: 1fr; }
+    .industry-panel { aspect-ratio: 16 / 10; }
   }
 
   /* ── PRICING ── */
@@ -449,18 +504,18 @@
   .toggle-switch.on .toggle-knob { transform: translateX(-22px); }
   .badge-save { font-size: 0.7rem; font-weight: 700; padding: 2px 8px; border-radius: 4px; background: rgba(212,175,55,0.12); color: var(--gold); border: 1px solid rgba(212,175,55,0.25); }
 
-  .pricing-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; margin-top: 30px; align-items: start; }
+  .pricing-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 0; margin-top: 30px; align-items: start; }
   .pricing-card {
-    background: var(--bg2);
-    border: 1px solid rgba(212,175,55,0.14); border-top: 3px solid rgba(212,175,55,0.14);
-    border-radius: 8px; padding: 32px 28px;
+    background: none;
+    border-inline-start: 1px solid rgba(212,175,55,0.14); border-top: 2px solid rgba(212,175,55,0.14);
+    border-radius: 0; padding: 30px 26px;
     position: relative; transition: border-color .2s;
     min-width: 0;
   }
-  .pricing-card:hover { border-color: rgba(212,175,55,0.32); }
+  .pricing-card:first-child { border-inline-start: none; }
   .pricing-card.featured {
-    border: 1px solid var(--gold-border); border-top: 3px solid var(--gold);
-    background: var(--bg2);
+    border-top: 2px solid var(--gold);
+    background: none;
   }
   .plan-badge {
     display: inline-block;
@@ -565,7 +620,7 @@
     width: 100%; background: rgba(11,12,18,0.9);
     border: 1px solid rgba(212,175,55,0.2); border-radius: 10px;
     padding: 11px 14px; color: var(--white);
-    font-size: 0.92rem; font-family: inherit; outline: none; direction: rtl;
+    font-size: 0.92rem; font-family: inherit; outline: none; direction: inherit;
     transition: border-color .2s;
   }
   .form-field input:focus, .form-field select:focus { border-color: rgba(212,175,55,0.5); box-shadow: 0 0 0 3px rgba(212,175,55,0.1); }
@@ -590,7 +645,7 @@
   /* ── CTA ── */
   #cta {
     position: relative; overflow: hidden;
-    text-align: center; padding: 130px 6vw;
+    padding: 118px 6vw;
     min-height: 520px; display: flex; align-items: center; justify-content: center;
   }
   .cta-bg {
@@ -599,9 +654,14 @@
   .cta-bg img { width: 100%; height: 100%; object-fit: cover; object-position: center 35%; }
   .cta-bg::after {
     content: ''; position: absolute; inset: 0;
-    background: linear-gradient(180deg, rgba(5,6,12,0.45) 0%, rgba(5,6,12,0.58) 100%);
+    background: linear-gradient(180deg, rgba(5,6,12,0.52) 0%, rgba(5,6,12,0.7) 100%);
   }
-  .cta-content { position: relative; z-index: 1; }
+  .cta-content {
+    position: relative; z-index: 1; width: min(1180px,100%); margin: 0 auto;
+    display: grid; grid-template-columns: minmax(0,1.08fr) minmax(300px,.62fr); gap: clamp(54px,8vw,120px);
+    align-items: end; text-align: start;
+  }
+  .cta-main { min-width: 0; }
   .cta-tag {
     display: inline-block;
     font-size: 0.72rem; font-weight: 600; letter-spacing: .14em;
@@ -611,10 +671,35 @@
   .cta-title {
     font-weight: 700;
     font-size: clamp(1.8rem,3.8vw,3rem); letter-spacing: -0.04em;
-    line-height: 1.12; max-width: 700px; margin: 0 auto 20px;
+    line-height: 1.12; max-width: 700px; margin: 0 0 20px;
   }
-  .cta-sub { color: rgba(200,200,210,0.75); font-size: 1.05rem; margin-bottom: 44px; max-width: 540px; margin-left: auto; margin-right: auto; line-height: 1.7; }
-  .cta-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  .cta-sub { color: rgba(200,200,210,0.75); font-size: 1.05rem; margin-bottom: 36px; max-width: 540px; line-height: 1.7; }
+  .cta-actions { display: flex; gap: 14px; justify-content: flex-start; flex-wrap: wrap; }
+  .cta-contact {
+    border-inline-start: 2px solid var(--purple-thin);
+    border-block: 1px solid rgba(212,175,55,.34);
+    background: rgba(5,7,12,.82);
+    padding: 30px clamp(28px,3vw,44px); min-width: 0;
+  }
+  .cta-contact-label { color: var(--gold); font: .68rem var(--font-mono); letter-spacing: .11em; margin-bottom: 18px; }
+  .cta-contact h3 { color: #fff; font-size: clamp(1.3rem,2.1vw,1.8rem); line-height: 1.25; margin-bottom: 12px; text-shadow: 0 1px 12px rgba(0,0,0,.65); }
+  .cta-contact p { color: #d9dbe2; line-height: 1.7; font-size: .92rem; margin-bottom: 24px; }
+  .cta-contact-actions { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; }
+  .cta-contact-chat {
+    min-height: 44px; padding: 0; border: 0; border-bottom: 1px solid var(--gold); background: transparent;
+    color: var(--gold); font: 700 .88rem var(--font-sans); cursor: pointer;
+  }
+  .cta-contact-chat::after { content: '↗'; margin-inline-start: 10px; font-family: var(--font-mono); }
+  .cta-contact-email { color: #c8cbd3; text-decoration: none; font: .72rem var(--font-mono); border-bottom: 1px solid rgba(200,203,211,.25); padding-bottom: 5px; }
+  .cta-contact-email:hover { color: var(--white); border-color: var(--gold); }
+  @media (max-width: 760px) {
+    #cta { padding: 88px 6vw; }
+    .cta-content { grid-template-columns: 1fr; gap: 52px; }
+    .cta-contact { border-inline-start: 2px solid var(--purple-thin); padding: 26px 24px; }
+    .cta-contact-actions { flex-direction: column; gap: 10px; }
+    html[dir="rtl"] .cta-contact-actions { align-items: flex-start; }
+    html[dir="ltr"] .cta-contact-actions { align-items: flex-end; }
+  }
   .btn-primary-purple {
     background: linear-gradient(135deg, var(--primary), var(--primary2), var(--gold-end));
     color: #fff; padding: 15px 32px; border-radius: 12px;
@@ -693,15 +778,15 @@
   /* ── ACCESSIBILITY WIDGET ── */
   .a11y-btn {
     position: fixed; bottom: 24px; left: 24px; z-index: 1000;
-    width: 52px; height: 52px; border-radius: 50%;
-    background: linear-gradient(135deg, var(--primary), var(--primary2));
-    color: #fff; font-size: 1.5rem; border: none; cursor: pointer;
-    box-shadow: 0 4px 20px rgba(109,40,217,0.5);
+    width: 44px; height: 44px; border-radius: 4px;
+    background: rgba(11,12,18,0.96);
+    color: #cfd3dc; font-size: 1.18rem; border: 1px solid rgba(207,211,220,0.24); cursor: pointer;
+    box-shadow: none;
     display: flex; align-items: center; justify-content: center;
     transition: transform .2s, box-shadow .2s;
     filter: brightness(0.625);
   }
-  .a11y-btn:hover { transform: scale(1.08); box-shadow: 0 6px 28px rgba(109,40,217,0.6); }
+  .a11y-btn:hover { transform: none; color: var(--gold); border-color: var(--gold-border); }
   .a11y-panel {
     position: fixed; bottom: 86px; left: 16px; z-index: 1000;
     background: linear-gradient(145deg,rgba(16,18,26,0.98),rgba(11,12,18,1));
@@ -775,7 +860,7 @@
   /* links at bottom */
   .a11y-links { padding: 10px 16px 14px; display: flex; flex-direction: column; gap: 6px; }
   .a11y-link-btn {
-    width: 100%; padding: 9px 12px; border-radius: 9px; text-align: right;
+    width: 100%; padding: 9px 12px; border-radius: 9px; text-align: start;
     background: rgba(212,175,55,0.05); border: 1px solid rgba(212,175,55,0.12);
     color: rgba(200,200,210,0.75); font-size: 0.8rem; cursor: pointer; transition: background .15s;
     display: flex; align-items: center; gap: 8px; font-family: inherit;
@@ -788,9 +873,9 @@
   }
   .a11y-reset:hover { background: rgba(239,68,68,0.13); }
 
-  /* ── SUPPORT CHAT ── */
+  /* ── SUPPORT CHAT (one floating control; WhatsApp is a row inside the panel) ── */
   .chat-fab {
-    position: fixed; bottom: 152px; left: 24px; z-index: 1000;
+    position: fixed; bottom: 24px; right: 24px; left: auto; z-index: 1000;
     min-height: 44px; padding: 0 16px; border-radius: 6px;
     background: var(--bg2);
     color: var(--gold); border: 1px solid rgba(212,175,55,0.3); cursor: pointer;
@@ -801,13 +886,13 @@
   .chat-fab svg { width: 15px; height: 15px; flex-shrink: 0; }
   .chat-fab:hover { border-color: rgba(212,175,55,0.5); background: rgba(212,175,55,0.06); }
   .chat-panel {
-    position: fixed; bottom: 208px; left: 24px; z-index: 1000;
+    position: fixed; bottom: 80px; right: 24px; left: auto; z-index: 1000;
     width: min(360px, calc(100vw - 32px));
     /* max-height (not height) — the panel shrinks to fit short viewports
        instead of forcing 520px and pushing the header/close button off
-       the top of the screen. 228 = 208 bottom offset + 20 top margin. */
-    max-height: min(520px, calc(100vh - 228px));
-    max-height: min(520px, calc(100dvh - 228px));
+       the top of the screen. 164 = 144 bottom offset + 20 top margin. */
+    max-height: min(520px, calc(100vh - 164px));
+    max-height: min(520px, calc(100dvh - 164px));
     background: var(--bg2);
     border: 1px solid rgba(212,175,55,0.25); border-radius: 14px;
     box-shadow: 0 12px 36px rgba(0,0,0,0.5);
@@ -824,6 +909,14 @@
     background: rgba(212,175,55,0.08); color: var(--gold); cursor: pointer; font-size: 0.9rem;
     display: flex; align-items: center; justify-content: center; flex-shrink: 0;
   }
+  .chat-wa-row {
+    display: flex; align-items: center; gap: 8px;
+    padding: 10px 16px; border-bottom: 1px solid rgba(212,175,55,0.12); flex-shrink: 0;
+    color: rgba(220,220,228,0.8); font-size: 0.78rem; text-decoration: none;
+    transition: color .15s;
+  }
+  .chat-wa-row svg { color: #25D366; flex-shrink: 0; }
+  .chat-wa-row:hover { color: var(--white); }
   .chat-messages {
     flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 10px;
     scrollbar-width: thin; scrollbar-color: rgba(212,175,55,0.2) transparent;
@@ -851,14 +944,13 @@
   }
   .chat-send:disabled { opacity: 0.5; cursor: not-allowed; }
   @media (max-width: 480px) {
-    /* Tighten the fixed action stack (a11y / whatsapp / chat) so its top
-       edge sits lower — on short mobile viewports the hero CTA row can
-       otherwise reach down far enough to visually collide with it. */
-    .a11y-btn  { bottom: 20px; }
-    .a11y-panel { bottom: 78px; }
-    .wa-float  { bottom: 76px !important; }
-    .chat-fab  { bottom: 128px; }
-    .chat-panel { left: 16px; bottom: 182px; width: calc(100vw - 32px); }
+    /* Tighten the fixed action stack (a11y / chat) so its top edge sits
+       lower — on short mobile viewports the hero CTA row can otherwise
+       reach down far enough to visually collide with it. */
+    .a11y-btn  { bottom: 16px; left: 16px; }
+    .a11y-panel { bottom: 68px; left: 16px; }
+    .chat-fab  { right: 16px; left: auto; bottom: 16px; }
+    .chat-panel { right: 16px; left: auto; bottom: 68px; width: calc(100vw - 32px); max-height: min(480px, calc(100vh - 88px)); max-height: min(480px, calc(100dvh - 88px)); }
   }
 
   /* ── SCROLL REVEAL ── */
@@ -901,7 +993,7 @@
     border-bottom: 1px solid rgba(212,175,55,0.08); flex-shrink: 0;
   }
   .feat-tab {
-    padding: 9px 4px; font-size: 0.85rem; font-weight: 600; text-align: right;
+    padding: 9px 4px; font-size: 0.85rem; font-weight: 600; text-align: start;
     background: transparent; border: none; border-bottom: 1px solid rgba(255,255,255,0.05);
     color: var(--muted); cursor: pointer; transition: color .2s; font-family: inherit;
   }
@@ -936,7 +1028,7 @@
     flex: 1; background: rgba(11,12,18,0.9);
     border: 1px solid rgba(212,175,55,0.18);
     border-radius: 10px; padding: 10px 14px; color: var(--white);
-    font-size: 0.9rem; font-family: inherit; outline: none; direction: rtl; transition: border-color .2s;
+    font-size: 0.9rem; font-family: inherit; outline: none; direction: inherit; transition: border-color .2s;
   }
   .ai-input:focus { border-color: rgba(212,175,55,0.45); }
   .ai-input::placeholder { color: var(--muted); }
@@ -983,30 +1075,99 @@
   .help-row span { color: var(--muted); }
 
   /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .roles-layout { grid-template-columns: 1fr; min-height: 0; }
+    .roles-media { min-height: 58vw; max-height: 620px; }
+    .roles-grid { grid-template-columns: repeat(2, 1fr); }
+    .problems-grid { grid-template-columns: repeat(2, 1fr); }
+    .operating-proof-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+    .operating-proof-item:nth-child(3) { border-inline-start: 0; border-top: 1px solid var(--line); }
+    .operating-proof-item:nth-child(4) { border-top: 1px solid var(--line); }
+  }
+  @media (max-width: 1180px) {
+    nav { padding-inline: 4vw; }
+    .nav-links { gap: 14px; }
+    .nav-links a { font-size: .73rem; }
+    .nav-links a::before { display: none; }
+  }
+  @media (max-width: 980px) {
+    .nav-links, .nav-resources { display: none; }
+  }
   @media (max-width: 720px) {
     .nav-links { display: none; }
-    nav { padding: 0 4vw; }
-    .nav-logo img { height: 54px; }
+    nav { padding: 0 4vw; height: 70px; }
+    .nav-logo img { height: 50px; }
     .nav-cta { padding: 8px 14px; font-size: 0.8rem; }
     .nav-cta-account { padding: 7px 11px; font-size: 0.74rem; }
-    .features-layout { grid-template-columns: 1fr; gap: 40px; }
+    .nav-help {
+      display: inline-flex; align-items: center; min-height: 36px; padding: 0 2px;
+      border: 0; background: transparent; color: var(--gold); font: 600 .72rem/1 var(--font-sans); cursor: pointer;
+    }
+    .chat-fab { display: none; }
+    .feature-list { grid-template-columns: 1fr; }
     .lang-grid { grid-template-columns: 1fr; }
     .steps::before { display: none; }
-    .pricing-grid { grid-template-columns: 1fr 1fr; }
-    .pricing-grid .pricing-card:first-child,
-    .pricing-grid .pricing-card:last-child { grid-column: 1 / -1; }
+    /* full-width single column at every tier, in order: Free → Starter → Pro → Enterprise */
+    .pricing-grid { grid-template-columns: 1fr; }
+    .pricing-card { border-inline-start: none; padding: 28px 0; }
     .packs-grid { grid-template-columns: 1fr; }
     #extrasGrid { grid-template-columns: 1fr; }
     .roles-grid { grid-template-columns: 1fr; }
-    .hero-checks { flex-direction: column; align-items: center; }
+    .problems-grid { grid-template-columns: 1fr; }
+    .roles-media { min-height: 112vw; }
+    .roles-copy { padding: 56px 6vw; }
+    .operating-proof-head { grid-template-columns: 1fr; gap: 20px; padding: 56px 0 38px; }
+    .operating-proof-grid { grid-template-columns: 1fr; }
+    .operating-proof-item { min-height: 0; padding: 24px 0 28px; border-inline-start: 0; border-top: 1px solid var(--line); }
+    .operating-proof-item:first-child { border-top: 0; }
+    .operating-proof-num { margin-bottom: 34px; }
   }
   /* מכשירים צרים מ-6.5" בערך (≤380px) — עוד צמצום, כדי שכפתור "כניסה
      לאפליקציה" לא ייכנס לשורה כפולה כשאין מספיק רוחב */
   @media (max-width: 380px) {
     nav { padding: 0 3vw; }
-    .nav-logo img { height: 46px; }
+    .nav-logo img { height: 44px; }
     .nav-cta { padding: 7px 11px; font-size: 0.74rem; }
     .nav-cta-account { padding: 6px 9px; font-size: 0.68rem; }
+  }
+
+  /* ── FLOATING ACTIONS — restore the original, recognisable action stack ── */
+  .a11y-btn {
+    width: 52px; height: 52px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary), var(--primary2));
+    color: #fff; font-size: 1.5rem; border: none;
+    box-shadow: 0 4px 20px rgba(109,40,217,.5);
+    filter: brightness(.72); transition: transform .2s, box-shadow .2s;
+  }
+  .a11y-btn:hover { transform: scale(1.08); color: #fff; border-color: transparent; box-shadow: 0 6px 28px rgba(109,40,217,.62); }
+  .wa-float {
+    position: fixed; bottom: 88px; left: 24px; z-index: 1000;
+    width: 52px; height: 52px; border-radius: 50%; background: #25D366;
+    color: #fff; display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 20px rgba(37,211,102,.5); transition: transform .2s, box-shadow .2s;
+  }
+  .wa-float:hover { transform: scale(1.08); box-shadow: 0 6px 28px rgba(37,211,102,.62); }
+  .chat-fab {
+    left: 24px; right: auto; bottom: 152px; width: 52px; height: 52px; min-height: 52px; padding: 0;
+    border: none; border-radius: 50%; background: linear-gradient(135deg, var(--gold), #b8860b); color: #14161f;
+    box-shadow: 0 4px 24px rgba(212,175,55,.55); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1px;
+    animation: chatPulse 2.6s ease-in-out infinite; transition: transform .2s, box-shadow .2s;
+  }
+  .chat-fab .chat-fab-ai { font-size: .95rem; font-weight: 900; letter-spacing: .02em; line-height: 1; }
+  .chat-fab .chat-fab-sub { font-size: .5rem; font-weight: 700; letter-spacing: .04em; line-height: 1; opacity: .75; }
+  .chat-fab:hover { transform: scale(1.08); border-color: transparent; background: linear-gradient(135deg, var(--gold), #b8860b); box-shadow: 0 6px 30px rgba(212,175,55,.7); }
+  .chat-fab.open { animation: none; }
+  @keyframes chatPulse {
+    0%, 100% { box-shadow: 0 4px 24px rgba(212,175,55,.55); }
+    50% { box-shadow: 0 4px 24px rgba(212,175,55,.55), 0 0 0 10px rgba(212,175,55,.12); }
+  }
+  .chat-panel { left: 24px; right: auto; bottom: 220px; border-radius: 20px; box-shadow: 0 24px 70px rgba(0,0,0,.75); }
+  .nav-help { display: none !important; }
+  @media (max-width: 720px) {
+    .chat-fab { display: flex; left: 16px; bottom: 128px; }
+    .wa-float { left: 16px; bottom: 72px; }
+    .a11y-btn { left: 16px; bottom: 16px; }
+    .chat-panel { left: 16px; right: auto; bottom: 194px; }
   }
 </style>
 </head>
@@ -1052,19 +1213,26 @@ function bi(name, tone) { return '<span class="bi bi-' + (tone||'gold') + '">' +
 
 <!-- NAV -->
 <nav>
-  <div class="nav-logo">
+  <a class="nav-logo" href="#hero" aria-label="SitePunch — חזרה לראש העמוד">
     <img src="logo-header.png" alt="SitePunch">
-  </div>
+  </a>
   <ul class="nav-links">
-    <li><a href="#roles">למי מיועד</a></li>
-    <li><a href="#problems">האתגרים</a></li>
-    <li><a href="#features">פיצ'רים</a></li>
-    <li><a href="#how">איך זה עובד</a></li>
-    <li><a href="#pricing">מחירים</a></li>
-    <li><a onclick="openInstallModal()" style="cursor:pointer;"><span class="bi bi-gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></span> התקנה בנייד</a></li>
-    <li><a onclick="openHelpModal()" style="cursor:pointer;"><span class="bi bi-gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg></span> מדריך משתמש</a></li>
+    <li><a href="#roles" data-index="01">למי מיועד</a></li>
+    <li><a href="#features" data-index="02">יכולות</a></li>
+    <li><a href="#how" data-index="03">תהליך העבודה</a></li>
+    <li><a href="#industries" data-index="04">ענפים</a></li>
+    <li><a href="#pricing" data-index="05">מחירים</a></li>
   </ul>
-  <div style="display:flex;align-items:center;gap:10px;">
+  <details class="nav-resources">
+    <summary id="navResourcesLabel">מידע</summary>
+    <div class="nav-resource-menu">
+      <button type="button" id="navInstallLabel" onclick="this.closest('details').removeAttribute('open');openInstallModal()">התקנה בנייד</button>
+      <button type="button" id="navGuideLabel" onclick="this.closest('details').removeAttribute('open');openHelpModal()">מדריך משתמש</button>
+      <button type="button" id="navTalkLabel" data-chat-trigger onclick="this.closest('details').removeAttribute('open');toggleChat()">דברו איתנו</button>
+    </div>
+  </details>
+  <div class="nav-actions" style="display:flex;align-items:center;gap:10px;">
+    <button class="nav-help" id="navHelp" onclick="toggleChat()">עזרה</button>
     <a href="https://account.sitepunch.co.il" class="nav-cta-account">אזור מנויים</a>
     <a href="https://app.sitepunch.co.il" class="nav-cta">כניסה לאפליקציה</a>
   </div>
@@ -1073,69 +1241,63 @@ function bi(name, tone) { return '<span class="bi bi-' + (tone||'gold') + '">' +
 <!-- HERO -->
 <section id="hero">
   <div class="hero-bg" aria-hidden="true"></div>
+  <div class="hero-marks" aria-hidden="true"><span class="m-tl"></span><span class="m-tr"></span><span class="m-bl"></span><span class="m-br"></span></div>
 
-  <div class="hero-content">
-    <p class="hero-eyebrow"><span class="bi bi-gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M9 21v-5h6v5"/><path d="M8 7h.01"/><path d="M12 7h.01"/><path d="M16 7h.01"/><path d="M8 11h.01"/><path d="M12 11h.01"/><path d="M16 11h.01"/></svg></span><span class="eyebrow-text">מערכת ניהול ליקויים לאתרי בנייה</span></p>
-    <h1 class="hero-title">
-      פנצ' ליסט שמנהל<br>
-      את האתר <span class="gold">בשבילך</span>
-    </h1>
-    <p class="hero-sub">
-      תעדו ליקויים מהשטח, הקצו אחריות לקבלנים, עקבו אחרי טיפול והפיקו דוחות מקצועיים — הכל ממערכת אחת.
-    </p>
-    <div class="hero-actions">
-      <a href="https://app.sitepunch.co.il" class="btn-gold-main">כניסה לאפליקציה</a>
-      <a href="#pricing" class="btn-outline-gold">צפו במחירים</a>
-    </div>
-    <div class="hero-checks">
-      <span class="hero-check">תיעוד עם תמונות</span>
-      <span class="hero-check">מעקב בזמן אמת</span>
-      <span class="hero-check">דוחות PDF מקצועיים</span>
-      <span class="hero-check">עברית | ערבית | רוסית | אנגלית</span>
-      <span class="hero-check">מותאם למנהלי פרויקטים וקבלנים</span>
+  <div class="hero-grid">
+    <div class="hero-content">
+      <p class="hero-eyebrow"><span class="eyebrow-index" dir="ltr">SP / 24—07</span><span class="eyebrow-text">מערכת ניהול ליקויים לאתרי בנייה</span></p>
+      <h1 class="hero-title">
+        פנצ' ליסט שמנהל<br>
+        את האתר <span class="gold">בשבילך</span>
+      </h1>
+      <p class="hero-sub">
+        תעדו ליקויים מהשטח, הקצו אחריות לקבלנים, עקבו אחרי טיפול והפיקו דוחות מקצועיים — הכל ממערכת אחת.
+      </p>
+      <div class="hero-actions">
+        <a href="https://app.sitepunch.co.il" class="btn-gold-main">כניסה לאפליקציה</a>
+        <a href="#pricing" class="btn-outline-gold">צפו במחירים</a>
+      </div>
     </div>
 
-    <div class="hero-phone-wrap" aria-hidden="true">
-      <div class="hero-phone">
-        <div class="ph-stack">
-
-          <div class="ph-screen ph-s1">
-            <img src="hero-demo/1-empty.jpg" alt="" loading="eager">
-            <div class="ph-tap"></div>
-          </div>
-
-          <div class="ph-screen ph-s2">
-            <img src="hero-demo/2-mark.jpg" alt="" loading="eager">
-          </div>
-
-          <div class="ph-screen ph-s3">
-            <img src="hero-demo/3-form.jpg" alt="" loading="eager">
-          </div>
-
-          <div class="ph-screen ph-s4">
-            <img src="hero-demo/4-success.jpg" alt="" loading="eager">
-          </div>
-
-        </div>
+    <div class="hero-visual" aria-hidden="true">
+      <div class="hero-photo">
+        <img src="assets/site-inspection-highrise.webp" alt="" loading="eager">
+        <div class="hero-photo-mask"></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- STATS -->
-<div class="stats-strip reveal">
-  <div class="stat-label">תיעוד עם תמונות</div>
-  <div class="stat-label">הקצאת אחריות</div>
-  <div class="stat-label">מעקב סטטוס</div>
-  <div class="stat-label">דוחות PDF</div>
-</div>
+<!-- PROOF STRIP: real product screenshot, not a mockup — "from the field to the system" -->
+<section id="proof" class="reveal">
+  <div class="proof-text">
+    <p class="proof-num" dir="ltr">01 / <span id="proofNumLabel">הוכחת מוצר</span></p>
+    <h2 class="proof-title" id="proofTitle">כל תמונה מהשטח הופכת לליקוי מנוהל — עם אחראי, סטטוס והיסטוריה מלאה.</h2>
+    <div class="proof-markers" aria-hidden="true">
+      <span class="proof-dot" style="--dot:var(--status-open)"></span>
+      <span class="proof-dot" style="--dot:var(--status-progress)"></span>
+      <span class="proof-dot" style="--dot:var(--status-pending)"></span>
+      <span class="proof-dot" style="--dot:var(--status-closed)"></span>
+    </div>
+  </div>
+  <div class="proof-shot">
+    <img src="hero-demo/2-mark.jpg" alt="" loading="lazy">
+    <p class="proof-caption" id="proofCaption">מסך אמיתי מהאפליקציה — סימון ליקוי מהטלפון</p>
+  </div>
+</section>
 
 <!-- ROLES -->
 <section id="roles">
-  <p class="section-tag reveal">למי מיועד SitePunch</p>
-  <h2 class="section-title reveal">נבנה במיוחד עבור אנשי הביצוע והפיקוח</h2>
-  <p class="section-sub reveal">כל הגורמים המעורבים בפרויקט עובדים מול אותה מערכת ומקבלים תמונת מצב מלאה בזמן אמת.</p>
-  <div class="roles-grid">
+  <div class="roles-layout">
+    <div class="roles-media reveal">
+      <img src="assets/site-inspection-finishes.webp" alt="" loading="lazy">
+      <span class="roles-media-label" dir="ltr">FIELD QA / FINISHES / 02</span>
+    </div>
+    <div class="roles-copy">
+      <p class="section-tag reveal">למי מיועד SitePunch</p>
+      <h2 class="section-title reveal">נבנה במיוחד עבור אנשי הביצוע והפיקוח</h2>
+      <p class="section-sub reveal">כל הגורמים המעורבים בפרויקט עובדים מול אותה מערכת ומקבלים תמונת מצב מלאה בזמן אמת.</p>
+      <div class="roles-grid">
     <div class="role-card reveal">
       <div class="role-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg></div>
       <h3>מפקחי איכות</h3>
@@ -1149,7 +1311,7 @@ function bi(name, tone) { return '<span class="bi bi-' + (tone||'gold') + '">' +
     <div class="role-card reveal">
       <div class="role-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18v-2a8 8 0 0 1 16 0v2"/><path d="M2 18h20"/><line x1="12" y1="4" x2="12" y2="8"/></svg></div>
       <h3>מנהלי עבודה</h3>
-      <p>פותחים ליקוי מהטלפון תוך 10 שניות — צילום, קטגוריה, מיקום — ומוקצה ישירות לקבלן הרלוונטי. הכל מתועד אוטומטית.</p>
+      <p>פותחים ליקוי ישירות מהטלפון — צילום, קטגוריה ומיקום — ומקצים אותו מיד לגורם המטפל. הכל נשאר מתועד.</p>
     </div>
     <div class="role-card reveal">
       <div class="role-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 1 1-5.4 5.4l-6 6a1.5 1.5 0 0 0 2.1 2.1l6-6a4 4 0 0 1 5.4-5.4z"/></svg></div>
@@ -1166,6 +1328,8 @@ function bi(name, tone) { return '<span class="bi bi-' + (tone||'gold') + '">' +
       <h3>יזמים</h3>
       <p>שקיפות מלאה על מצב הפרויקט בכל רגע. הנתונים מוצגים בצורה ברורה — כמה ליקויים פתוחים, כמה סגורים, מה בסיכון.</p>
     </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -1173,12 +1337,12 @@ function bi(name, tone) { return '<span class="bi bi-' + (tone||'gold') + '">' +
 <section id="problems">
   <p class="section-tag reveal">האתגרים שאנו פותרים</p>
   <h2 class="section-title reveal">הפסיקו לרדוף אחרי ליקויים באקסלים, וואטסאפ ומיילים</h2>
-  <p class="section-sub reveal">מנהל פרויקט ממוצע מבזבז 4–6 שעות בשבוע על מעקב ידני, הכנת דוחות ותיאומים — שכולם יכולים להיות אוטומטיים.</p>
+  <p class="section-sub reveal">מעקב ידני, הכנת דוחות ותיאומים מפוזרים גוזלים זמן ומסתירים את תמונת המצב — SitePunch מרכזת אותם לזרימת עבודה אחת.</p>
   <div class="problems-grid">
     <div class="problem-card reveal">
       <div class="problem-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L3 13V3h10l7.59 7.59a2 2 0 0 1 0 2.82z"/><circle cx="7.5" cy="7.5" r=".5"/></svg></div>
       <h3>ליקויים שנשכחים</h3>
-      <p>ללא מעקב מסודר קשה לדעת מה טופל ומה עדיין פתוח. ליקוי שנשכח = פגם שמגיע למסירה ועולה פי עשרה לתיקון.</p>
+      <p>ללא מעקב מסודר קשה לדעת מה טופל ומה עדיין פתוח. ליקוי שנשכח עלול להגיע עד למסירה בלי בעלים ובלי תיעוד טיפול.</p>
     </div>
     <div class="problem-card reveal">
       <div class="problem-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/><circle cx="12" cy="12" r="10"/></svg></div>
@@ -1193,7 +1357,7 @@ function bi(name, tone) { return '<span class="bi bi-' + (tone||'gold') + '">' +
     <div class="problem-card reveal">
       <div class="problem-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
       <h3>מסירות שמתעכבות</h3>
-      <p>ליקויים פתוחים גורמים לעיכובים מיותרים במסירת הפרויקט. עלות כל שבוע עיכוי עלולה להגיע לעשרות אלפי שקלים.</p>
+      <p>ליקויים פתוחים שלא מנוהלים בזמן יוצרים עומס לקראת המסירה ומקשים להבין מה באמת מוכן ומה עדיין מעכב.</p>
     </div>
   </div>
 </section>
@@ -1205,9 +1369,9 @@ function bi(name, tone) { return '<span class="bi bi-' + (tone||'gold') + '">' +
   <p class="section-sub reveal">כל פיצ'ר נבנה אחרי שיחות עם קבלנים ומהנדסים שעובדים בשטח ביום-יום.</p>
   <div class="features-layout">
     <div class="feature-list" id="featureList">
-      <div class="feature-item active" data-icon="camera" data-label="יצירת ליקויים מהשטח" data-desc="פותחים ליקוי תוך 10 שניות: תמונה, מיקום, קטגוריה — ומוקצה לאחראי. גם בלי אינטרנט.">
+      <div class="feature-item active" data-icon="camera" data-label="יצירת ליקויים מהשטח" data-desc="פותחים ליקוי ישירות מהשטח: תמונה, מיקום וקטגוריה — ומקצים לאחראי. גם בלי אינטרנט.">
         <h3><span class="bi bi-gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></span> יצירת ליקויים מהשטח</h3>
-        <p>פותחים ליקוי תוך 10 שניות: תמונה, מיקום, קטגוריה — ומוקצה לאחראי. גם בלי אינטרנט.</p>
+        <p>פותחים ליקוי ישירות מהשטח: תמונה, מיקום וקטגוריה — ומקצים לאחראי. גם בלי אינטרנט.</p>
       </div>
       <div class="feature-item" data-icon="camera" data-label="צילום תמונות ישירות מהטלפון" data-desc="מצלמים לפני ואחרי הטיפול — הכל נשמר בענן ומופיע אוטומטית בדוח ה-PDF.">
         <h3><span class="bi bi-gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></span> צילום תמונות ישירות מהטלפון</h3>
@@ -1234,13 +1398,23 @@ function bi(name, tone) { return '<span class="bi bi-' + (tone||'gold') + '">' +
         <p>עברית, ערבית, רוסית ואנגלית — כל עובד עובד בשפתו שלו.</p>
       </div>
     </div>
-    <div class="feature-visual" id="featureVisual">
-      <div class="fv-content">
-        <span class="fv-icon bi-gold" id="fvIcon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></span>
-        <div class="fv-label" id="fvLabel">יצירת ליקויים מהשטח</div>
-        <div class="fv-desc" id="fvDesc">פותחים ליקוי תוך 10 שניות: תמונה, מיקום, קטגוריה — ומוקצה לאחראי. גם בלי אינטרנט.</div>
-      </div>
+  </div>
+</section>
+
+<!-- OPERATING PROOF — verified capabilities only -->
+<section id="operating-proof">
+  <div class="operating-proof-head">
+    <div>
+      <p class="section-tag reveal" id="operatingProofTag">מוכן לעבודה אמיתית</p>
+      <h2 class="section-title reveal" id="operatingProofTitle">תשתית תפעולית לשטח — לא עוד רשימת משימות.</h2>
     </div>
+    <p class="operating-proof-intro reveal" id="operatingProofIntro">המידע נשאר נגיש, מתועד וברור גם כשהצוות מפוזר בין קומות, קבלנים ושפות שונות.</p>
+  </div>
+  <div class="operating-proof-grid">
+    <article class="operating-proof-item reveal"><span class="operating-proof-num">01</span><h3>עובד גם בלי קליטה</h3><p>פותחים ליקוי, מצלמים ומעדכנים מהשטח; הנתונים מסתנכרנים כשהחיבור חוזר.</p></article>
+    <article class="operating-proof-item reveal"><span class="operating-proof-num">02</span><h3>אחריות והיסטוריה</h3><p>לכל ליקוי יש אחראי, סטטוס ותיעוד של השינויים עד לסגירה.</p></article>
+    <article class="operating-proof-item reveal"><span class="operating-proof-num">03</span><h3>דוחות למסירה</h3><p>PDF מקצועי לצד CSV ו־Excel, עם תמונות, פילטרים ונתוני הפרויקט.</p></article>
+    <article class="operating-proof-item reveal"><span class="operating-proof-num">04</span><h3>ארבע שפות</h3><p>עברית, ערבית, רוסית ואנגלית — כדי שכל בעל תפקיד יעבוד בשפה שלו.</p></article>
   </div>
 </section>
 
@@ -1266,7 +1440,7 @@ function bi(name, tone) { return '<span class="bi bi-' + (tone||'gold') + '">' +
       <div class="lang-flag">Я</div>
       <div class="lang-name">רוסית</div>
       <div class="lang-native">Русский</div>
-      <div class="lang-desc">ממשק לעובדים דוברי רוסית — מאות אלפי עובדי בנייה שלא מוגשים על ידי אף פתרון קיים.</div>
+      <div class="lang-desc">ממשק מלא לעובדים דוברי רוסית, עם כיוון, מונחים ופעולות המותאמים לעבודה בשטח.</div>
     </div>
     <div class="lang-card reveal">
       <div class="lang-flag">A</div>
@@ -1279,28 +1453,73 @@ function bi(name, tone) { return '<span class="bi bi-' + (tone||'gold') + '">' +
 
 <!-- HOW IT WORKS -->
 <section id="how">
-  <p class="section-tag reveal">איך זה עובד</p>
-  <h2 class="section-title reveal">מוכן לעבודה תוך דקות</h2>
-  <div class="steps">
-    <div class="step reveal">
-      <div class="step-num">01</div>
-      <h3>פותחים ליקוי</h3>
-      <p>מצלמים ומזינים פרטים — קטגוריה, מיקום ואחראי. תוך 10 שניות.</p>
+  <div class="how-layout">
+    <div class="workflow-stage reveal" id="workflowStage">
+      <img class="is-active" data-workflow-image src="hero-demo/1-empty.jpg" alt="" loading="lazy">
+      <img data-workflow-image src="hero-demo/2-mark.jpg" alt="" loading="lazy">
+      <img data-workflow-image src="hero-demo/3-form.jpg" alt="" loading="lazy">
+      <img data-workflow-image src="hero-demo/4-success.jpg" alt="" loading="lazy">
+      <span class="workflow-index" id="workflowIndex" dir="ltr">STEP 01 / 04</span>
     </div>
-    <div class="step reveal">
-      <div class="step-num">02</div>
-      <h3>מקצים אחריות</h3>
-      <p>משייכים לקבלן או לגורם המטפל. הוא מקבל התראה מיידית בשפתו.</p>
+    <div class="how-content">
+      <p class="section-tag reveal">איך זה עובד</p>
+      <h2 class="section-title reveal">מוכן לעבודה תוך דקות</h2>
+      <div class="workflow-steps" role="tablist" aria-label="שלבי עבודה">
+      <button class="workflow-step step reveal is-active" type="button" data-workflow-step="0" role="tab" aria-selected="true">
+        <div class="step-num" dir="ltr">01</div>
+        <div><h3>פותחים ליקוי</h3>
+        <p>מצלמים ומזינים פרטים — קטגוריה, מיקום ואחראי — ישירות מהטלפון.</p></div>
+      </button>
+      <button class="workflow-step step reveal" type="button" data-workflow-step="1" role="tab" aria-selected="false">
+        <div class="step-num" dir="ltr">02</div>
+        <div><h3>מקצים אחריות</h3>
+        <p>משייכים לקבלן או לגורם המטפל. הוא מקבל התראה מיידית בשפתו.</p></div>
+      </button>
+      <button class="workflow-step step reveal" type="button" data-workflow-step="2" role="tab" aria-selected="false">
+        <div class="step-num" dir="ltr">03</div>
+        <div><h3>עוקבים אחר טיפול</h3>
+        <p>מנהלים סטטוסים והתקדמות. ליקוי שלא נסגר — מתריעים אוטומטית.</p></div>
+      </button>
+      <button class="workflow-step step reveal" type="button" data-workflow-step="3" role="tab" aria-selected="false">
+        <div class="step-num" dir="ltr">04</div>
+        <div><h3>סוגרים ומפיקים דוחות</h3>
+        <p>הכל מתועד ומוכן למסירה. דוח PDF מקצועי בלחיצה אחת.</p></div>
+      </button>
+      </div>
     </div>
-    <div class="step reveal">
-      <div class="step-num">03</div>
-      <h3>עוקבים אחר טיפול</h3>
-      <p>מנהלים סטטוסים והתקדמות. ליקוי שלא נסגר — מתריעים אוטומטית.</p>
+  </div>
+</section>
+
+<!-- INDUSTRIES -->
+<section id="industries">
+  <div class="section-header">
+    <p class="section-tag reveal">מעבר לבנייה</p>
+    <h2 class="section-title reveal">נבנה לשטח — מבנייה ועד תעשייה ואנרגיה</h2>
+  </div>
+  <div class="industries-row">
+    <div class="industry-panel reveal">
+      <img src="bg-auth-desktop.jpg" alt="" loading="lazy">
+      <div class="industry-marker"><span class="industry-num" dir="ltr">01</span></div>
+      <div class="industry-caption">
+        <h3>בנייה</h3>
+        <p>ניהול ליקויים באתרי בנייה ומסירה — מהיסודות ועד המסירה הסופית.</p>
+      </div>
     </div>
-    <div class="step reveal">
-      <div class="step-num">04</div>
-      <h3>סוגרים ומפיקים דוחות</h3>
-      <p>הכל מתועד ומוכן למסירה. דוח PDF מקצועי בלחיצה אחת.</p>
+    <div class="industry-panel reveal">
+      <img src="assets/site-inspection-petrochemical.webp" alt="" loading="lazy">
+      <div class="industry-marker"><span class="industry-num" dir="ltr">02</span></div>
+      <div class="industry-caption">
+        <h3>תעשייה פטרוכימית</h3>
+        <p>תיעוד ומעקב תקלות בשטחי מפעל ומתקני תשתית תעשייתיים.</p>
+      </div>
+    </div>
+    <div class="industry-panel reveal">
+      <img src="assets/solar-field-inspection.webp" alt="" loading="lazy">
+      <div class="industry-marker"><span class="industry-num" dir="ltr">03</span></div>
+      <div class="industry-caption">
+        <h3>אנרגיה סולארית</h3>
+        <p>בדיקות שטח, תיעוד ומעקב ליקויים במתקני אנרגיה מתחדשת.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -1457,13 +1676,23 @@ function bi(name, tone) { return '<span class="bi bi-' + (tone||'gold') + '">' +
     </picture>
   </div>
   <div class="cta-content">
-    <p class="cta-tag">מוכנים להתחיל?</p>
-    <h2 class="cta-title">התחילו לנהל ליקויים בצורה חכמה יותר</h2>
-    <p class="cta-sub">חסכו שעות של עבודה ידנית, שפרו את השליטה בפרויקט ותיעדו כל ליקוי במקום אחד.</p>
-    <div class="cta-actions">
-      <a href="https://app.sitepunch.co.il" class="btn-gold-main">כניסה לאפליקציה</a>
-      <a href="mailto:office@sitepunch.co.il" class="btn-outline-gold">יצירת קשר</a>
+    <div class="cta-main">
+      <p class="cta-tag">מוכנים להתחיל?</p>
+      <h2 class="cta-title">התחילו לנהל ליקויים בצורה חכמה יותר</h2>
+      <p class="cta-sub">חסכו שעות של עבודה ידנית, שפרו את השליטה בפרויקט ותיעדו כל ליקוי במקום אחד.</p>
+      <div class="cta-actions">
+        <a href="https://app.sitepunch.co.il" class="btn-gold-main">כניסה לאפליקציה</a>
+      </div>
     </div>
+    <aside class="cta-contact" aria-labelledby="ctaContactTitle">
+      <div class="cta-contact-label" id="ctaContactLabel">התאמה / הטמעה</div>
+      <h3 id="ctaContactTitle">צריכים התאמה לארגון או עזרה בהטמעה?</h3>
+      <p id="ctaContactText">נבדוק יחד את מבנה הפרויקטים, הצוותים והדוחות ונעזור לכם להתחיל נכון.</p>
+      <div class="cta-contact-actions">
+        <button type="button" class="cta-contact-chat" id="ctaContactChat" data-chat-trigger onclick="toggleChat()">דברו איתנו</button>
+        <a class="cta-contact-email" href="mailto:office@sitepunch.co.il">office@sitepunch.co.il</a>
+      </div>
+    </aside>
   </div>
 </section>
 
@@ -1496,19 +1725,22 @@ function bi(name, tone) { return '<span class="bi bi-' + (tone||'gold') + '">' +
   </div>
 </div>
 
-<!-- ACCESSIBILITY WIDGET -->
-<a class="wa-float" href="https://wa.me/972544532796?text=%D7%94%D7%99%D7%99%2C%20%D7%99%D7%A9%20%D7%9C%D7%99%20%D7%A9%D7%90%D7%9C%D7%94%20%D7%A2%D7%9C%20SitePunch" target="_blank" rel="noopener noreferrer" title="דברו איתנו בוואטסאפ" aria-label="דברו איתנו בוואטסאפ" style="position:fixed;bottom:88px;left:24px;z-index:1000;width:52px;height:52px;border-radius:50%;background:#25D366;box-shadow:0 4px 20px rgba(37,211,102,0.5);display:flex;align-items:center;justify-content:center;transition:transform .2s;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'">
-<svg viewBox="0 0 32 32" width="28" height="28" fill="#fff" aria-hidden="true"><path d="M16.04 4C9.9 4 4.92 8.98 4.92 15.12c0 2.13.6 4.12 1.63 5.82L4 28l7.24-2.5a11.06 11.06 0 0 0 4.8 1.1h.01c6.14 0 11.12-4.98 11.12-11.12S22.18 4 16.04 4zm0 20.3h-.01c-1.5 0-2.97-.4-4.25-1.16l-.3-.18-4.3 1.48 1.44-4.19-.2-.32a9.2 9.2 0 0 1-1.4-4.9c0-5.1 4.15-9.24 9.26-9.24 2.47 0 4.8.96 6.54 2.71a9.2 9.2 0 0 1 2.71 6.55c0 5.1-4.15 9.25-9.25 9.25zm5.08-6.93c-.28-.14-1.65-.81-1.9-.9-.26-.1-.44-.14-.63.14-.18.28-.72.9-.88 1.08-.16.18-.32.2-.6.07-.28-.14-1.18-.44-2.24-1.38-.83-.74-1.39-1.65-1.55-1.93-.16-.28-.02-.43.12-.57.13-.13.28-.32.42-.48.14-.16.18-.28.28-.46.09-.18.05-.35-.02-.49-.07-.14-.63-1.51-.86-2.07-.23-.55-.46-.47-.63-.48l-.54-.01c-.18 0-.49.07-.75.35-.26.28-.98.96-.98 2.33s1 2.7 1.15 2.89c.14.18 1.97 3.01 4.78 4.22.67.29 1.19.46 1.6.59.67.21 1.28.18 1.76.11.54-.08 1.65-.67 1.88-1.32.23-.65.23-1.2.16-1.32-.07-.12-.26-.19-.54-.33z"/></svg>
+<!-- FLOATING SUPPORT ACTIONS -->
+<a class="wa-float" href="https://wa.me/972544532796?text=%D7%94%D7%99%D7%99%2C%20%D7%99%D7%A9%20%D7%9C%D7%99%20%D7%A9%D7%90%D7%9C%D7%94%20%D7%A2%D7%9C%20SitePunch" target="_blank" rel="noopener noreferrer" title="דברו איתנו בוואטסאפ" aria-label="דברו איתנו בוואטסאפ">
+  <svg viewBox="0 0 32 32" width="28" height="28" fill="currentColor" aria-hidden="true"><path d="M16.04 4C9.9 4 4.92 8.98 4.92 15.12c0 2.13.6 4.12 1.63 5.82L4 28l7.24-2.5a11.06 11.06 0 0 0 4.8 1.1h.01c6.14 0 11.12-4.98 11.12-11.12S22.18 4 16.04 4zm0 20.3h-.01c-1.5 0-2.97-.4-4.25-1.16l-.3-.18-4.3 1.48 1.44-4.19-.2-.32a9.2 9.2 0 0 1-1.4-4.9c0-5.1 4.15-9.24 9.26-9.24 2.47 0 4.8.96 6.54 2.71a9.2 9.2 0 0 1 2.71 6.55c0 5.1-4.15 9.25-9.25 9.25zm5.08-6.93c-.28-.14-1.65-.81-1.9-.9-.26-.1-.44-.14-.63.14-.18.28-.72.9-.88 1.08-.16.18-.32.2-.6.07-.28-.14-1.18-.44-2.24-1.38-.83-.74-1.39-1.65-1.55-1.93-.16-.28-.02-.43.12-.57.13-.13.28-.32.42-.48.14-.16.18-.28.28-.46.09-.18.05-.35-.02-.49-.07-.14-.63-1.51-.86-2.07-.23-.55-.46-.47-.63-.48l-.54-.01c-.18 0-.49.07-.75.35-.26.28-.98.96-.98 2.33s1 2.7 1.15 2.89c.14.18 1.97 3.01 4.78 4.22.67.29 1.19.46 1.6.59.67.21 1.28.18 1.76.11.54-.08 1.65-.67 1.88-1.32.23-.65.23-1.2.16-1.32-.07-.12-.26-.19-.54-.33z"/></svg>
 </a>
-<!-- CHAT BUBBLE -->
-<button class="chat-fab" id="chatFab" onclick="toggleChat()" title="יש שאלה?" aria-label="פתח צ'אט תמיכה"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg><span id="chatFabLabel">יש שאלה?</span></button>
+<button class="chat-fab" id="chatFab" onclick="toggleChat()" title="שאלו את SitePunch AI" aria-label="פתח צ'אט עם סוכן AI"><span class="chat-fab-ai">AI</span><span class="chat-fab-sub">CHAT</span></button>
 <div class="chat-panel" id="chatPanel" role="dialog" aria-label="צ'אט תמיכה">
   <div class="chat-ph">
     <span class="chat-ph-title"><span class="bi bi-gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg></span> <span id="chatPhTitle">עזרה</span></span>
     <button class="chat-ph-close" onclick="toggleChat()" aria-label="סגור"><span class="bi bi-neutral"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span></button>
   </div>
+  <a class="chat-wa-row" href="https://wa.me/972544532796?text=%D7%94%D7%99%D7%99%2C%20%D7%99%D7%A9%20%D7%9C%D7%99%20%D7%A9%D7%90%D7%9C%D7%94%20%D7%A2%D7%9C%20SitePunch" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 32 32" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M16.04 4C9.9 4 4.92 8.98 4.92 15.12c0 2.13.6 4.12 1.63 5.82L4 28l7.24-2.5a11.06 11.06 0 0 0 4.8 1.1h.01c6.14 0 11.12-4.98 11.12-11.12S22.18 4 16.04 4zm0 20.3h-.01c-1.5 0-2.97-.4-4.25-1.16l-.3-.18-4.3 1.48 1.44-4.19-.2-.32a9.2 9.2 0 0 1-1.4-4.9c0-5.1 4.15-9.24 9.26-9.24 2.47 0 4.8.96 6.54 2.71a9.2 9.2 0 0 1 2.71 6.55c0 5.1-4.15 9.25-9.25 9.25zm5.08-6.93c-.28-.14-1.65-.81-1.9-.9-.26-.1-.44-.14-.63.14-.18.28-.72.9-.88 1.08-.16.18-.32.2-.6.07-.28-.14-1.18-.44-2.24-1.38-.83-.74-1.39-1.65-1.55-1.93-.16-.28-.02-.43.12-.57.13-.13.28-.32.42-.48.14-.16.18-.28.28-.46.09-.18.05-.35-.02-.49-.07-.14-.63-1.51-.86-2.07-.23-.55-.46-.47-.63-.48l-.54-.01c-.18 0-.49.07-.75.35-.26.28-.98.96-.98 2.33s1 2.7 1.15 2.89c.14.18 1.97 3.01 4.78 4.22.67.29 1.19.46 1.6.59.67.21 1.28.18 1.76.11.54-.08 1.65-.67 1.88-1.32.23-.65.23-1.2.16-1.32-.07-.12-.26-.19-.54-.33z"/></svg>
+    <span id="chatWaLabel">או דברו איתנו בוואטסאפ</span>
+  </a>
   <div class="chat-messages" id="chatMessages">
-    <div class="chat-msg bot" id="chatGreeting">היי! 👋 יש לכם שאלה על SitePunch — תמחור, פיצ'רים, הטמעה? אני כאן לעזור.</div>
+    <div class="chat-msg bot" id="chatGreeting">היי! יש לכם שאלה על SitePunch — תמחור, פיצ'רים, הטמעה? אני כאן לעזור.</div>
   </div>
   <div class="chat-suggest-row" id="chatSuggestRow">
     <button class="chat-suggest-btn" onclick="askChatSuggestion(this)">כמה זה עולה?</button>
@@ -1628,7 +1860,7 @@ function bi(name, tone) { return '<span class="bi bi-' + (tone||'gold') + '">' +
       <div class="feat-static" id="featStatic">
         <div class="fi-icon bi-gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></div>
         <h3>יצירת ליקויים מהשטח</h3>
-        <p>פותחים ליקוי תוך 10 שניות: תמונה, מיקום, קטגוריה — ומוקצה לאחראי. גם בלי אינטרנט.</p>
+        <p>פותחים ליקוי ישירות מהשטח: תמונה, מיקום וקטגוריה — ומקצים לאחראי. גם בלי אינטרנט.</p>
       </div>
       <div class="ai-section">
         <div class="ai-section-header" id="aiSectionHeader">יש שאלה על הפיצ'ר?</div>
@@ -1753,26 +1985,11 @@ function bi(name, tone) { return '<span class="bi bi-' + (tone||'gold') + '">' +
   revealEls.forEach(el => observer.observe(el));
 })();
 
-(function() {
-  const items = document.querySelectorAll('.feature-item');
-  const icon  = document.getElementById('fvIcon');
-  const label = document.getElementById('fvLabel');
-  const desc  = document.getElementById('fvDesc');
-  items.forEach(item => {
-    item.addEventListener('click', () => {
-      items.forEach(i => i.classList.remove('active'));
-      item.classList.add('active');
-      icon.innerHTML    = ICON_SVG[item.dataset.icon] || '';
-      label.textContent = item.dataset.label;
-      desc.textContent  = item.dataset.desc;
-    });
-  });
-})();
 </script>
 
 <script>
 const FEATURES = [
-  { icon: 'camera', name: 'יצירת ליקויים מהשטח', desc: 'פותחים ליקוי תוך 10 שניות: תמונה, מיקום, קטגוריה — ומוקצה לאחראי. גם בלי אינטרנט.' },
+  { icon: 'camera', name: 'יצירת ליקויים מהשטח', desc: 'פותחים ליקוי ישירות מהשטח: תמונה, מיקום וקטגוריה — ומקצים לאחראי. גם בלי אינטרנט.' },
   { icon: 'chart', name: 'דשבורד מנהל בזמן אמת', desc: 'ראו אחוזי סגירה, ליקויים פתוחים לפי קבלן, ומגמות — ממבט אחד. ללא Excel.' },
   { icon: 'file', name: 'PDF אוטומטי עם לוגו', desc: 'לוגו הלקוח + הקבלן, כל הליקויים, תמונות, תאריכים — דוח מקצועי שנשלח ישירות.' },
   { icon: 'users', name: 'הרשאות לפי תפקיד', desc: 'מפקח רואה הכל. עובד שטח רואה רק מה שרלוונטי אליו. כל תפקיד מקבל בדיוק מה שצריך.' },
@@ -1959,7 +2176,7 @@ const KB = [
   { keys: ['שפה','שפות','עברית','ערבית','רוסית','ערבי','רוסי','עובד זר','לועזי','תרגום'],
     ans: '🌍 SitePunch תומכת ב-<b>עברית, ערבית, רוסית ואנגלית</b> — כולל ממשק RTL מלא לערבית. כל עובד רואה את המערכת בשפתו שלו.' },
   { keys: ['תמונה','תמונות','מצלמה','תיעוד','לצלם','צילום','קובץ','מדיה'],
-    ans: '📸 פותחים ליקוי ב-10 שניות: מצלמים ישירות מהאפליקציה, בוחרים קטגוריה ומיקום, מקצים לאחראי — ומוכן. התמונות נשמרות בענן ומופיעות אוטומטית בדוח ה-PDF.' },
+    ans: '📸 פותחים ליקוי ישירות מהאפליקציה: מצלמים, בוחרים קטגוריה ומיקום ומקצים לאחראי. התמונות נשמרות בענן ומופיעות אוטומטית בדוח ה-PDF.' },
   { keys: ['pdf','דוח','דוחות','ייצוא','להוציא','לשלוח','לקוח','מסמך','excel'],
     ans: '📄 דוח PDF מקצועי נוצר בלחיצה אחת: לוגו הפרויקט, כל הליקויים עם תמונות, תאריכים, סטטוסים ואחראים — מוכן לשליחה ללקוח.' },
   { keys: ['הרשאה','הרשאות','תפקיד','מנהל','פועל','עובד','גישה','מפקח','קבלן','כמה משתמשים'],
@@ -2005,7 +2222,7 @@ const KB = [
   { keys: ['מה זה','מהו','punch list','פאנץ','ליקוי','הסבר','למתחיל'],
     ans: '🏗️ Punch List הוא רשימת ליקויים שנמצאו בפרויקט בנייה לפני מסירה ללקוח. SitePunch הופכת את הרשימה הזאת מ-Excel/WhatsApp לכלי דיגיטלי מסודר.' },
   { keys: ['זמן','חוסך','יעיל','מהירות','כמה חוסכים','שעות'],
-    ans: '⏱️ לקוחות מדווחים על חיסכון של <b>3–6 שעות בשבוע</b> לכל מנהל פרויקט — בעיקר על ניהול וואטסאפ, הכנת דוחות ומעקב ידני.' },
+    ans: '⏱️ SitePunch מרכזת תיעוד, הקצאת אחריות, מעקב והפקת דוחות במקום עבודה מפוזרת בוואטסאפ, Excel ומייל — כך הצוות מצמצם עבודה ידנית וכפילויות.' },
   { keys: ['לפני','אחרי','תיעוד לפני','before','after','תמונה לפני'],
     ans: '📷 כל ליקוי מתועד עם תמונת "לפני" בפתיחה ותמונת "אחרי" בסגירה — הוכחה חזותית שהבעיה טופלה. שתי התמונות מופיעות ב-PDF.' },
   { keys: ['qr','קיואר','קוד','barcode','סריקה'],
@@ -2379,9 +2596,9 @@ function setContrast(mode) {
   document.getElementById(map[mode]).classList.add('active');
   const filters = {
     normal: '',
-    high:   'nav,#hero,.stats-strip,section,footer{filter:contrast(1.6) brightness(1.1);}',
-    light:  'nav,#hero,.stats-strip,section,footer{filter:brightness(1.4) contrast(0.9);}',
-    dark:   'nav,#hero,.stats-strip,section,footer{filter:brightness(0.7) contrast(1.2);}'
+    high:   'nav,#hero,section,footer{filter:contrast(1.6) brightness(1.1);}',
+    light:  'nav,#hero,section,footer{filter:brightness(1.4) contrast(0.9);}',
+    dark:   'nav,#hero,section,footer{filter:brightness(0.7) contrast(1.2);}'
   };
   injectStyle('a11y-contrast-style', filters[mode]);
 }
@@ -2389,7 +2606,7 @@ function setContrast(mode) {
 function toggleBW() {
   bwMode = !bwMode;
   document.getElementById('swBW').classList.toggle('on', bwMode);
-  injectStyle('a11y-bw-style', bwMode ? 'nav,#hero,.stats-strip,section,footer{filter:grayscale(1);}' : '');
+  injectStyle('a11y-bw-style', bwMode ? 'nav,#hero,section,footer{filter:grayscale(1);}' : '');
 }
 
 function toggleUnderline() {
@@ -2522,9 +2739,18 @@ document.addEventListener('click', function(e) {
     a11yOpen = false;
     document.getElementById('a11yPanel').classList.remove('open');
   }
-  if (chatOpen && !e.target.closest('.chat-panel') && !e.target.closest('.chat-fab')) {
+  if (chatOpen && !e.target.closest('.chat-panel') && !e.target.closest('.chat-fab') && !e.target.closest('.nav-help') && !e.target.closest('[data-chat-trigger]')) {
     toggleChat();
   }
+  const navResources = document.querySelector('.nav-resources');
+  if (navResources?.open && !navResources.contains(e.target)) navResources.removeAttribute('open');
+});
+document.addEventListener('keydown', function(e) {
+  if (e.key !== 'Escape') return;
+  const navResources = document.querySelector('.nav-resources');
+  if (!navResources?.open) return;
+  navResources.removeAttribute('open');
+  navResources.querySelector('summary')?.focus();
 });
 </script>
 
@@ -2533,23 +2759,29 @@ document.addEventListener('click', function(e) {
 const TRANSLATIONS = {
   he: {
     dir: 'rtl', lang: 'he',
-    navLinks: ["למי מיועד","האתגרים","פיצ'רים","איך זה עובד","מחירים"],
-    navAccount: "אזור מנויים", navApp: "כניסה לאפליקציה",
+    navLinks: ["למי מיועד","יכולות","תהליך העבודה","ענפים","מחירים"],
+    navAccount: "אזור מנויים", navApp: "כניסה לאפליקציה", navResources:"מידע", navInstall:"התקנה בנייד", navGuide:"מדריך משתמש", navTalk:"דברו איתנו",
     heroEyebrow: "מערכת ניהול ליקויים לאתרי בנייה",
     heroTitle: "פנצ' ליסט שמנהל<br>את האתר <span class=\"gold\">בשבילך</span>",
     heroSub: "תעדו ליקויים מהשטח, הקצו אחריות לקבלנים, עקבו אחרי טיפול והפיקו דוחות מקצועיים — הכל ממערכת אחת.",
     heroChecks: ["תיעוד עם תמונות","מעקב בזמן אמת","דוחות PDF מקצועיים","עברית | ערבית | רוסית | אנגלית","מותאם למנהלי פרויקטים וקבלנים"],
     heroCta1: "כניסה לאפליקציה", heroCta2: "צפו במחירים",
+    proofLabel:"הוכחת מוצר", proofTitle:"כל תמונה מהשטח הופכת לליקוי מנוהל — עם אחראי, סטטוס והיסטוריה מלאה.", proofCaption:"מסך אמיתי מהאפליקציה — סימון ליקוי מהטלפון",
+    industriesTag:"מעבר לבנייה", industriesTitle:"נבנה לשטח — מבנייה ועד תעשייה ואנרגיה",
+    industries:[["בנייה","ניהול ליקויים באתרי בנייה ומסירה — מהיסודות ועד המסירה הסופית."],["תעשייה פטרוכימית","תיעוד ומעקב תקלות בשטחי מפעל ומתקני תשתית תעשייתיים."],["אנרגיה סולארית","בדיקות שטח, תיעוד ומעקב ליקויים במתקני אנרגיה מתחדשת."]],
+    operatingProofTag:"מוכן לעבודה אמיתית", operatingProofTitle:"תשתית תפעולית לשטח — לא עוד רשימת משימות.", operatingProofIntro:"המידע נשאר נגיש, מתועד וברור גם כשהצוות מפוזר בין קומות, קבלנים ושפות שונות.",
+    operatingProofItems:[["עובד גם בלי קליטה","פותחים ליקוי, מצלמים ומעדכנים מהשטח; הנתונים מסתנכרנים כשהחיבור חוזר."],["אחריות והיסטוריה","לכל ליקוי יש אחראי, סטטוס ותיעוד של השינויים עד לסגירה."],["דוחות למסירה","PDF מקצועי לצד CSV ו־Excel, עם תמונות, פילטרים ונתוני הפרויקט."],["ארבע שפות","עברית, ערבית, רוסית ואנגלית — כדי שכל בעל תפקיד יעבוד בשפה שלו."]],
     statLabels: ["תיעוד עם תמונות","הקצאת אחריות","מעקב סטטוס","דוחות PDF"],
     rolesTag:"למי מיועד SitePunch", rolesTitle:"נבנה במיוחד עבור אנשי הביצוע והפיקוח", rolesSub:"כל הגורמים המעורבים בפרויקט עובדים מול אותה מערכת ומקבלים תמונת מצב מלאה בזמן אמת.",
-    roleCards:[["מפקחי איכות","עוברים על רשימת ליקויים, מאשרים טיפול, מחזירים לפתיחה אם הביצוע לא מספק — עם הערות ותמונה. כל היסטוריית הליקוי שמורה עד הסגירה הסופית."],["מנהלי פרויקטים","רואים תמונת מצב עדכנית של כל הליקויים בכל הפרויקטים — אחוזי סגירה, ימים פתוחים, ליקויים בסיכון. דוח PDF לפגישה בלחיצה אחת."],["מנהלי עבודה","פותחים ליקוי מהטלפון תוך 10 שניות — צילום, קטגוריה, מיקום — ומוקצה ישירות לקבלן הרלוונטי. הכל מתועד אוטומטית."],["קבלנים","מקבלים רשימת ליקויים פתוחים שמוקצים אליהם בלבד, בשפתם. מצלמים תמונת 'אחרי' לאישור ביצוע — ומנהל העבודה מקבל התראה מיידית."],["חברות פיקוח","מנהלות מספר פרויקטים מקביליים ממקום אחד. דוחות מקצועיים ללקוחות, ניהול צוות פיקוח מלא והרשאות לפי תפקיד."],["יזמים","שקיפות מלאה על מצב הפרויקט בכל רגע. הנתונים מוצגים בצורה ברורה — כמה ליקויים פתוחים, כמה סגורים, מה בסיכון."]],
-    problemsTag:"האתגרים", problemsTitle:"הפסיקו לרדוף אחרי ליקויים באקסלים, וואטסאפ ומיילים", problemsSub:"מנהל פרויקט ממוצע מבזבז 4–6 שעות בשבוע על מעקב ידני, הכנת דוחות ותיאומים — שכולם יכולים להיות אוטומטיים.",
-    problemCards:[["ליקויים שנשכחים","ללא מעקב מסודר קשה לדעת מה טופל ומה עדיין פתוח. ליקוי שנשכח = פגם שמגיע למסירה ועולה פי עשרה לתיקון."],["חוסר אחריות","לא תמיד ברור מי אחראי לטיפול בכל ליקוי. SitePunch מקצה אחראי לכל ליקוי ומתריעה כשהוא לא נסגר בזמן."],["ריבוי גרסאות","קבצים, תמונות והודעות מפוזרים בין עשרות צ'אטים ומייל. אי אפשר לחפש לפי פרויקט ואין שום דרך לדעת מה עדכני."],["מסירות שמתעכבות","ליקויים פתוחים גורמים לעיכובים מיותרים במסירת הפרויקט. עלות כל שבוע עיכוי עלולה להגיע לעשרות אלפי שקלים."]],
+    roleCards:[["מפקחי איכות","עוברים על רשימת ליקויים, מאשרים טיפול, מחזירים לפתיחה אם הביצוע לא מספק — עם הערות ותמונה. כל היסטוריית הליקוי שמורה עד הסגירה הסופית."],["מנהלי פרויקטים","רואים תמונת מצב עדכנית של כל הליקויים בכל הפרויקטים — אחוזי סגירה, ימים פתוחים, ליקויים בסיכון. דוח PDF לפגישה בלחיצה אחת."],["מנהלי עבודה","פותחים ליקוי ישירות מהטלפון — צילום, קטגוריה ומיקום — ומקצים אותו מיד לקבלן הרלוונטי. הכל נשאר מתועד."],["קבלנים","מקבלים רשימת ליקויים פתוחים שמוקצים אליהם בלבד, בשפתם. מצלמים תמונת 'אחרי' לאישור ביצוע — ומנהל העבודה מקבל התראה מיידית."],["חברות פיקוח","מנהלות מספר פרויקטים מקביליים ממקום אחד. דוחות מקצועיים ללקוחות, ניהול צוות פיקוח מלא והרשאות לפי תפקיד."],["יזמים","שקיפות מלאה על מצב הפרויקט בכל רגע. הנתונים מוצגים בצורה ברורה — כמה ליקויים פתוחים, כמה סגורים, מה בסיכון."]],
+    problemsTag:"האתגרים", problemsTitle:"הפסיקו לרדוף אחרי ליקויים באקסלים, וואטסאפ ומיילים", problemsSub:"מעקב ידני, הכנת דוחות ותיאומים מפוזרים גוזלים זמן ומסתירים את תמונת המצב — SitePunch מרכזת אותם לזרימת עבודה אחת.",
+    problemCards:[["ליקויים שנשכחים","ללא מעקב מסודר קשה לדעת מה טופל ומה עדיין פתוח. ליקוי שנשכח עלול להגיע עד למסירה בלי בעלים ובלי תיעוד טיפול."],["חוסר אחריות","לא תמיד ברור מי אחראי לטיפול בכל ליקוי. SitePunch מקצה אחראי לכל ליקוי ומתריעה כשהוא לא נסגר בזמן."],["ריבוי גרסאות","קבצים, תמונות והודעות מפוזרים בין עשרות צ'אטים ומייל. אי אפשר לחפש לפי פרויקט ואין שום דרך לדעת מה עדכני."],["מסירות שמתעכבות","ליקויים פתוחים שלא מנוהלים בזמן יוצרים עומס לקראת המסירה ומקשים להבין מה באמת מוכן ומה עדיין מעכב."]],
     featTag:"פיצ'רים", featTitle:"כל מה שצריך לניהול ליקויים במקום אחד", featSub:"כל פיצ'ר נבנה אחרי שיחות עם קבלנים ומהנדסים שעובדים בשטח ביום-יום.",
-    featureItems:[["יצירת ליקויים מהשטח","פותחים ליקוי תוך 10 שניות: תמונה, מיקום, קטגוריה — ומוקצה לאחראי. גם בלי אינטרנט."],["צילום תמונות ישירות מהטלפון","מצלמים לפני ואחרי הטיפול — הכל נשמר בענן ומופיע אוטומטית בדוח ה-PDF."],["שיוך לאחריות קבלנים","כל ליקוי מוקצה לאחראי ספציפי. המערכת עוקבת ומתריעה כשהוא לא נסגר בזמן."],["מעקב סטטוסים ודשבורד","ראו אחוזי סגירה, ליקויים פתוחים לפי קבלן, ומגמות — ממבט אחד. ללא Excel."],["דוחות PDF מקצועיים","לוגו הפרויקט, כל הליקויים, תמונות, תאריכים — דוח מקצועי שנוצר בלחיצה אחת ונשלח ישירות."],["תמיכה במספר שפות","עברית, ערבית, רוסית ואנגלית — כל עובד עובד בשפתו שלו."]],
+    featureItems:[["יצירת ליקויים מהשטח","פותחים ליקוי ישירות מהשטח: תמונה, מיקום וקטגוריה — ומקצים לאחראי. גם בלי אינטרנט."],["צילום תמונות ישירות מהטלפון","מצלמים לפני ואחרי הטיפול — הכל נשמר בענן ומופיע אוטומטית בדוח ה-PDF."],["שיוך לאחריות קבלנים","כל ליקוי מוקצה לאחראי ספציפי. המערכת עוקבת ומתריעה כשהוא לא נסגר בזמן."],["מעקב סטטוסים ודשבורד","ראו אחוזי סגירה, ליקויים פתוחים לפי קבלן, ומגמות — ממבט אחד. ללא Excel."],["דוחות PDF מקצועיים","לוגו הפרויקט, כל הליקויים, תמונות, תאריכים — דוח מקצועי שנוצר בלחיצה אחת ונשלח ישירות."],["תמיכה במספר שפות","עברית, ערבית, רוסית ואנגלית — כל עובד עובד בשפתו שלו."]],
     langTag:"שפות", langTitle:"מתאים לצוותים רב-לשוניים", langSub:"SitePunch תומכת בעברית, ערבית, רוסית ואנגלית — כדי שכל בעלי התפקידים באתר יוכלו לעבוד בשפה הנוחה להם.",
+    languageCards:[["עברית","עברית","ממשק RTL מלא, מונחים מקצועיים מהתעשייה הישראלית ותמיכה בכל גדלי המסך."],["ערבית","عربي","ממשק ערבי מלא RTL לעובדי שטח, עם מונחי בנייה ברורים."],["רוסית","Русский","ממשק מלא לעובדים דוברי רוסית, עם כיוון, מונחים ופעולות המותאמים לעבודה בשטח."],["אנגלית","English","ממשק אנגלי מלא לצוותים בינלאומיים ולמנהלי פרויקטים העובדים בין מדינות."]],
     howTag:"איך זה עובד", howTitle:"מוכן לעבודה תוך דקות",
-    howSteps:[["פותחים ליקוי","מצלמים ומזינים פרטים — קטגוריה, מיקום ואחראי. תוך 10 שניות."],["מקצים אחריות","משייכים לקבלן או לגורם המטפל. הוא מקבל התראה מיידית בשפתו."],["עוקבים אחר טיפול","מנהלים סטטוסים והתקדמות. ליקוי שלא נסגר — מתריעים אוטומטית."],["סוגרים ומפיקים דוחות","הכל מתועד ומוכן למסירה. דוח PDF מקצועי בלחיצה אחת."]],
+    howSteps:[["פותחים ליקוי","מצלמים ומזינים פרטים — קטגוריה, מיקום ואחראי — ישירות מהטלפון."],["מקצים אחריות","משייכים לקבלן או לגורם המטפל. הוא מקבל התראה מיידית בשפתו."],["עוקבים אחר טיפול","מנהלים סטטוסים והתקדמות. ליקוי שלא נסגר — מתריעים אוטומטית."],["סוגרים ומפיקים דוחות","הכל מתועד ומוכן למסירה. דוח PDF מקצועי בלחיצה אחת."]],
     pricingTag:"מחירים", pricingTitle:"שקוף, פשוט, ללא הפתעות", pricingSub:"התחילו בחינם ושדרגו כשאתם גדלים. ללא כרטיס אשראי, ללא התחייבות.",
     billingMonthly:"חיוב חודשי", billingAnnual:"שנתי", billingSave:"חסכו 20%",
     freeBadge:"חינמי לצמיתות", freeName:"Free", freeDesc:"להכיר את המערכת — ללא כרטיס אשראי", freeOnboard:"✓ הרשמה עצמאית — מיידי", freeCta:"הרשמו חינם",
@@ -2564,13 +2796,13 @@ const TRANSLATIONS = {
     extrasTitle:"הוסיפו לחבילה שלכם — אקסטרות",
     extrasCards:[["+ 10 פרויקטים","Pro ומעלה · לחודש","₪79","פרטים →"],["+ 25 פרויקטים","Pro ומעלה · לחודש","₪149","פרטים →"],["+ 10 משתמשים","כל חבילה · לחודש","₪59","פרטים →"],["+ 50 משתמשים","Enterprise · לחודש","₪199","פרטים →"]],
     ctaTag:"מוכנים להתחיל?", ctaTitle:"התחילו לנהל ליקויים בצורה חכמה יותר", ctaSub:"חסכו שעות של עבודה ידנית, שפרו את השליטה בפרויקט ותיעדו כל ליקוי במקום אחד.",
-    ctaBtn1:"כניסה לאפליקציה", ctaBtn2:"יצירת קשר",
+    ctaBtn1:"כניסה לאפליקציה", ctaBtn2:"יצירת קשר", ctaContactLabel:"התאמה / הטמעה", ctaContactTitle:"צריכים התאמה לארגון או עזרה בהטמעה?", ctaContactText:"נבדוק יחד את מבנה הפרויקטים, הצוותים והדוחות ונעזור לכם להתחיל נכון.", ctaContactChat:"דברו איתנו",
     footerTagline:"בנוי לשוק הבנייה הישראלי 🇮🇱", footerCopy:"© 2026 SitePunch · כל הזכויות שמורות",
     footerLinks:["תנאי שימוש","מדיניות פרטיות","הצהרת נגישות","יצירת קשר"],
     a11yLangLabel:"שפת הדף / Page Language",
     chat: {
-      fabLabel:"יש שאלה?", panelTitle:"עזרה",
-      greeting:"היי! 👋 יש לכם שאלה על SitePunch — תמחור, פיצ'רים, הטמעה? אני כאן לעזור.",
+      fabLabel:"יש שאלה?", panelTitle:"עזרה", waLabel:"או דברו איתנו בוואטסאפ",
+      greeting:"היי! יש לכם שאלה על SitePunch — תמחור, פיצ'רים, הטמעה? אני כאן לעזור.",
       suggestions:["כמה זה עולה?","עובד בלי אינטרנט?","איך מתחילים?"],
       inputPlaceholder:"הקלידו שאלה...",
       featAiHeader:"יש שאלה על הפיצ'ר?", featAiPlaceholder:"שאלו משהו על הפיצ'ר...",
@@ -2580,23 +2812,29 @@ const TRANSLATIONS = {
   },
   en: {
     dir: 'ltr', lang: 'en',
-    navLinks: ["Who It's For","Challenges","Features","How It Works","Pricing"],
-    navAccount: "My Account", navApp: "Open the App",
+    navLinks: ["Who It's For","Capabilities","Workflow","Industries","Pricing"],
+    navAccount: "My Account", navApp: "Open the App", navResources:"Resources", navInstall:"Install on Mobile", navGuide:"User Guide", navTalk:"Talk to Us",
     heroEyebrow: "Punch List Management for Construction Sites",
     heroTitle: "The punch list that manages<br>the site <span class=\"gold\">for you</span>",
     heroSub: "Document defects on-site, assign responsibility to contractors, track progress and generate professional reports — all from one system.",
     heroChecks: ["Photo documentation","Real-time tracking","Professional PDF reports","Hebrew | Arabic | Russian | English","Built for project managers & contractors"],
     heroCta1: "Open the App", heroCta2: "View Pricing",
+    proofLabel:"PRODUCT PROOF", proofTitle:"Every field photo becomes a managed punch — with an owner, status and complete history.", proofCaption:"A real app screen — marking a punch from the phone",
+    industriesTag:"BEYOND CONSTRUCTION", industriesTitle:"Built for the field — from construction to industry and energy",
+    industries:[["Construction","Punch-list management for active construction and handover sites."],["Petrochemical industry","Documenting and tracking issues across plants and industrial infrastructure."],["Solar energy","Field inspection, documentation and issue tracking for renewable-energy facilities."]],
+    operatingProofTag:"READY FOR REAL OPERATIONS", operatingProofTitle:"Field infrastructure — not another task list.", operatingProofIntro:"Information stays available, documented and clear while teams move across floors, contractors and languages.",
+    operatingProofItems:[["Works without reception","Create punches, take photos and update from the field; data syncs when connectivity returns."],["Ownership and history","Every punch has an owner, status and recorded change history through closure."],["Handover reports","Professional PDF alongside CSV and Excel, with photos, filters and project data."],["Four languages","Hebrew, Arabic, Russian and English — so every role can work in its own language."]],
     statLabels: ["Photo documentation","Assigned responsibility","Status tracking","PDF reports"],
     rolesTag:"WHO IT'S FOR", rolesTitle:"Built for field teams and supervisors", rolesSub:"Every stakeholder on the project works with the same system and gets a complete real-time picture.",
-    roleCards:[["Quality Inspectors","Review the defect list, approve fixes, reopen if execution is unsatisfactory — with notes and photos. The full defect history is saved until final closure."],["Project Managers","See an up-to-date picture of all defects across all projects — closure rates, open days, at-risk defects. PDF report for meetings in one click."],["Site Managers","Open a defect from the phone in 10 seconds — photo, category, location — assigned directly to the relevant contractor. Everything documented automatically."],["Contractors","Receive only the defects assigned to them, in their language. Take an 'after' photo for approval — and the site manager gets an instant notification."],["Supervision Companies","Manage multiple parallel projects from one place. Professional reports for clients, full supervision team management and role-based permissions."],["Developers","Full transparency on project status at any moment. Data displayed clearly — how many defects are open, closed, or at risk."]],
-    problemsTag:"CHALLENGES", problemsTitle:"Stop chasing defects across spreadsheets, WhatsApp and email", problemsSub:"The average project manager wastes 4–6 hours a week on manual tracking, report preparation and coordination — all of which can be automated.",
-    problemCards:[["Forgotten Defects","Without organized tracking it's hard to know what's been handled. A forgotten defect = a flaw that reaches handover and costs ten times more to fix."],["No Accountability","It's not always clear who's responsible for each defect. SitePunch assigns a responsible party to every defect and alerts when it's not closed on time."],["Version Chaos","Files, photos and messages scattered across dozens of chats and emails. Can't search by project and no way to know what's current."],["Delayed Handovers","Open defects cause unnecessary delays in project handover. The cost of each week's delay can reach tens of thousands of shekels."]],
+    roleCards:[["Quality Inspectors","Review the defect list, approve fixes, reopen if execution is unsatisfactory — with notes and photos. The full defect history is saved until final closure."],["Project Managers","See an up-to-date picture of all defects across all projects — closure rates, open days, at-risk defects. PDF report for meetings in one click."],["Site Managers","Open a defect directly from the phone — photo, category and location — then assign it to the relevant contractor. Everything stays documented."],["Contractors","Receive only the defects assigned to them, in their language. Take an 'after' photo for approval — and the site manager gets an instant notification."],["Supervision Companies","Manage multiple parallel projects from one place. Professional reports for clients, full supervision team management and role-based permissions."],["Developers","Full transparency on project status at any moment. Data displayed clearly — how many defects are open, closed, or at risk."]],
+    problemsTag:"CHALLENGES", problemsTitle:"Stop chasing defects across spreadsheets, WhatsApp and email", problemsSub:"Manual tracking, report preparation and scattered coordination consume time and obscure the real picture — SitePunch brings them into one operational flow.",
+    problemCards:[["Forgotten Defects","Without organized tracking it's hard to know what's been handled. A forgotten defect can reach handover without an owner or a documented resolution."],["No Accountability","It's not always clear who's responsible for each defect. SitePunch assigns a responsible party to every defect and alerts when it's not closed on time."],["Version Chaos","Files, photos and messages scattered across dozens of chats and emails. Can't search by project and no way to know what's current."],["Delayed Handovers","Open defects that are not managed in time create pressure before handover and make it hard to see what is ready and what is still blocking progress."]],
     featTag:"FEATURES", featTitle:"Everything you need to manage defects in one place", featSub:"Every feature was built after conversations with contractors and engineers who work on site every day.",
-    featureItems:[["Creating Site Defects","Open a defect in 10 seconds: photo, location, category — assigned to the responsible party. Even without internet."],["Direct Photo from Phone","Capture before & after photos — everything saved in the cloud and appears automatically in the PDF report."],["Assign to Contractors","Every defect is assigned to a specific responsible party. The system tracks and alerts when it's not closed on time."],["Status Tracking & Dashboard","See closure rates, open defects per contractor, and trends — at a glance. No Excel."],["Professional PDF Reports","Project logo, all defects, photos, dates — a professional report generated in one click and sent directly."],["Multi-Language Support","Hebrew, Arabic, Russian and English — every worker works in their own language."]],
+    featureItems:[["Creating Site Defects","Open a defect directly from the field: photo, location and category — then assign it to the responsible party. Even without internet."],["Direct Photo from Phone","Capture before & after photos — everything saved in the cloud and appears automatically in the PDF report."],["Assign to Contractors","Every defect is assigned to a specific responsible party. The system tracks and alerts when it's not closed on time."],["Status Tracking & Dashboard","See closure rates, open defects per contractor, and trends — at a glance. No Excel."],["Professional PDF Reports","Project logo, all defects, photos, dates — a professional report generated in one click and sent directly."],["Multi-Language Support","Hebrew, Arabic, Russian and English — every worker works in their own language."]],
     langTag:"LANGUAGES", langTitle:"Built for multilingual teams", langSub:"SitePunch supports Hebrew, Arabic, Russian and English — so every person on site can work in their own language.",
+    languageCards:[["Hebrew","עברית","Full RTL interface with terminology used across the Israeli construction industry and support for every screen size."],["Arabic","عربي","Full RTL Arabic interface for field teams, with clear construction terminology."],["Russian","Русский","A complete Russian interface with direction, terminology and actions adapted to field work."],["English","English","A complete English interface for international teams and project managers working across borders."]],
     howTag:"HOW IT WORKS", howTitle:"Ready to use in minutes",
-    howSteps:[["Open a defect","Take a photo and fill in details — category, location, responsible party. In 10 seconds."],["Assign responsibility","Assign to a contractor or handler. They get an instant notification in their language."],["Track progress","Manage statuses and progress. A defect not closed on time triggers an automatic alert."],["Close & generate reports","Everything is documented and ready for handover. Professional PDF report in one click."]],
+    howSteps:[["Open a defect","Take a photo and enter the category, location and responsible party directly from the phone."],["Assign responsibility","Assign to a contractor or handler. They get an instant notification in their language."],["Track progress","Manage statuses and progress. A defect not closed on time triggers an automatic alert."],["Close & generate reports","Everything is documented and ready for handover. Professional PDF report in one click."]],
     pricingTag:"PRICING", pricingTitle:"Transparent, simple, no surprises", pricingSub:"Start free and upgrade as you grow. No credit card, no commitment.",
     billingMonthly:"Monthly billing", billingAnnual:"Annual", billingSave:"Save 20%",
     freeBadge:"Free forever", freeName:"Free", freeDesc:"Try the system — no credit card needed", freeOnboard:"✓ Self sign-up — instant", freeCta:"Sign up free",
@@ -2611,13 +2849,13 @@ const TRANSLATIONS = {
     extrasTitle:"Add to your plan — extras",
     extrasCards:[["+ 10 Projects","Pro & above · per month","₪79","Details →"],["+ 25 Projects","Pro & above · per month","₪149","Details →"],["+ 10 Users","Any plan · per month","₪59","Details →"],["+ 50 Users","Enterprise · per month","₪199","Details →"]],
     ctaTag:"Ready to start?", ctaTitle:"Start managing defects the smart way", ctaSub:"Save hours of manual work, improve project control and document every defect in one place.",
-    ctaBtn1:"Open the App", ctaBtn2:"Contact Us",
+    ctaBtn1:"Open the App", ctaBtn2:"Contact Us", ctaContactLabel:"PRE-SALE / IMPLEMENTATION", ctaContactTitle:"Need an organizational fit or implementation support?", ctaContactText:"We'll review your project structure, teams and reporting needs and help you start on the right foundation.", ctaContactChat:"Talk to Us",
     footerTagline:"Built for the Israeli construction market 🇮🇱", footerCopy:"© 2026 SitePunch · All rights reserved",
     footerLinks:["Terms of Use","Privacy Policy","Accessibility Statement","Contact Us"],
     a11yLangLabel:"Page Language / שפת הדף",
     chat: {
-      fabLabel:"Have a question?", panelTitle:"Help",
-      greeting:"Hi! 👋 Have a question about SitePunch — pricing, features, setup? I'm here to help.",
+      fabLabel:"Have a question?", panelTitle:"Help", waLabel:"Or message us on WhatsApp",
+      greeting:"Hi! Have a question about SitePunch — pricing, features, setup? I'm here to help.",
       suggestions:["How much does it cost?","Does it work offline?","How do I get started?"],
       inputPlaceholder:"Type a question...",
       featAiHeader:"Have a question about this feature?", featAiPlaceholder:"Ask something about this feature...",
@@ -2627,23 +2865,29 @@ const TRANSLATIONS = {
   },
   ru: {
     dir: 'ltr', lang: 'ru',
-    navLinks: ["Для кого","Проблемы","Функции","Как работает","Цены"],
-    navAccount: "Личный кабинет", navApp: "Открыть приложение",
+    navLinks: ["Для кого","Возможности","Процесс работы","Отрасли","Цены"],
+    navAccount: "Личный кабинет", navApp: "Открыть приложение", navResources:"Ресурсы", navInstall:"Установить на телефон", navGuide:"Руководство", navTalk:"Связаться с нами",
     heroEyebrow: "Система управления дефектами на стройплощадке",
     heroTitle: "Punch List, который управляет<br>объектом <span class=\"gold\">за вас</span>",
     heroSub: "Документируйте дефекты на объекте, назначайте ответственных, отслеживайте устранение и создавайте профессиональные отчёты — всё в одной системе.",
     heroChecks: ["Фотодокументация","Отслеживание в реальном времени","Профессиональные PDF-отчёты","Иврит | Арабский | Русский | Английский","Для прорабов и подрядчиков"],
     heroCta1: "Открыть приложение", heroCta2: "Посмотреть цены",
+    proofLabel:"ДОКАЗАТЕЛЬСТВО ПРОДУКТА", proofTitle:"Каждое фото с объекта становится управляемым замечанием — с ответственным, статусом и полной историей.", proofCaption:"Реальный экран приложения — отметка замечания с телефона",
+    industriesTag:"БОЛЬШЕ, ЧЕМ СТРОИТЕЛЬСТВО", industriesTitle:"Создано для работы в поле — от строительства до промышленности и энергетики",
+    industries:[["Строительство","Управление замечаниями на стройплощадках и при сдаче объекта."],["Нефтехимическая промышленность","Документирование и отслеживание проблем на заводах и промышленных объектах."],["Солнечная энергетика","Полевые проверки, документация и контроль замечаний на объектах возобновляемой энергетики."]],
+    operatingProofTag:"ГОТОВО К РЕАЛЬНОЙ РАБОТЕ", operatingProofTitle:"Операционная основа для объекта — не просто список задач.", operatingProofIntro:"Информация остаётся доступной, документированной и понятной для этажей, подрядчиков и многоязычных команд.",
+    operatingProofItems:[["Работает без связи","Создавайте замечания, снимайте фото и обновляйте данные; синхронизация продолжится после восстановления связи."],["Ответственность и история","У каждого замечания есть ответственный, статус и полная история изменений до закрытия."],["Отчёты для сдачи","Профессиональный PDF, CSV и Excel с фотографиями, фильтрами и данными проекта."],["Четыре языка","Иврит, арабский, русский и английский — каждый участник работает на своём языке."]],
     statLabels: ["Фотофиксация","Назначение ответственности","Отслеживание статуса","PDF-отчёты"],
     rolesTag:"ДЛЯ КОГО", rolesTitle:"Создано для строителей и прорабов", rolesSub:"Все участники проекта работают в одной системе и видят актуальную картину в реальном времени.",
-    roleCards:[["Контролеры качества","Проверяют список дефектов, подтверждают исправления, возвращают на доработку — с примечаниями и фото. Вся история дефекта сохраняется до финального закрытия."],["Менеджеры проектов","Видят актуальную картину всех дефектов по всем проектам — процент закрытых, дни открытия, проблемные дефекты. PDF-отчёт для совещания в один клик."],["Прорабы","Открывают дефект с телефона за 10 секунд — фото, категория, местоположение — назначается нужному подрядчику автоматически. Всё документируется."],["Подрядчики","Получают только назначенные им дефекты, на своём языке. Фотографируют после исправления — прораб получает мгновенное уведомление."],["Надзорные компании","Управляют несколькими параллельными проектами из одного места. Профессиональные отчёты для клиентов и ролевые права доступа."],["Девелоперы","Полная прозрачность о статусе проекта в любой момент. Данные отображаются чётко — сколько дефектов открыто, закрыто и в зоне риска."]],
-    problemsTag:"ПРОБЛЕМЫ", problemsTitle:"Перестаньте гоняться за дефектами в таблицах, WhatsApp и почте", problemsSub:"Средний прораб тратит 4–6 часов в неделю на ручной учёт, подготовку отчётов и координацию — всё это можно автоматизировать.",
-    problemCards:[["Забытые дефекты","Без чёткого учёта сложно понять, что обработано. Забытый дефект = недостаток, который доходит до сдачи и стоит в десять раз дороже."],["Отсутствие ответственности","Непонятно, кто за какой дефект отвечает. SitePunch назначает ответственного за каждый дефект и предупреждает, если не закрыт вовремя."],["Хаос версий","Файлы, фото и сообщения разбросаны по чатам и почте. Нельзя искать по проекту — непонятно, что актуально."],["Задержки сдачи","Открытые дефекты вызывают ненужные задержки при сдаче объекта. Цена каждой недели задержки может достигать десятков тысяч шекелей."]],
+    roleCards:[["Контролеры качества","Проверяют список дефектов, подтверждают исправления, возвращают на доработку — с примечаниями и фото. Вся история дефекта сохраняется до финального закрытия."],["Менеджеры проектов","Видят актуальную картину всех дефектов по всем проектам — процент закрытых, дни открытия, проблемные дефекты. PDF-отчёт для совещания в один клик."],["Прорабы","Открывают дефект прямо с телефона — фото, категория и местоположение — затем назначают нужному подрядчику. Всё остаётся задокументированным."],["Подрядчики","Получают только назначенные им дефекты, на своём языке. Фотографируют после исправления — прораб получает мгновенное уведомление."],["Надзорные компании","Управляют несколькими параллельными проектами из одного места. Профессиональные отчёты для клиентов и ролевые права доступа."],["Девелоперы","Полная прозрачность о статусе проекта в любой момент. Данные отображаются чётко — сколько дефектов открыто, закрыто и в зоне риска."]],
+    problemsTag:"ПРОБЛЕМЫ", problemsTitle:"Перестаньте гоняться за дефектами в таблицах, WhatsApp и почте", problemsSub:"Ручной учёт, подготовка отчётов и разрозненная координация отнимают время и скрывают реальную картину — SitePunch объединяет их в один рабочий процесс.",
+    problemCards:[["Забытые дефекты","Без чёткого учёта сложно понять, что обработано. Забытый дефект может дойти до сдачи без ответственного и без подтверждения исправления."],["Отсутствие ответственности","Непонятно, кто за какой дефект отвечает. SitePunch назначает ответственного за каждый дефект и предупреждает, если не закрыт вовремя."],["Хаос версий","Файлы, фото и сообщения разбросаны по чатам и почте. Нельзя искать по проекту — непонятно, что актуально."],["Задержки сдачи","Открытые дефекты без своевременного управления создают нагрузку перед сдачей и мешают понять, что готово, а что ещё блокирует процесс."]],
     featTag:"ФУНКЦИИ", featTitle:"Всё необходимое для управления дефектами в одном месте", featSub:"Каждая функция создана после разговоров с подрядчиками и инженерами, работающими на объектах.",
-    featureItems:[["Создание дефектов на объекте","Открываем дефект за 10 секунд: фото, местоположение, категория — назначено ответственному. Даже без интернета."],["Фото прямо с телефона","Снимаем до и после — всё сохраняется в облаке и автоматически появляется в PDF-отчёте."],["Назначение подрядчикам","Каждый дефект назначен конкретному ответственному. Система отслеживает и предупреждает, если не закрыт вовремя."],["Отслеживание статусов и дашборд","Процент закрытых, открытые по подрядчику, тенденции — с первого взгляда. Без Excel."],["Профессиональные PDF-отчёты","Логотип, все дефекты, фото, даты — профессиональный отчёт в один клик, готов к отправке."],["Поддержка нескольких языков","Иврит, арабский, русский и английский — каждый работает на своём языке."]],
+    featureItems:[["Создание дефектов на объекте","Открываем дефект прямо на объекте: фото, местоположение и категория — затем назначаем ответственному. Даже без интернета."],["Фото прямо с телефона","Снимаем до и после — всё сохраняется в облаке и автоматически появляется в PDF-отчёте."],["Назначение подрядчикам","Каждый дефект назначен конкретному ответственному. Система отслеживает и предупреждает, если не закрыт вовремя."],["Отслеживание статусов и дашборд","Процент закрытых, открытые по подрядчику, тенденции — с первого взгляда. Без Excel."],["Профессиональные PDF-отчёты","Логотип, все дефекты, фото, даты — профессиональный отчёт в один клик, готов к отправке."],["Поддержка нескольких языков","Иврит, арабский, русский и английский — каждый работает на своём языке."]],
     langTag:"ЯЗЫКИ", langTitle:"Для многоязычных команд", langSub:"SitePunch поддерживает иврит, арабский, русский и английский — чтобы каждый на объекте мог работать на своём языке.",
+    languageCards:[["Иврит","עברית","Полный RTL-интерфейс с профессиональной терминологией израильской строительной отрасли и поддержкой всех размеров экрана."],["Арабский","عربي","Полный арабский RTL-интерфейс для полевых команд с понятной строительной терминологией."],["Русский","Русский","Полный русский интерфейс с направлением, терминами и действиями, адаптированными для работы на объекте."],["Английский","English","Полный английский интерфейс для международных команд и руководителей проектов."]],
     howTag:"КАК ЭТО РАБОТАЕТ", howTitle:"Готово к работе за несколько минут",
-    howSteps:[["Открываем дефект","Фотографируем и заполняем — категория, местоположение, ответственный. За 10 секунд."],["Назначаем ответственного","Привязываем к подрядчику. Он получает мгновенное уведомление на своём языке."],["Следим за устранением","Управляем статусами и прогрессом. Незакрытый дефект — автоматическое напоминание."],["Закрываем и создаём отчёты","Всё задокументировано. Профессиональный PDF-отчёт в один клик."]],
+    howSteps:[["Открываем дефект","Фотографируем и указываем категорию, местоположение и ответственного прямо с телефона."],["Назначаем ответственного","Привязываем к подрядчику. Он получает мгновенное уведомление на своём языке."],["Следим за устранением","Управляем статусами и прогрессом. Незакрытый дефект — автоматическое напоминание."],["Закрываем и создаём отчёты","Всё задокументировано. Профессиональный PDF-отчёт в один клик."]],
     pricingTag:"ЦЕНЫ", pricingTitle:"Прозрачно, просто, без сюрпризов", pricingSub:"Начните бесплатно и переходите на следующий план по мере роста. Без карты, без обязательств.",
     billingMonthly:"Ежемесячно", billingAnnual:"Ежегодно", billingSave:"Скидка 20%",
     freeBadge:"Бесплатно навсегда", freeName:"Free", freeDesc:"Попробуйте систему — без карты", freeOnboard:"✓ Регистрация самостоятельно — мгновенно", freeCta:"Зарегистрироваться",
@@ -2658,13 +2902,13 @@ const TRANSLATIONS = {
     extrasTitle:"Добавьте к плану — экстра-пакеты",
     extrasCards:[["+ 10 проектов","Pro и выше · в месяц","₪79","Подробнее →"],["+ 25 проектов","Pro и выше · в месяц","₪149","Подробнее →"],["+ 10 пользователей","Любой план · в месяц","₪59","Подробнее →"],["+ 50 пользователей","Enterprise · в месяц","₪199","Подробнее →"]],
     ctaTag:"Готовы начать?", ctaTitle:"Начните управлять дефектами умнее", ctaSub:"Экономьте часы ручной работы, улучшайте контроль над проектом и документируйте каждый дефект в одном месте.",
-    ctaBtn1:"Открыть приложение", ctaBtn2:"Написать нам",
+    ctaBtn1:"Открыть приложение", ctaBtn2:"Написать нам", ctaContactLabel:"ПОДБОР / ВНЕДРЕНИЕ", ctaContactTitle:"Нужна настройка под организацию или помощь с внедрением?", ctaContactText:"Мы разберём структуру проектов, команд и отчётности и поможем правильно начать работу.", ctaContactChat:"Связаться с нами",
     footerTagline:"Создано для израильского строительного рынка 🇮🇱", footerCopy:"© 2026 SitePunch · Все права защищены",
     footerLinks:["Условия использования","Политика конфиденциальности","Доступность","Контакты"],
     a11yLangLabel:"Язык страницы / שפת הדף",
     chat: {
-      fabLabel:"Есть вопрос?", panelTitle:"Помощь",
-      greeting:"Привет! 👋 Есть вопрос о SitePunch — цены, функции, настройка? Я здесь, чтобы помочь.",
+      fabLabel:"Есть вопрос?", panelTitle:"Помощь", waLabel:"Или напишите нам в WhatsApp",
+      greeting:"Привет! Есть вопрос о SitePunch — цены, функции, настройка? Я здесь, чтобы помочь.",
       suggestions:["Сколько это стоит?","Работает без интернета?","Как начать?"],
       inputPlaceholder:"Введите вопрос...",
       featAiHeader:"Есть вопрос об этой функции?", featAiPlaceholder:"Спросите что-нибудь об этой функции...",
@@ -2674,23 +2918,29 @@ const TRANSLATIONS = {
   },
   ar: {
     dir: 'rtl', lang: 'ar',
-    navLinks: ["لمن هو","التحديات","الميزات","كيف يعمل","الأسعار"],
-    navAccount: "حسابي", navApp: "افتح التطبيق",
+    navLinks: ["لمن هو","القدرات","سير العمل","القطاعات","الأسعار"],
+    navAccount: "حسابي", navApp: "افتح التطبيق", navResources:"المعلومات", navInstall:"التثبيت على الهاتف", navGuide:"دليل المستخدم", navTalk:"تحدثوا معنا",
     heroEyebrow: "نظام إدارة العيوب لمواقع البناء",
     heroTitle: "قائمة الإصلاحات التي تدير<br>الموقع <span class=\"gold\">بدلاً عنك</span>",
     heroSub: "وثّق العيوب في الموقع، عيّن المسؤوليات للمقاولين، تابع التقدم وأنشئ تقارير احترافية — كل ذلك من نظام واحد.",
     heroChecks: ["توثيق بالصور","متابعة في الوقت الفعلي","تقارير PDF احترافية","عبري | عربي | روسي | إنجليزي","مصمم لمديري المشاريع والمقاولين"],
     heroCta1: "افتح التطبيق", heroCta2: "عرض الأسعار",
+    proofLabel:"دليل المنتج", proofTitle:"كل صورة من الموقع تصبح ملاحظة مُدارة — مع مسؤول وحالة وسجل كامل.", proofCaption:"شاشة حقيقية من التطبيق — تحديد ملاحظة من الهاتف",
+    industriesTag:"ما بعد البناء", industriesTitle:"مصمم للميدان — من البناء إلى الصناعة والطاقة",
+    industries:[["البناء","إدارة الملاحظات في مواقع البناء والتسليم النهائي."],["الصناعة البتروكيميائية","توثيق ومتابعة المشاكل في المصانع والبنى الصناعية."],["الطاقة الشمسية","فحوصات ميدانية وتوثيق ومتابعة الملاحظات في منشآت الطاقة المتجددة."]],
+    operatingProofTag:"جاهز للعمل الحقيقي", operatingProofTitle:"بنية تشغيلية للميدان — وليست مجرد قائمة مهام.", operatingProofIntro:"تبقى المعلومات متاحة وموثقة وواضحة عندما يتوزع الفريق بين الطوابق والمقاولين واللغات المختلفة.",
+    operatingProofItems:[["يعمل بدون تغطية","افتح ملاحظة والتقط الصور وحدّثها من الميدان؛ تتم المزامنة عند عودة الاتصال."],["مسؤولية وسجل كامل","لكل ملاحظة مسؤول وحالة وسجل تغييرات كامل حتى الإغلاق."],["تقارير للتسليم","تقارير PDF احترافية مع CSV وExcel تشمل الصور والفلاتر وبيانات المشروع."],["أربع لغات","العبرية والعربية والروسية والإنجليزية — حتى يعمل كل شخص بلغته."]],
     statLabels: ["توثيق بالصور","تعيين المسؤولية","تتبع الحالة","تقارير PDF"],
     rolesTag:"لمن هو", rolesTitle:"مبني خصيصًا لفرق الميدان والإشراف", rolesSub:"جميع المشاركين في المشروع يعملون على نفس النظام ويحصلون على صورة كاملة في الوقت الفعلي.",
-    roleCards:[["مراقبو الجودة","يراجعون قائمة العيوب، يوافقون على الإصلاحات، يعيدون الفتح إذا كان التنفيذ غير مرضٍ — مع ملاحظات وصور. كل تاريخ العيب محفوظ حتى الإغلاق النهائي."],["مديرو المشاريع","يرون صورة محدّثة لجميع العيوب في كل المشاريع — معدلات الإغلاق، أيام الفتح، العيوب المعرّضة للخطر. تقرير PDF للاجتماع بنقرة واحدة."],["مشرفو العمل","يفتحون عيبًا من الهاتف في 10 ثوانٍ — صورة، فئة، موقع — ويُسند مباشرة للمقاول المعني. كل شيء موثّق تلقائيًا."],["المقاولون","يتلقون فقط العيوب المسندة إليهم، بلغتهم. يلتقطون صورة 'بعد' للموافقة — ويتلقى المشرف إشعارًا فوريًا."],["شركات الإشراف","تدير مشاريع متعددة من مكان واحد. تقارير احترافية للعملاء، إدارة كاملة لفريق الإشراف وصلاحيات حسب الدور."],["المطورون","شفافية كاملة على حالة المشروع في أي لحظة. البيانات تُعرض بوضوح — كم عيبًا مفتوحًا، مغلقًا، أو في خطر."]],
-    problemsTag:"التحديات", problemsTitle:"توقف عن مطاردة العيوب في الجداول وواتساب والبريد", problemsSub:"يضيع مدير المشروع المتوسط 4–6 ساعات أسبوعيًا على التتبع اليدوي وإعداد التقارير والتنسيق — كل ذلك يمكن أتمتته.",
-    problemCards:[["عيوب منسية","بدون متابعة منظمة يصعب معرفة ما تم. عيب منسي = خلل يصل للتسليم ويكلف عشرة أضعاف للإصلاح."],["غياب المساءلة","ليس دائمًا واضحًا من المسؤول عن كل عيب. SitePunch يُسند مسؤولًا لكل عيب وينبّه حين لا يُغلق في الوقت المحدد."],["فوضى النسخ","ملفات وصور ورسائل مبعثرة في عشرات المجموعات والبريد. لا يمكن البحث حسب المشروع ولا معرفة ما هو محدّث."],["تأخر التسليم","العيوب المفتوحة تسبب تأخيرات غير ضرورية في تسليم المشروع. تكلفة كل أسبوع تأخير قد تصل لعشرات الآلاف من الشيكل."]],
+    roleCards:[["مراقبو الجودة","يراجعون قائمة العيوب، يوافقون على الإصلاحات، يعيدون الفتح إذا كان التنفيذ غير مرضٍ — مع ملاحظات وصور. كل تاريخ العيب محفوظ حتى الإغلاق النهائي."],["مديرو المشاريع","يرون صورة محدّثة لجميع العيوب في كل المشاريع — معدلات الإغلاق، أيام الفتح، العيوب المعرّضة للخطر. تقرير PDF للاجتماع بنقرة واحدة."],["مشرفو العمل","يفتحون العيب مباشرة من الهاتف — صورة وفئة وموقع — ثم يسندونه للمقاول المعني. كل شيء يبقى موثّقًا."],["المقاولون","يتلقون فقط العيوب المسندة إليهم، بلغتهم. يلتقطون صورة 'بعد' للموافقة — ويتلقى المشرف إشعارًا فوريًا."],["شركات الإشراف","تدير مشاريع متعددة من مكان واحد. تقارير احترافية للعملاء، إدارة كاملة لفريق الإشراف وصلاحيات حسب الدور."],["المطورون","شفافية كاملة على حالة المشروع في أي لحظة. البيانات تُعرض بوضوح — كم عيبًا مفتوحًا، مغلقًا، أو في خطر."]],
+    problemsTag:"التحديات", problemsTitle:"توقف عن مطاردة العيوب في الجداول وواتساب والبريد", problemsSub:"المتابعة اليدوية وإعداد التقارير والتنسيق الموزع تستهلك الوقت وتخفي الصورة الحقيقية — يجمعها SitePunch في مسار عمل واحد.",
+    problemCards:[["عيوب منسية","بدون متابعة منظمة يصعب معرفة ما تم. قد يصل العيب المنسي إلى التسليم بلا مسؤول وبلا توثيق للمعالجة."],["غياب المساءلة","ليس دائمًا واضحًا من المسؤول عن كل عيب. SitePunch يُسند مسؤولًا لكل عيب وينبّه حين لا يُغلق في الوقت المحدد."],["فوضى النسخ","ملفات وصور ورسائل مبعثرة في عشرات المجموعات والبريد. لا يمكن البحث حسب المشروع ولا معرفة ما هو محدّث."],["تأخر التسليم","العيوب المفتوحة التي لا تُدار في الوقت المناسب تزيد الضغط قبل التسليم وتصعّب معرفة ما هو جاهز وما يزال يعيق التقدم."]],
     featTag:"الميزات", featTitle:"كل ما تحتاجه لإدارة العيوب في مكان واحد", featSub:"كل ميزة بُنيت بعد محادثات مع مقاولين ومهندسين يعملون في الميدان يوميًا.",
-    featureItems:[["فتح العيوب من الموقع","افتح عيبًا في 10 ثوانٍ: صورة، موقع، فئة — ومُسند للمسؤول. حتى بدون إنترنت."],["تصوير مباشر من الهاتف","التقط صورًا قبل وبعد الإصلاح — كل شيء محفوظ في السحابة ويظهر تلقائيًا في تقرير PDF."],["إسناد للمقاولين","كل عيب مُسند لمسؤول محدد. النظام يتابع وينبّه حين لا يُغلق في الوقت المحدد."],["تتبع الحالات ولوحة التحكم","اطّلع على معدلات الإغلاق والعيوب المفتوحة حسب المقاول والاتجاهات — بنظرة واحدة. بدون Excel."],["تقارير PDF احترافية","شعار المشروع، جميع العيوب، الصور، التواريخ — تقرير احترافي بنقرة واحدة وجاهز للإرسال."],["دعم متعدد اللغات","عبري، عربي، روسي وإنجليزي — كل عامل يعمل بلغته."]],
+    featureItems:[["فتح العيوب من الموقع","افتح العيب مباشرة من الموقع: صورة وموقع وفئة — ثم أسنده للمسؤول. حتى بدون إنترنت."],["تصوير مباشر من الهاتف","التقط صورًا قبل وبعد الإصلاح — كل شيء محفوظ في السحابة ويظهر تلقائيًا في تقرير PDF."],["إسناد للمقاولين","كل عيب مُسند لمسؤول محدد. النظام يتابع وينبّه حين لا يُغلق في الوقت المحدد."],["تتبع الحالات ولوحة التحكم","اطّلع على معدلات الإغلاق والعيوب المفتوحة حسب المقاول والاتجاهات — بنظرة واحدة. بدون Excel."],["تقارير PDF احترافية","شعار المشروع، جميع العيوب، الصور، التواريخ — تقرير احترافي بنقرة واحدة وجاهز للإرسال."],["دعم متعدد اللغات","عبري، عربي، روسي وإنجليزي — كل عامل يعمل بلغته."]],
     langTag:"اللغات", langTitle:"مناسب للفرق متعددة اللغات", langSub:"يدعم SitePunch العبرية والعربية والروسية والإنجليزية — حتى يتمكن كل شخص في الموقع من العمل بلغته.",
+    languageCards:[["العبرية","עברית","واجهة RTL كاملة بمصطلحات مهنية من قطاع البناء الإسرائيلي ودعم لجميع أحجام الشاشات."],["العربية","عربي","واجهة عربية كاملة RTL لفرق الميدان، بمصطلحات بناء واضحة."],["الروسية","Русский","واجهة روسية كاملة باتجاه ومصطلحات وإجراءات ملائمة للعمل الميداني."],["الإنجليزية","English","واجهة إنجليزية كاملة للفرق الدولية ومديري المشاريع الذين يعملون عبر الحدود."]],
     howTag:"كيف يعمل", howTitle:"جاهز للعمل في دقائق",
-    howSteps:[["نفتح عيبًا","نلتقط صورة وندخل التفاصيل — الفئة والموقع والمسؤول. في 10 ثوانٍ."],["نعيّن المسؤولية","نربط بالمقاول. يتلقى إشعارًا فوريًا بلغته."],["نتابع المعالجة","ندير الحالات والتقدم. العيب غير المغلق — تنبيه تلقائي."],["نغلق وننشئ التقارير","كل شيء موثق وجاهز للتسليم. تقرير PDF احترافي بنقرة واحدة."]],
+    howSteps:[["نفتح عيبًا","نلتقط صورة وندخل الفئة والموقع والمسؤول مباشرة من الهاتف."],["نعيّن المسؤولية","نربط بالمقاول. يتلقى إشعارًا فوريًا بلغته."],["نتابع المعالجة","ندير الحالات والتقدم. العيب غير المغلق — تنبيه تلقائي."],["نغلق وننشئ التقارير","كل شيء موثق وجاهز للتسليم. تقرير PDF احترافي بنقرة واحدة."]],
     pricingTag:"الأسعار", pricingTitle:"شفاف، بسيط، بلا مفاجآت", pricingSub:"ابدأ مجانًا وطوّر خطتك مع نموّك. بدون بطاقة ائتمان، بدون التزام.",
     billingMonthly:"فوترة شهرية", billingAnnual:"سنوي", billingSave:"وفّر 20%",
     freeBadge:"مجاني للأبد", freeName:"Free", freeDesc:"جرّب النظام — بدون بطاقة ائتمان", freeOnboard:"✓ تسجيل ذاتي — فوري", freeCta:"سجّل مجانًا",
@@ -2705,13 +2955,13 @@ const TRANSLATIONS = {
     extrasTitle:"أضف إلى خطتك — حزم إضافية",
     extrasCards:[["+ 10 مشاريع","Pro وما فوق · شهريًا","₪79","تفاصيل →"],["+ 25 مشروعًا","Pro وما فوق · شهريًا","₪149","تفاصيل →"],["+ 10 مستخدمين","أي خطة · شهريًا","₪59","تفاصيل →"],["+ 50 مستخدمًا","Enterprise · شهريًا","₪199","تفاصيل →"]],
     ctaTag:"هل أنت مستعد؟", ctaTitle:"ابدأ إدارة العيوب بطريقة أذكى", ctaSub:"وفّر ساعات من العمل اليدوي، حسّن التحكم في المشروع ووثّق كل عيب في مكان واحد.",
-    ctaBtn1:"افتح التطبيق", ctaBtn2:"تواصل معنا",
+    ctaBtn1:"افتح التطبيق", ctaBtn2:"تواصل معنا", ctaContactLabel:"ما قبل البيع / التطبيق", ctaContactTitle:"هل تحتاجون إلى ملاءمة للمؤسسة أو مساعدة في التطبيق؟", ctaContactText:"نراجع معكم هيكل المشاريع والفرق والتقارير ونساعدكم على البدء بأساس صحيح.", ctaContactChat:"تحدثوا معنا",
     footerTagline:"مبني للسوق الإسرائيلي 🇮🇱", footerCopy:"© 2026 SitePunch · جميع الحقوق محفوظة",
     footerLinks:["شروط الاستخدام","سياسة الخصوصية","إعلان إمكانية الوصول","تواصل معنا"],
     a11yLangLabel:"لغة الصفحة / שפת הדף",
     chat: {
-      fabLabel:"هل لديك سؤال؟", panelTitle:"مساعدة",
-      greeting:"مرحباً! 👋 هل لديك سؤال عن SitePunch — الأسعار، الميزات، الإعداد؟ أنا هنا للمساعدة.",
+      fabLabel:"هل لديك سؤال؟", panelTitle:"مساعدة", waLabel:"أو راسلنا عبر واتساب",
+      greeting:"مرحباً! هل لديك سؤال عن SitePunch — الأسعار، الميزات، الإعداد؟ أنا هنا للمساعدة.",
       suggestions:["كم يكلف هذا؟","يعمل بدون إنترنت؟","كيف أبدأ؟"],
       inputPlaceholder:"اكتب سؤالاً...",
       featAiHeader:"هل لديك سؤال عن هذه الميزة؟", featAiPlaceholder:"اسأل شيئاً عن هذه الميزة...",
@@ -2741,6 +2991,10 @@ function switchLang(lang) {
   const navApp = document.querySelector('nav .nav-cta');
   if (navAccount) navAccount.textContent = t.navAccount;
   if (navApp) navApp.textContent = t.navApp;
+  const navResources = document.getElementById('navResourcesLabel'); if (navResources) navResources.textContent = t.navResources;
+  const navInstall = document.getElementById('navInstallLabel'); if (navInstall) navInstall.textContent = t.navInstall;
+  const navGuide = document.getElementById('navGuideLabel'); if (navGuide) navGuide.textContent = t.navGuide;
+  const navTalk = document.getElementById('navTalkLabel'); if (navTalk) navTalk.textContent = t.navTalk;
 
   // Hero
   const eyebrowText = document.querySelector('.hero-eyebrow .eyebrow-text');
@@ -2753,6 +3007,43 @@ function switchLang(lang) {
   const heroCtas = document.querySelectorAll('.hero-actions a');
   if (heroCtas[0]) heroCtas[0].textContent = t.heroCta1;
   if (heroCtas[1]) heroCtas[1].textContent = t.heroCta2;
+
+  // Editorial product proof and the field-industry section
+  const proofLabel = document.getElementById('proofNumLabel');
+  const proofTitle = document.getElementById('proofTitle');
+  const proofCaption = document.getElementById('proofCaption');
+  if (proofLabel) proofLabel.textContent = t.proofLabel;
+  if (proofTitle) proofTitle.textContent = t.proofTitle;
+  if (proofCaption) proofCaption.textContent = t.proofCaption;
+  const industriesSection = document.getElementById('industries');
+  if (industriesSection) {
+    const tag = industriesSection.querySelector('.section-tag');
+    const title = industriesSection.querySelector('.section-title');
+    if (tag) tag.textContent = t.industriesTag;
+    if (title) title.textContent = t.industriesTitle;
+    industriesSection.querySelectorAll('.industry-panel').forEach((panel, i) => {
+      if (!t.industries[i]) return;
+      const heading = panel.querySelector('h3');
+      const description = panel.querySelector('.industry-caption p');
+      if (heading) heading.textContent = t.industries[i][0];
+      if (description) description.textContent = t.industries[i][1];
+    });
+  }
+
+  // Verified operating proof
+  const operatingProofTag = document.getElementById('operatingProofTag');
+  const operatingProofTitle = document.getElementById('operatingProofTitle');
+  const operatingProofIntro = document.getElementById('operatingProofIntro');
+  if (operatingProofTag) operatingProofTag.textContent = t.operatingProofTag;
+  if (operatingProofTitle) operatingProofTitle.textContent = t.operatingProofTitle;
+  if (operatingProofIntro) operatingProofIntro.textContent = t.operatingProofIntro;
+  document.querySelectorAll('.operating-proof-item').forEach((item, i) => {
+    if (!t.operatingProofItems || !t.operatingProofItems[i]) return;
+    const heading = item.querySelector('h3');
+    const description = item.querySelector('p');
+    if (heading) heading.textContent = t.operatingProofItems[i][0];
+    if (description) description.textContent = t.operatingProofItems[i][1];
+  });
 
   // Stats
   document.querySelectorAll('.stat-label').forEach((el, i) => { if (t.statLabels[i]) el.innerHTML = t.statLabels[i]; });
@@ -2774,6 +3065,18 @@ function switchLang(lang) {
   sec('languages',t.langTag,     t.langTitle,     t.langSub);
   sec('how',      t.howTag,      t.howTitle,      '');
   sec('pricing',  t.pricingTag,  t.pricingTitle,  t.pricingSub);
+
+  // Language cards — names, native labels and descriptions all follow the selected UI language.
+  document.querySelectorAll('.lang-card').forEach((card, i) => {
+    if (!t.languageCards?.[i]) return;
+    const [name, nativeName, desc] = t.languageCards[i];
+    const nameEl = card.querySelector('.lang-name');
+    const nativeEl = card.querySelector('.lang-native');
+    const descEl = card.querySelector('.lang-desc');
+    if (nameEl) nameEl.textContent = name;
+    if (nativeEl) nativeEl.textContent = nativeName;
+    if (descEl) descEl.textContent = desc;
+  });
 
   // Role cards
   document.querySelectorAll('.role-card').forEach((card, i) => {
@@ -2893,9 +3196,11 @@ function switchLang(lang) {
     const ctaTag   = cta.querySelector('.cta-tag');   if (ctaTag)   ctaTag.textContent   = t.ctaTag;
     const ctaTitle = cta.querySelector('.cta-title'); if (ctaTitle) ctaTitle.textContent = t.ctaTitle;
     const ctaSub   = cta.querySelector('.cta-sub');   if (ctaSub)   ctaSub.textContent   = t.ctaSub;
-    const btns = cta.querySelectorAll('a');
-    if (btns[0]) btns[0].textContent = t.ctaBtn1;
-    if (btns[1]) btns[1].textContent = t.ctaBtn2;
+    const primary = cta.querySelector('.cta-actions .btn-gold-main'); if (primary) primary.textContent = t.ctaBtn1;
+    const contactLabel = document.getElementById('ctaContactLabel'); if (contactLabel) contactLabel.textContent = t.ctaContactLabel;
+    const contactTitle = document.getElementById('ctaContactTitle'); if (contactTitle) contactTitle.textContent = t.ctaContactTitle;
+    const contactText = document.getElementById('ctaContactText'); if (contactText) contactText.textContent = t.ctaContactText;
+    const contactChat = document.getElementById('ctaContactChat'); if (contactChat) contactChat.textContent = t.ctaContactChat;
   }
 
   // Footer
@@ -2913,15 +3218,69 @@ function switchLang(lang) {
   const tc = t.chat;
   if (tc) {
     const fabLabel = document.getElementById('chatFabLabel'); if (fabLabel) fabLabel.textContent = tc.fabLabel;
-    const chatFabEl = document.getElementById('chatFab'); if (chatFabEl) chatFabEl.title = tc.fabLabel;
+    const navHelp = document.getElementById('navHelp'); if (navHelp) navHelp.textContent = tc.panelTitle;
+    const chatFabEl = document.getElementById('chatFab'); if (chatFabEl) chatFabEl.title = 'SitePunch AI';
     const phTitle = document.getElementById('chatPhTitle'); if (phTitle) phTitle.textContent = tc.panelTitle;
     const greeting = document.getElementById('chatGreeting'); if (greeting) greeting.textContent = tc.greeting;
+    const waLabel = document.getElementById('chatWaLabel'); if (waLabel && tc.waLabel) waLabel.textContent = tc.waLabel;
     document.querySelectorAll('.chat-suggest-btn').forEach((el, i) => { if (tc.suggestions[i]) el.textContent = tc.suggestions[i]; });
     const chatInputEl = document.getElementById('chatInput'); if (chatInputEl) chatInputEl.placeholder = tc.inputPlaceholder;
     const aiHeader = document.getElementById('aiSectionHeader'); if (aiHeader) aiHeader.textContent = tc.featAiHeader;
     const aiInputEl = document.getElementById('aiInput'); if (aiInputEl) aiInputEl.placeholder = tc.featAiPlaceholder;
   }
 }
+
+// ── Workflow sequence: operational steps with real product screens ──
+(() => {
+  const stage = document.getElementById('workflowStage');
+  const images = Array.from(document.querySelectorAll('[data-workflow-image]'));
+  const index = document.getElementById('workflowIndex');
+  const steps = Array.from(document.querySelectorAll('[data-workflow-step]'));
+  if (!stage || !images.length || !index || !steps.length) return;
+
+  let active = 0;
+  let timer = null;
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function showWorkflowStep(next) {
+    active = (next + images.length) % images.length;
+    steps.forEach((step, i) => {
+      const selected = i === active;
+      step.classList.toggle('is-active', selected);
+      step.setAttribute('aria-selected', String(selected));
+    });
+    images.forEach((image, i) => image.classList.toggle('is-active', i === active));
+    index.textContent = `STEP ${String(active + 1).padStart(2, '0')} / 04`;
+  }
+
+  function stopWorkflow() {
+    if (timer) window.clearInterval(timer);
+    timer = null;
+  }
+  function startWorkflow() {
+    if (reducedMotion) return;
+    stopWorkflow();
+    timer = window.setInterval(() => showWorkflowStep(active + 1), 4200);
+  }
+
+  steps.forEach((step, i) => {
+    step.addEventListener('click', () => { showWorkflowStep(i); startWorkflow(); });
+    step.addEventListener('keydown', (event) => {
+      if (!['ArrowDown', 'ArrowRight', 'ArrowUp', 'ArrowLeft'].includes(event.key)) return;
+      event.preventDefault();
+      const direction = ['ArrowDown', 'ArrowLeft'].includes(event.key) ? 1 : -1;
+      const next = (i + direction + steps.length) % steps.length;
+      steps[next].focus();
+      showWorkflowStep(next);
+      startWorkflow();
+    });
+  });
+  stage.addEventListener('mouseenter', stopWorkflow);
+  stage.addEventListener('mouseleave', startWorkflow);
+  stage.addEventListener('focusin', stopWorkflow);
+  stage.addEventListener('focusout', startWorkflow);
+  startWorkflow();
+})();
 </script>
 
 </body>
