@@ -2453,6 +2453,8 @@ function closeHelpModal() { document.getElementById('helpModal').classList.remov
 function handleHelpOverlayClick(e) { if (e.target === document.getElementById('helpModal')) closeHelpModal(); }
 
 const KB = [
+  { keys: ['מי אתה','מי את','מה אתה','who are you','what are you','sitepunch ai'],
+    ans: 'אני העוזר הדיגיטלי של SitePunch. אני כאן כדי לעזור בשאלות על המערכת, תמחור, פיצ׳רים והטמעה.' },
   { keys: ['מחיר','עולה','עלות','כמה','תשלום','תוכנית','תכנית','מנוי','starter','pro','enterprise','חינם','ניסיון'],
     ans: '💰 SitePunch מציעה שלוש תוכניות: <b>Starter ₪149/חודש</b> (עד 3 פרויקטים, 10 משתמשים), <b>Pro ₪349/חודש</b> (עד 100 פרויקטים, 50 משתמשים), ו-<b>Enterprise ₪890/חודש</b> (פרויקטים ללא הגבלה, עד 200 משתמשים + לוגו לבן). אפשר גם לרכוש פרויקט בודד ב-₪199 ללא מנוי חודשי, או חבילות אקסטרה לפרויקטים ומשתמשים נוספים. כל התוכניות כוללות PDF אוטומטי, תמיכה רב-לשונית ודשבורד מנהל.' },
   { keys: ['להתחיל','מתחיל','הטמעה','onboarding','הקמה','כמה זמן','מהיר','מורכב','קשה','פשוט'],
@@ -2536,12 +2538,19 @@ const FEAT_SUGGESTIONS = [
   ['מה בדיוק עובד בלי אינטרנט?', 'איך זה מסתנכרן כשחוזר החיבור?', 'התמונות גם נשמרות אופליין?', 'יש סיכון לאבד נתונים?'],
 ];
 
+function plainChatText(text) {
+  return String(text)
+    .replace(/<\/?(?:b|strong|em|i)>/gi, '')
+    .replace(/<br\s*\/?\s*>/gi, '\n')
+    .replace(/<[^>]*>/g, '');
+}
+
 function smartAnswer(q) {
   const text = q.toLowerCase();
   for (let i = 0; i < KB.length - 1; i++) {
-    if (KB[i].keys.some(k => text.includes(k))) return KB[i].ans;
+    if (KB[i].keys.some(k => text.includes(k))) return plainChatText(KB[i].ans);
   }
-  return KB[KB.length - 1].ans;
+  return plainChatText(KB[KB.length - 1].ans);
 }
 
 function renderSuggestions(featIdx) {
@@ -2588,8 +2597,8 @@ function sendAiQuestion() {
       document.getElementById('aiAnswer').innerHTML = '<div class="ai-text">' + escapeHtml(data.answer).replace(/\n/g, '<br>') + '</div>';
     })
     .catch(function() {
-      // Groq לא זמין/לא מוגדר — נופלים בחזרה לתשובות המובנות
-      document.getElementById('aiAnswer').innerHTML = '<div class="ai-text">' + smartAnswer(q) + '</div>';
+      // The server/model is temporarily unavailable — show a safe built-in answer.
+      document.getElementById('aiAnswer').innerHTML = '<div class="ai-text">' + escapeHtml(smartAnswer(q)).replace(/\n/g, '<br>') + '</div>';
     });
 }
 
