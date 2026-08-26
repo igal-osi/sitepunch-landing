@@ -259,6 +259,15 @@
     display: flex; align-items: center; gap: 30px; margin-top: 38px; flex-wrap: wrap;
     opacity: 0; animation: fadeUp .6s .55s forwards;
   }
+  .hero-offline-note {
+    display: inline-flex; align-items: center; gap: 9px; margin: 20px 0 0;
+    color: var(--text-muted); font: 600 .72rem/1.35 var(--font-mono); letter-spacing: .035em;
+    opacity: 0; animation: fadeUp .6s .68s forwards;
+  }
+  .hero-offline-note::before {
+    content: ''; width: 8px; height: 8px; flex: 0 0 auto; border: 1px solid var(--gold);
+    box-shadow: inset 0 0 0 2px rgba(212,175,55,.16);
+  }
   .btn-gold-main {
     background: var(--gold);
     color: #1a1000;
@@ -466,6 +475,12 @@
 
   /* ── LANGUAGES — flat divided list ── */
   #languages { background: var(--bg2); }
+  .lang-translate-callout {
+    margin-top: 40px; padding: 24px 28px; max-width: 640px;
+    border: 1px solid var(--gold-border); background: rgba(212,175,55,.045);
+  }
+  .lang-translate-callout h3 { font-size: 1.05rem; font-weight: 700; color: var(--white); margin-bottom: 8px; }
+  .lang-translate-callout p { font-size: .88rem; color: var(--muted); line-height: 1.7; max-width: 60ch; }
   .lang-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 0 32px; margin-top: 40px; }
   .lang-card {
     padding: 24px 0 4px; border-top: 1px solid rgba(212,175,55,0.16);
@@ -1534,6 +1549,7 @@ function bi(name, tone) { return '<span class="bi bi-' + (tone||'gold') + '">' +
         <a href="https://app.sitepunch.co.il" class="btn-gold-main">כניסה לאפליקציה</a>
         <a href="#pricing" class="btn-outline-gold">צפו במחירים</a>
       </div>
+      <p class="hero-offline-note" id="heroOfflineNote">עובדים גם בלי קליטה · הפעולות מסתנכרנות כשהחיבור חוזר</p>
     </div>
 
     <div class="hero-visual" aria-hidden="true">
@@ -1708,6 +1724,10 @@ function bi(name, tone) { return '<span class="bi bi-' + (tone||'gold') + '">' +
   <p class="section-tag reveal">שפות</p>
   <h2 class="section-title reveal">מתאים לצוותים רב-לשוניים</h2>
   <p class="section-sub reveal">SitePunch תומכת בעברית, ערבית, רוסית ואנגלית — כדי שכל בעלי התפקידים באתר יוכלו לעבוד בשפה הנוחה להם.</p>
+  <div class="lang-translate-callout reveal">
+    <h3 id="langTranslateTitle">כל אחד קורא את הליקוי בשפה שלו</h3>
+    <p id="langTranslateMsg">ליקוי שנכתב בעברית מוצג לקבלן בערבית, רוסית או אנגלית — כולל הכותרת והתיאור, לא רק כפתורי המערכת. המקור נשמר ותמיד אפשר להציג אותו.</p>
+  </div>
   <div class="lang-grid">
     <div class="lang-card reveal">
       <div class="lang-flag">א</div>
@@ -2026,7 +2046,7 @@ function bi(name, tone) { return '<span class="bi bi-' + (tone||'gold') + '">' +
     <span id="chatWaLabel">או דברו איתנו בוואטסאפ</span>
   </a>
   <div class="chat-messages" id="chatMessages">
-    <div class="chat-msg bot" id="chatGreeting">היי! יש לכם שאלה על SitePunch — תמחור, פיצ'רים, הטמעה? אני כאן לעזור.</div>
+    <div class="chat-msg bot" id="chatGreeting">היי! יש לכם שאלה על SitePunch — תמחור, עבודה גם בלי קליטה, פיצ'רים או הטמעה? אני כאן לעזור.</div>
   </div>
   <div class="chat-suggest-row" id="chatSuggestRow">
     <button class="chat-suggest-btn" onclick="askChatSuggestion(this)">כמה זה עולה?</button>
@@ -2461,7 +2481,9 @@ const KB = [
     ans: '🚀 הטמעה ב-SitePunch לוקחת פחות מ-30 דקות: פותחים פרויקט, מגדירים צוות, ומתחילים לתעד. ב-Starter ו-Pro ההקמה היא עצמאית וחינמית. ב-Enterprise יש ליווי אישי כולל הדרכת צוות בשטח.' },
   { keys: ['אינטרנט','offline','אופליין','4g','קישור','חיבור','רשת','גרוע','שטח','בלי נט'],
     ans: '📡 SitePunch עובדת גם לגמרי בלי אינטרנט: פותחים ליקוי חדש, מצלמים תמונות ומעדכנים סטטוס — גם בקומה תחתונה, גם בשטח בלי קליטה. הכל נשמר על המכשיר, וברגע שיש חיבור הכל מסתנכרן אוטומטית לבד, בלי לאבד כלום ובלי כפילויות.' },
-  { keys: ['שפה','שפות','עברית','ערבית','רוסית','ערבי','רוסי','עובד זר','לועזי','תרגום'],
+  { keys: ['תרגום','מתרגם','לתרגם','תרגם','תורגם','translate','translation'],
+    ans: '🌐 הכותרת והתיאור של ליקוי — לא רק כפתורי הממשק — מתורגמים אוטומטית בין עברית, אנגלית, רוסית וערבית, כשפותחים את הליקוי בשפת ממשק שונה משפת הכתיבה שלו. הטקסט המקורי תמיד נשמר וניתן להציג אותו.' },
+  { keys: ['שפה','שפות','עברית','ערבית','רוסית','ערבי','רוסי','עובד זר','לועזי'],
     ans: '🌍 SitePunch תומכת ב-<b>עברית, ערבית, רוסית ואנגלית</b> — כולל ממשק RTL מלא לערבית. כל עובד רואה את המערכת בשפתו שלו.' },
   { keys: ['תמונה','תמונות','מצלמה','תיעוד','לצלם','צילום','קובץ','מדיה'],
     ans: '📸 פותחים ליקוי ישירות מהאפליקציה: מצלמים, בוחרים קטגוריה ומיקום ומקצים לאחראי. התמונות נשמרות בענן ומופיעות אוטומטית בדוח ה-PDF.' },
@@ -3058,8 +3080,9 @@ const TRANSLATIONS = {
     navAccount: "אזור מנויים", navApp: "כניסה לאפליקציה", navResources:"מידע", navInstall:"התקנה בנייד", navGuide:"מדריך משתמש", navTalk:"דברו איתנו", themeLight:"מצב בהיר", themeDark:"מצב כהה",
     heroEyebrow: "מערכת ניהול ליקויים לאתרי בנייה",
     heroTitle: "פנצ' ליסט שמנהל<br>את האתר <span class=\"gold\">בשבילך</span>",
-    heroSub: "תעדו ליקויים מהשטח, הקצו אחריות לקבלנים, עקבו אחרי טיפול והפיקו דוחות מקצועיים — הכל ממערכת אחת.",
+    heroSub: "תעדו ליקויים מהשטח, הקצו אחריות לקבלנים, עקבו אחרי טיפול והפיקו דוחות מקצועיים — גם בלי קליטה.",
     heroChecks: ["תיעוד עם תמונות","מעקב בזמן אמת","דוחות PDF מקצועיים","עברית | ערבית | רוסית | אנגלית","מותאם למנהלי פרויקטים וקבלנים"],
+    heroOfflineNote: "עובדים גם בלי קליטה · הפעולות מסתנכרנות כשהחיבור חוזר",
     heroCta1: "כניסה לאפליקציה", heroCta2: "צפו במחירים",
     proofLabel:"הוכחת מוצר", proofTitle:"כל תמונה מהשטח הופכת לליקוי מנוהל — עם אחראי, סטטוס והיסטוריה מלאה.", proofCaption:"מסך אמיתי מהאפליקציה — סימון ליקוי מהטלפון",
     industriesTag:"מעבר לבנייה", industriesTitle:"נבנה לשטח — מבנייה ועד תעשייה ואנרגיה",
@@ -3075,6 +3098,8 @@ const TRANSLATIONS = {
     featureItems:[["יצירת ליקויים מהשטח","פותחים ליקוי ישירות מהשטח: תמונה, מיקום וקטגוריה — ומקצים לאחראי. גם בלי אינטרנט."],["צילום תמונות ישירות מהטלפון","מצלמים לפני ואחרי הטיפול — הכל נשמר בענן ומופיע אוטומטית בדוח ה-PDF."],["שיוך לאחריות קבלנים","כל ליקוי מוקצה לאחראי ספציפי. המערכת עוקבת ומתריעה כשהוא לא נסגר בזמן."],["מעקב סטטוסים ודשבורד","ראו אחוזי סגירה, ליקויים פתוחים לפי קבלן, ומגמות — ממבט אחד. ללא Excel."],["דוחות PDF מקצועיים","לוגו הפרויקט, כל הליקויים, תמונות, תאריכים — דוח מקצועי שנוצר בלחיצה אחת ונשלח ישירות."],["תמיכה במספר שפות","עברית, ערבית, רוסית ואנגלית — כל עובד עובד בשפתו שלו."]],
     langTag:"שפות", langTitle:"מתאים לצוותים רב-לשוניים", langSub:"SitePunch תומכת בעברית, ערבית, רוסית ואנגלית — כדי שכל בעלי התפקידים באתר יוכלו לעבוד בשפה הנוחה להם.",
     languageCards:[["עברית","עברית","ממשק RTL מלא, מונחים מקצועיים מהתעשייה הישראלית ותמיכה בכל גדלי המסך."],["ערבית","عربي","ממשק ערבי מלא RTL לעובדי שטח, עם מונחי בנייה ברורים."],["רוסית","Русский","ממשק מלא לעובדים דוברי רוסית, עם כיוון, מונחים ופעולות המותאמים לעבודה בשטח."],["אנגלית","English","ממשק אנגלי מלא לצוותים בינלאומיים ולמנהלי פרויקטים העובדים בין מדינות."]],
+    langTranslateTitle:"כל אחד קורא את הליקוי בשפה שלו",
+    langTranslateMsg:"ליקוי שנכתב בעברית מוצג לקבלן בערבית, רוסית או אנגלית — כולל הכותרת והתיאור, לא רק כפתורי המערכת. המקור נשמר ותמיד אפשר להציג אותו.",
     howTag:"איך זה עובד", howTitle:"מוכן לעבודה תוך דקות",
     howSteps:[["פותחים ליקוי","מצלמים ומזינים פרטים — קטגוריה, מיקום ואחראי — ישירות מהטלפון."],["מקצים אחריות","משייכים לקבלן או לגורם המטפל. הוא מקבל התראה מיידית בשפתו."],["עוקבים אחר טיפול","מנהלים סטטוסים והתקדמות. ליקוי שלא נסגר — מתריעים אוטומטית."],["סוגרים ומפיקים דוחות","הכל מתועד ומוכן למסירה. דוח PDF מקצועי בלחיצה אחת."]],
     pricingTag:"מחירים", pricingTitle:"שקוף, פשוט, ללא הפתעות", pricingSub:"התחילו בחינם ושדרגו כשאתם גדלים. ללא כרטיס אשראי, ללא התחייבות.",
@@ -3097,7 +3122,7 @@ const TRANSLATIONS = {
     a11yLangLabel:"שפת הדף / Page Language",
     chat: {
       fabLabel:"יש שאלה?", panelTitle:"עזרה", waLabel:"או דברו איתנו בוואטסאפ",
-      greeting:"היי! יש לכם שאלה על SitePunch — תמחור, פיצ'רים, הטמעה? אני כאן לעזור.",
+      greeting:"היי! יש לכם שאלה על SitePunch — תמחור, עבודה גם בלי קליטה, פיצ'רים או הטמעה? אני כאן לעזור.",
       suggestions:["כמה זה עולה?","עובד בלי אינטרנט?","איך מתחילים?"],
       inputPlaceholder:"הקלידו שאלה...",
       featAiHeader:"יש שאלה על הפיצ'ר?", featAiPlaceholder:"שאלו משהו על הפיצ'ר...",
@@ -3111,8 +3136,9 @@ const TRANSLATIONS = {
     navAccount: "My Account", navApp: "Open the App", navResources:"Resources", navInstall:"Install on Mobile", navGuide:"User Guide", navTalk:"Talk to Us", themeLight:"Light mode", themeDark:"Dark mode",
     heroEyebrow: "Punch List Management for Construction Sites",
     heroTitle: "The punch list that manages<br>the site <span class=\"gold\">for you</span>",
-    heroSub: "Document defects on-site, assign responsibility to contractors, track progress and generate professional reports — all from one system.",
+    heroSub: "Document defects on-site, assign responsibility to contractors, track progress and generate professional reports — even without reception.",
     heroChecks: ["Photo documentation","Real-time tracking","Professional PDF reports","Hebrew | Arabic | Russian | English","Built for project managers & contractors"],
+    heroOfflineNote: "WORKS WITHOUT RECEPTION · ACTIONS SYNC WHEN CONNECTION RETURNS",
     heroCta1: "Open the App", heroCta2: "View Pricing",
     proofLabel:"PRODUCT PROOF", proofTitle:"Every field photo becomes a managed punch — with an owner, status and complete history.", proofCaption:"A real app screen — marking a punch from the phone",
     industriesTag:"BEYOND CONSTRUCTION", industriesTitle:"Built for the field — from construction to industry and energy",
@@ -3128,6 +3154,8 @@ const TRANSLATIONS = {
     featureItems:[["Creating Site Defects","Open a defect directly from the field: photo, location and category — then assign it to the responsible party. Even without internet."],["Direct Photo from Phone","Capture before & after photos — everything saved in the cloud and appears automatically in the PDF report."],["Assign to Contractors","Every defect is assigned to a specific responsible party. The system tracks and alerts when it's not closed on time."],["Status Tracking & Dashboard","See closure rates, open defects per contractor, and trends — at a glance. No Excel."],["Professional PDF Reports","Project logo, all defects, photos, dates — a professional report generated in one click and sent directly."],["Multi-Language Support","Hebrew, Arabic, Russian and English — every worker works in their own language."]],
     langTag:"LANGUAGES", langTitle:"Built for multilingual teams", langSub:"SitePunch supports Hebrew, Arabic, Russian and English — so every person on site can work in their own language.",
     languageCards:[["Hebrew","עברית","Full RTL interface with terminology used across the Israeli construction industry and support for every screen size."],["Arabic","عربي","Full RTL Arabic interface for field teams, with clear construction terminology."],["Russian","Русский","A complete Russian interface with direction, terminology and actions adapted to field work."],["English","English","A complete English interface for international teams and project managers working across borders."]],
+    langTranslateTitle:"Everyone reads the punch in their own language",
+    langTranslateMsg:"A punch written in Hebrew is shown to the contractor in Arabic, Russian or English — including the title and description, not just the interface buttons. The original is preserved and can always be shown.",
     howTag:"HOW IT WORKS", howTitle:"Ready to use in minutes",
     howSteps:[["Open a defect","Take a photo and enter the category, location and responsible party directly from the phone."],["Assign responsibility","Assign to a contractor or handler. They get an instant notification in their language."],["Track progress","Manage statuses and progress. A defect not closed on time triggers an automatic alert."],["Close & generate reports","Everything is documented and ready for handover. Professional PDF report in one click."]],
     pricingTag:"PRICING", pricingTitle:"Transparent, simple, no surprises", pricingSub:"Start free and upgrade as you grow. No credit card, no commitment.",
@@ -3150,7 +3178,7 @@ const TRANSLATIONS = {
     a11yLangLabel:"Page Language / שפת הדף",
     chat: {
       fabLabel:"Have a question?", panelTitle:"Help", waLabel:"Or message us on WhatsApp",
-      greeting:"Hi! Have a question about SitePunch — pricing, features, setup? I'm here to help.",
+      greeting:"Hi! Have a question about SitePunch — pricing, working without reception, features or setup? I'm here to help.",
       suggestions:["How much does it cost?","Does it work offline?","How do I get started?"],
       inputPlaceholder:"Type a question...",
       featAiHeader:"Have a question about this feature?", featAiPlaceholder:"Ask something about this feature...",
@@ -3164,8 +3192,9 @@ const TRANSLATIONS = {
     navAccount: "Личный кабинет", navApp: "Открыть приложение", navResources:"Ресурсы", navInstall:"Установить на телефон", navGuide:"Руководство", navTalk:"Связаться с нами", themeLight:"Светлая тема", themeDark:"Тёмная тема",
     heroEyebrow: "Система управления дефектами на стройплощадке",
     heroTitle: "Punch List, который управляет<br>объектом <span class=\"gold\">за вас</span>",
-    heroSub: "Документируйте дефекты на объекте, назначайте ответственных, отслеживайте устранение и создавайте профессиональные отчёты — всё в одной системе.",
+    heroSub: "Документируйте дефекты на объекте, назначайте ответственных, отслеживайте устранение и создавайте профессиональные отчёты — даже без связи.",
     heroChecks: ["Фотодокументация","Отслеживание в реальном времени","Профессиональные PDF-отчёты","Иврит | Арабский | Русский | Английский","Для прорабов и подрядчиков"],
+    heroOfflineNote: "РАБОТАЕТ БЕЗ СВЯЗИ · ДАННЫЕ СИНХРОНИЗИРУЮТСЯ ПРИ ВОЗВРАТЕ СЕТИ",
     heroCta1: "Открыть приложение", heroCta2: "Посмотреть цены",
     proofLabel:"ДОКАЗАТЕЛЬСТВО ПРОДУКТА", proofTitle:"Каждое фото с объекта становится управляемым замечанием — с ответственным, статусом и полной историей.", proofCaption:"Реальный экран приложения — отметка замечания с телефона",
     industriesTag:"БОЛЬШЕ, ЧЕМ СТРОИТЕЛЬСТВО", industriesTitle:"Создано для работы в поле — от строительства до промышленности и энергетики",
@@ -3181,6 +3210,8 @@ const TRANSLATIONS = {
     featureItems:[["Создание дефектов на объекте","Открываем дефект прямо на объекте: фото, местоположение и категория — затем назначаем ответственному. Даже без интернета."],["Фото прямо с телефона","Снимаем до и после — всё сохраняется в облаке и автоматически появляется в PDF-отчёте."],["Назначение подрядчикам","Каждый дефект назначен конкретному ответственному. Система отслеживает и предупреждает, если не закрыт вовремя."],["Отслеживание статусов и дашборд","Процент закрытых, открытые по подрядчику, тенденции — с первого взгляда. Без Excel."],["Профессиональные PDF-отчёты","Логотип, все дефекты, фото, даты — профессиональный отчёт в один клик, готов к отправке."],["Поддержка нескольких языков","Иврит, арабский, русский и английский — каждый работает на своём языке."]],
     langTag:"ЯЗЫКИ", langTitle:"Для многоязычных команд", langSub:"SitePunch поддерживает иврит, арабский, русский и английский — чтобы каждый на объекте мог работать на своём языке.",
     languageCards:[["Иврит","עברית","Полный RTL-интерфейс с профессиональной терминологией израильской строительной отрасли и поддержкой всех размеров экрана."],["Арабский","عربي","Полный арабский RTL-интерфейс для полевых команд с понятной строительной терминологией."],["Русский","Русский","Полный русский интерфейс с направлением, терминами и действиями, адаптированными для работы на объекте."],["Английский","English","Полный английский интерфейс для международных команд и руководителей проектов."]],
+    langTranslateTitle:"Каждый читает замечание на своём языке",
+    langTranslateMsg:"Замечание, написанное на иврите, отображается подрядчику на арабском, русском или английском — включая заголовок и описание, а не только кнопки интерфейса. Оригинал сохраняется, и его всегда можно показать.",
     howTag:"КАК ЭТО РАБОТАЕТ", howTitle:"Готово к работе за несколько минут",
     howSteps:[["Открываем дефект","Фотографируем и указываем категорию, местоположение и ответственного прямо с телефона."],["Назначаем ответственного","Привязываем к подрядчику. Он получает мгновенное уведомление на своём языке."],["Следим за устранением","Управляем статусами и прогрессом. Незакрытый дефект — автоматическое напоминание."],["Закрываем и создаём отчёты","Всё задокументировано. Профессиональный PDF-отчёт в один клик."]],
     pricingTag:"ЦЕНЫ", pricingTitle:"Прозрачно, просто, без сюрпризов", pricingSub:"Начните бесплатно и переходите на следующий план по мере роста. Без карты, без обязательств.",
@@ -3203,7 +3234,7 @@ const TRANSLATIONS = {
     a11yLangLabel:"Язык страницы / שפת הדף",
     chat: {
       fabLabel:"Есть вопрос?", panelTitle:"Помощь", waLabel:"Или напишите нам в WhatsApp",
-      greeting:"Привет! Есть вопрос о SitePunch — цены, функции, настройка? Я здесь, чтобы помочь.",
+      greeting:"Привет! Есть вопрос о SitePunch — цены, работа без связи, функции или настройка? Я здесь, чтобы помочь.",
       suggestions:["Сколько это стоит?","Работает без интернета?","Как начать?"],
       inputPlaceholder:"Введите вопрос...",
       featAiHeader:"Есть вопрос об этой функции?", featAiPlaceholder:"Спросите что-нибудь об этой функции...",
@@ -3217,8 +3248,9 @@ const TRANSLATIONS = {
     navAccount: "حسابي", navApp: "افتح التطبيق", navResources:"المعلومات", navInstall:"التثبيت على الهاتف", navGuide:"دليل المستخدم", navTalk:"تحدثوا معنا", themeLight:"الوضع الفاتح", themeDark:"الوضع الداكن",
     heroEyebrow: "نظام إدارة العيوب لمواقع البناء",
     heroTitle: "قائمة الإصلاحات التي تدير<br>الموقع <span class=\"gold\">بدلاً عنك</span>",
-    heroSub: "وثّق العيوب في الموقع، عيّن المسؤوليات للمقاولين، تابع التقدم وأنشئ تقارير احترافية — كل ذلك من نظام واحد.",
+    heroSub: "وثّق العيوب في الموقع، عيّن المسؤوليات للمقاولين، تابع التقدم وأنشئ تقارير احترافية — حتى دون تغطية.",
     heroChecks: ["توثيق بالصور","متابعة في الوقت الفعلي","تقارير PDF احترافية","عبري | عربي | روسي | إنجليزي","مصمم لمديري المشاريع والمقاولين"],
+    heroOfflineNote: "يعمل دون تغطية · تتزامن العمليات عند عودة الاتصال",
     heroCta1: "افتح التطبيق", heroCta2: "عرض الأسعار",
     proofLabel:"دليل المنتج", proofTitle:"كل صورة من الموقع تصبح ملاحظة مُدارة — مع مسؤول وحالة وسجل كامل.", proofCaption:"شاشة حقيقية من التطبيق — تحديد ملاحظة من الهاتف",
     industriesTag:"ما بعد البناء", industriesTitle:"مصمم للميدان — من البناء إلى الصناعة والطاقة",
@@ -3234,6 +3266,8 @@ const TRANSLATIONS = {
     featureItems:[["فتح العيوب من الموقع","افتح العيب مباشرة من الموقع: صورة وموقع وفئة — ثم أسنده للمسؤول. حتى بدون إنترنت."],["تصوير مباشر من الهاتف","التقط صورًا قبل وبعد الإصلاح — كل شيء محفوظ في السحابة ويظهر تلقائيًا في تقرير PDF."],["إسناد للمقاولين","كل عيب مُسند لمسؤول محدد. النظام يتابع وينبّه حين لا يُغلق في الوقت المحدد."],["تتبع الحالات ولوحة التحكم","اطّلع على معدلات الإغلاق والعيوب المفتوحة حسب المقاول والاتجاهات — بنظرة واحدة. بدون Excel."],["تقارير PDF احترافية","شعار المشروع، جميع العيوب، الصور، التواريخ — تقرير احترافي بنقرة واحدة وجاهز للإرسال."],["دعم متعدد اللغات","عبري، عربي، روسي وإنجليزي — كل عامل يعمل بلغته."]],
     langTag:"اللغات", langTitle:"مناسب للفرق متعددة اللغات", langSub:"يدعم SitePunch العبرية والعربية والروسية والإنجليزية — حتى يتمكن كل شخص في الموقع من العمل بلغته.",
     languageCards:[["العبرية","עברית","واجهة RTL كاملة بمصطلحات مهنية من قطاع البناء الإسرائيلي ودعم لجميع أحجام الشاشات."],["العربية","عربي","واجهة عربية كاملة RTL لفرق الميدان، بمصطلحات بناء واضحة."],["الروسية","Русский","واجهة روسية كاملة باتجاه ومصطلحات وإجراءات ملائمة للعمل الميداني."],["الإنجليزية","English","واجهة إنجليزية كاملة للفرق الدولية ومديري المشاريع الذين يعملون عبر الحدود."]],
+    langTranslateTitle:"كل شخص يقرأ الملاحظة بلغته",
+    langTranslateMsg:"الملاحظة المكتوبة بالعبرية تُعرض للمقاول بالعربية أو الروسية أو الإنجليزية — بما في ذلك العنوان والوصف، وليس فقط أزرار النظام. يتم الاحتفاظ بالنص الأصلي ويمكن عرضه دائماً.",
     howTag:"كيف يعمل", howTitle:"جاهز للعمل في دقائق",
     howSteps:[["نفتح عيبًا","نلتقط صورة وندخل الفئة والموقع والمسؤول مباشرة من الهاتف."],["نعيّن المسؤولية","نربط بالمقاول. يتلقى إشعارًا فوريًا بلغته."],["نتابع المعالجة","ندير الحالات والتقدم. العيب غير المغلق — تنبيه تلقائي."],["نغلق وننشئ التقارير","كل شيء موثق وجاهز للتسليم. تقرير PDF احترافي بنقرة واحدة."]],
     pricingTag:"الأسعار", pricingTitle:"شفاف، بسيط، بلا مفاجآت", pricingSub:"ابدأ مجانًا وطوّر خطتك مع نموّك. بدون بطاقة ائتمان، بدون التزام.",
@@ -3256,7 +3290,7 @@ const TRANSLATIONS = {
     a11yLangLabel:"لغة الصفحة / שפת הדף",
     chat: {
       fabLabel:"هل لديك سؤال؟", panelTitle:"مساعدة", waLabel:"أو راسلنا عبر واتساب",
-      greeting:"مرحباً! هل لديك سؤال عن SitePunch — الأسعار، الميزات، الإعداد؟ أنا هنا للمساعدة.",
+      greeting:"مرحباً! هل لديك سؤال عن SitePunch — الأسعار، العمل دون تغطية، الميزات أو الإعداد؟ أنا هنا للمساعدة.",
       suggestions:["كم يكلف هذا؟","يعمل بدون إنترنت؟","كيف أبدأ؟"],
       inputPlaceholder:"اكتب سؤالاً...",
       featAiHeader:"هل لديك سؤال عن هذه الميزة؟", featAiPlaceholder:"اسأل شيئاً عن هذه الميزة...",
@@ -3336,6 +3370,8 @@ function switchLang(lang) {
   if (heroTitle) heroTitle.innerHTML = t.heroTitle;
   const heroSub = document.querySelector('.hero-sub');
   if (heroSub) heroSub.textContent = t.heroSub;
+  const heroOfflineNote = document.getElementById('heroOfflineNote');
+  if (heroOfflineNote) heroOfflineNote.textContent = t.heroOfflineNote;
   document.querySelectorAll('.hero-check').forEach((el, i) => { if (t.heroChecks[i]) el.textContent = t.heroChecks[i]; });
   const heroCtas = document.querySelectorAll('.hero-actions a');
   if (heroCtas[0]) heroCtas[0].textContent = t.heroCta1;
@@ -3398,6 +3434,12 @@ function switchLang(lang) {
   sec('languages',t.langTag,     t.langTitle,     t.langSub);
   sec('how',      t.howTag,      t.howTitle,      '');
   sec('pricing',  t.pricingTag,  t.pricingTitle,  t.pricingSub);
+
+  // Translation-content callout in the languages section
+  const langTranslateTitle = document.getElementById('langTranslateTitle');
+  const langTranslateMsg = document.getElementById('langTranslateMsg');
+  if (langTranslateTitle) langTranslateTitle.textContent = t.langTranslateTitle;
+  if (langTranslateMsg) langTranslateMsg.textContent = t.langTranslateMsg;
 
   // Language cards — names, native labels and descriptions all follow the selected UI language.
   document.querySelectorAll('.lang-card').forEach((card, i) => {
