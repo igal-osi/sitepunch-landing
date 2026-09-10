@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SitePunch – ניהול ליקויים חכם לאתרי בנייה</title>
+<title>SitePunch – ניהול ליקויים ותהליכי שטח באתרי בנייה</title>
 <link rel="icon" href="/favicon.ico">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<meta name="description" content="ניהול ליקויים דיגיטלי לאתרי בנייה — תמונות, דוחות PDF, שיתוף צוות. התחל בחינם." />
-<meta property="og:title" content="SitePunch – ניהול ליקויים חכם לאתרי בנייה" />
-<meta property="og:description" content="ניהול ליקויים דיגיטלי לאתרי בנייה — תמונות, דוחות PDF, שיתוף צוות. התחל בחינם." />
+<meta name="description" content="SitePunch מרכזת ניהול ליקויים, איכות, ביצוע, בטיחות ותהליכי פרויקט בפלטפורמה רב־לשונית. SitePunch זמין עכשיו; Operations בגישה מוקדמת." />
+<meta property="og:title" content="SitePunch – ניהול ליקויים ותהליכי שטח באתרי בנייה" />
+<meta property="og:description" content="שני מוצרים במותג אחד: SitePunch לניהול ליקויים ו־SitePunch Operations לתהליכי איכות, ביצוע, פרויקט ובטיחות." />
 <meta property="og:image" content="https://sitepunch.co.il/og-image.png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
@@ -17,8 +17,8 @@
 <meta property="og:type" content="website" />
 <meta property="og:locale" content="he_IL" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="SitePunch – ניהול ליקויים חכם לאתרי בנייה" />
-<meta name="twitter:description" content="ניהול ליקויים דיגיטלי לאתרי בנייה — תמונות, דוחות PDF, שיתוף צוות." />
+<meta name="twitter:title" content="SitePunch – ניהול ליקויים ותהליכי שטח באתרי בנייה" />
+<meta name="twitter:description" content="SitePunch לניהול ליקויים ו־SitePunch Operations לתהליכי איכות, ביצוע, פרויקט ובטיחות." />
 <meta name="twitter:image" content="https://sitepunch.co.il/og-image.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Hebrew:wght@400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
@@ -235,6 +235,28 @@
     width: 100%; min-height: calc(max(720px, 94vh) - 70px);
   }
   .hero-content { align-self: center; padding-inline-start: 6vw; }
+  .product-switch {
+    display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 8px;
+    width: min(100%, 580px); padding: 8px; margin-bottom: 28px;
+    border: 1px solid rgba(212,175,55,.24); border-radius: 14px;
+    background: rgba(8,10,15,.76); box-shadow: 0 18px 46px rgba(0,0,0,.24);
+    backdrop-filter: blur(14px);
+  }
+  .product-switch-button {
+    position: relative; appearance: none; min-height: 74px;
+    border: 1px solid rgba(255,255,255,.08); border-radius: 9px; padding: 14px 16px;
+    background: transparent; color: var(--muted); cursor: pointer; text-align: start;
+    font: 700 .76rem/1.15 var(--font-sans);
+    transition: color .2s, background .2s, border-color .2s, transform .2s;
+  }
+  .product-switch-button strong { display: block; color: inherit; font-size: 1rem; letter-spacing: -.01em; }
+  .product-switch-button span { display: block; margin-top: 7px; font: 600 .66rem/1.35 var(--font-mono); }
+  .product-switch-button:hover { color: var(--white); border-color: rgba(212,175,55,.3); transform: translateY(-1px); }
+  .product-switch-button:focus-visible { outline: 2px solid var(--purple); outline-offset: 2px; }
+  .product-switch-button.is-active {
+    color: #17110a; background: var(--gold); border-color: var(--gold);
+    box-shadow: 0 6px 20px rgba(212,175,55,.18);
+  }
   .hero-eyebrow {
     display: inline-flex; align-items: center; gap: 12px; margin-bottom: 28px;
     color: #b9bec9; font-size: 0.76rem; font-weight: 600; letter-spacing: .05em;
@@ -301,6 +323,9 @@
     width: 100%; height: 100%; object-fit: cover; object-position: 68% 40%;
     display: block; filter: brightness(1.08) saturate(1.05);
   }
+  /* Operations artwork is portrait-heavy on its left edge. Anchor it closer to
+     that edge so the device remains visible instead of being cropped away. */
+  body[data-product="operations"] .hero-photo img { object-position: 28% 40%; }
   .hero-photo-mask {
     position: absolute; inset: 0;
     background: linear-gradient(90deg, rgba(11,12,18,0.72) 0%, rgba(11,12,18,0.04) 36%, transparent 70%), linear-gradient(180deg, transparent 50%, rgba(11,12,18,0.34) 100%);
@@ -310,15 +335,21 @@
     #hero { min-height: auto; padding: 70px 6vw 0; }
     .hero-grid { grid-template-columns: 1fr; gap: 0; }
     .hero-content { padding: 48px 0 38px; }
+    .product-switch { margin-bottom: 20px; }
     .hero-eyebrow { margin-bottom: 22px; }
     .hero-visual { min-height: 0; height: auto; aspect-ratio: 1672 / 941; margin-inline-end: -6vw; margin-inline-start: -6vw; }
     .hero-photo img { object-position: center; }
     .hero-photo-mask { background: linear-gradient(180deg, rgba(14,17,25,.02) 0%, rgba(14,17,25,.18) 100%); }
     .hero-marks { display: none; }
   }
+  @media (max-width: 520px) {
+    .product-switch { grid-template-columns: 1fr; }
+    .product-switch-button { min-height: 64px; }
+  }
   @media (max-width: 340px) {
     /* Keep a deliberate gap between the primary CTA and the restored floating tool stack. */
     .hero-actions .btn-gold-main { padding-inline: 24px; }
+    .product-switch-button { padding-inline: 9px; }
   }
 
   /* ── PRODUCT PROOF STRIP ── */
@@ -381,6 +412,228 @@
     .proof-phone { width: min(100%, 232px); border-radius: 39px; }
     .proof-phone::before { border-radius: 35px; }
     .proof-phone-screen { border-radius: 32px; }
+  }
+
+  /* ── PRODUCT EDITIONS — one platform, two controlled product boundaries ── */
+  #products {
+    position: relative; overflow: hidden; background: #0b0c12;
+    border-bottom: 1px solid rgba(212,175,55,.18);
+  }
+  #products::before {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(circle at 14% 18%, rgba(132,67,202,.12), transparent 36%),
+                linear-gradient(rgba(212,175,55,.025) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(212,175,55,.025) 1px, transparent 1px);
+    background-size: auto, 72px 72px, 72px 72px;
+  }
+  .product-edition-grid {
+    position: relative; display: grid; grid-template-columns: minmax(0,.9fr) minmax(320px,1.1fr);
+    gap: clamp(42px,7vw,104px); align-items: center; max-width: 1280px; margin: 0 auto;
+  }
+  .product-edition-copy { min-width: 0; }
+  .product-edition-tag {
+    display: inline-flex; align-items: center; gap: 9px; color: var(--gold);
+    font: 600 .7rem/1.2 var(--font-mono); letter-spacing: .08em; text-transform: uppercase;
+    border-inline-start: 2px solid var(--purple); padding-inline-start: 10px; margin-bottom: 18px;
+  }
+  .product-edition-title { font-size: clamp(2rem,4vw,4.2rem); line-height: 1.02; letter-spacing: -.035em; max-width: 13ch; }
+  .product-edition-sub { margin-top: 22px; color: var(--muted); font-size: 1.02rem; line-height: 1.75; max-width: 55ch; }
+  .product-edition-features { list-style: none; display: grid; gap: 12px; margin: 30px 0; }
+  .product-edition-features li { display: flex; gap: 11px; color: #d9dbe2; font-size: .92rem; line-height: 1.55; }
+  .product-edition-features li::before { content: '✓'; color: var(--gold); font-weight: 900; flex: 0 0 auto; }
+  .product-edition-actions { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+  .product-edition-badge {
+    display: inline-flex; align-items: center; min-height: 34px; padding: 7px 11px;
+    border: 1px solid rgba(181,108,255,.34); color: #cfafff; background: rgba(132,67,202,.1);
+    font: 700 .68rem/1 var(--font-mono); letter-spacing: .04em;
+  }
+  .product-edition-media { position: relative; margin: 0; min-width: 0; }
+  .product-edition-frame {
+    position: relative; aspect-ratio: 16 / 10; overflow: hidden; background: #07090d;
+    border: 1px solid rgba(212,175,55,.25); box-shadow: 0 32px 80px rgba(0,0,0,.36);
+  }
+  .product-edition-frame::before, .product-edition-frame::after {
+    content: ''; position: absolute; z-index: 2; width: 46px; height: 46px; pointer-events: none;
+  }
+  .product-edition-frame::before { inset-block-start: 14px; inset-inline-start: 14px; border-block-start: 1px solid var(--gold); border-inline-start: 1px solid var(--gold); }
+  .product-edition-frame::after { inset-block-end: 14px; inset-inline-end: 14px; border-block-end: 1px solid var(--purple); border-inline-end: 1px solid var(--purple); }
+  .product-edition-frame img { width: 100%; height: 100%; display: block; object-fit: cover; }
+  .product-edition-caption { margin-top: 12px; color: var(--muted); font: 500 .68rem/1.5 var(--font-mono); }
+  .product-ai-panel {
+    position: relative; display: grid; grid-template-columns: minmax(0,1fr) minmax(280px,.72fr);
+    gap: 36px; align-items: center; max-width: 1280px; margin: 72px auto 0; padding: 30px;
+    border-block: 1px solid rgba(212,175,55,.2); border-inline-start: 3px solid var(--purple);
+    background: rgba(17,19,28,.82);
+  }
+  .product-ai-panel[data-visual="false"] { grid-template-columns: 1fr; }
+  .product-ai-panel[data-visual="false"] .product-ai-visual { display: none; }
+  .product-ai-kicker { color: var(--purple); font: 700 .72rem/1.2 var(--font-mono); letter-spacing: .1em; text-transform: uppercase; }
+  .product-ai-title { margin-top: 10px; font-size: clamp(1.35rem,2.4vw,2rem); line-height: 1.2; }
+  .product-ai-text { margin-top: 12px; color: var(--muted); line-height: 1.7; max-width: 70ch; }
+  .product-ai-features { list-style: none; display: flex; gap: 9px; flex-wrap: wrap; margin-top: 20px; }
+  .product-ai-features li { padding: 8px 10px; border: 1px solid rgba(212,175,55,.2); color: #d9dbe2; font-size: .76rem; }
+  .product-ai-visual { margin: 0; overflow: hidden; border: 1px solid rgba(181,108,255,.28); aspect-ratio: 16 / 9; }
+  .product-ai-visual img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .pricing-product-context {
+    display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 22px; align-items: center;
+    max-width: 1040px; margin: 30px auto 0; padding: 20px 22px;
+    border: 1px solid rgba(212,175,55,.22); border-inline-start: 3px solid var(--purple);
+    background: rgba(17,19,28,.55); text-align: start;
+  }
+  .pricing-product-context h3 { font-size: 1rem; color: var(--white); }
+  .pricing-product-context p { margin-top: 6px; color: var(--muted); font-size: .84rem; line-height: 1.55; max-width: 68ch; }
+  .pricing-product-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .pricing-product-link { color: var(--gold); font-weight: 700; font-size: .84rem; text-decoration: none; white-space: nowrap; }
+  .pricing-product-switch { border: 0; background: transparent; color: var(--muted); text-decoration: underline; cursor: pointer; font: 600 .76rem var(--font-sans); }
+  #pricing[data-product="operations"] .pricing-toggle,
+  #pricing[data-product="operations"] .pricing-grid,
+  #pricing[data-product="operations"] .packs-title,
+  #pricing[data-product="operations"] .packs-grid { display: none; }
+  #pricing[data-product="operations"] > .section-tag,
+  #pricing[data-product="operations"] > .section-title,
+  #pricing[data-product="operations"] > .section-sub { display: none; }
+  @media (max-width: 900px) {
+    .product-edition-grid { grid-template-columns: 1fr; }
+    .product-edition-title { max-width: 18ch; }
+    .product-ai-panel { grid-template-columns: 1fr; }
+    .pricing-product-context { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 520px) {
+    #products { padding-inline: 5vw; }
+    .product-edition-frame { aspect-ratio: 4 / 3; }
+    .product-edition-actions .btn-gold-main { width: 100%; text-align: center; }
+    .product-ai-panel { margin-top: 48px; padding: 22px 18px; }
+    .pricing-product-actions { align-items: flex-start; flex-direction: column; }
+  }
+
+  /* ── OPERATIONS ROUTE — a complete early-access story, not only a switched hero ── */
+  [data-product-only="operations"] { display: none; }
+  body[data-product="operations"] [data-product-only="punch"] { display: none; }
+  body[data-product="operations"] [data-product-only="operations"] { display: block; }
+
+  #operations-platform {
+    position: relative; overflow: hidden; background: #10131c;
+    border-bottom: 1px solid rgba(212,175,55,.18);
+  }
+  #operations-platform::before {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(circle at 85% 10%, rgba(132,67,202,.16), transparent 34%),
+                linear-gradient(rgba(212,175,55,.025) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(212,175,55,.025) 1px, transparent 1px);
+    background-size: auto, 72px 72px, 72px 72px;
+  }
+  .operations-shell { position: relative; max-width: 1280px; margin: 0 auto; }
+  .operations-intro { display: grid; grid-template-columns: minmax(0,.85fr) minmax(280px,.55fr); gap: 46px; align-items: end; }
+  .operations-intro .section-title { max-width: 15ch; }
+  .operations-intro-note {
+    border-inline-start: 3px solid var(--gold); padding-block: 8px; padding-inline-start: 22px;
+    color: var(--muted); line-height: 1.7; font-size: .92rem;
+  }
+  .operations-pillars {
+    display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 18px;
+    margin-top: 54px;
+  }
+  .operations-pillar {
+    position: relative; min-height: 330px; padding: 30px;
+    border: 1px solid rgba(212,175,55,.18); background: rgba(8,10,15,.66);
+    box-shadow: 0 22px 56px rgba(0,0,0,.18); overflow: hidden;
+  }
+  .operations-pillar::after {
+    content: ''; position: absolute; inset-inline-end: -45px; inset-block-end: -55px;
+    width: 150px; height: 150px; border: 1px solid rgba(181,108,255,.16); border-radius: 50%;
+  }
+  .operations-pillar-head { display: flex; justify-content: space-between; align-items: center; gap: 14px; }
+  .operations-pillar-index { color: var(--purple); font: 700 .68rem/1 var(--font-mono); letter-spacing: .09em; }
+  .operations-pillar-status {
+    display: inline-flex; align-items: center; min-height: 28px; padding: 6px 9px;
+    border: 1px solid rgba(212,175,55,.24); color: var(--gold);
+    font: 700 .6rem/1 var(--font-mono); letter-spacing: .04em;
+  }
+  .operations-pillar h3 { margin-top: 24px; font-size: clamp(1.45rem,2.4vw,2.15rem); line-height: 1.1; }
+  .operations-pillar p { margin-top: 12px; color: var(--muted); line-height: 1.65; max-width: 55ch; }
+  .operations-pillar ul { list-style: none; display: grid; gap: 10px; margin-top: 24px; }
+  .operations-pillar li { display: flex; align-items: flex-start; gap: 10px; color: #d9dbe2; font-size: .86rem; line-height: 1.45; }
+  .operations-pillar li::before { content: '↗'; color: var(--gold); font-family: var(--font-mono); }
+  .operations-scope {
+    display: grid; grid-template-columns: auto minmax(0,1fr); gap: 20px; align-items: center;
+    margin-top: 30px; padding: 24px 26px; border: 1px solid rgba(181,108,255,.26);
+    background: rgba(132,67,202,.08);
+  }
+  .operations-scope-badge {
+    display: inline-flex; align-items: center; justify-content: center; min-width: 116px; min-height: 42px;
+    color: #17110a; background: var(--gold); font: 900 .68rem/1 var(--font-mono); letter-spacing: .06em;
+  }
+  .operations-scope h3 { font-size: 1.08rem; }
+  .operations-scope p { margin-top: 6px; color: var(--muted); font-size: .86rem; line-height: 1.6; }
+
+  #operations-capabilities { background: #0b0c12; border-bottom: 1px solid rgba(212,175,55,.18); }
+  .operations-audience-grid {
+    display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 14px;
+    max-width: 1280px; margin: 44px auto 0;
+  }
+  .operations-audience-card {
+    min-height: 210px; padding: 24px 22px; border-block-start: 2px solid var(--purple);
+    background: rgba(17,19,28,.74); box-shadow: 0 18px 42px rgba(0,0,0,.14);
+  }
+  .operations-audience-card > span { color: var(--gold); font: 700 .66rem/1 var(--font-mono); letter-spacing: .08em; }
+  .operations-audience-card h3 { margin-top: 24px; font-size: 1.12rem; line-height: 1.25; }
+  .operations-audience-card p { margin-top: 10px; color: var(--muted); font-size: .84rem; line-height: 1.65; }
+  .operations-capabilities-head {
+    display: grid; grid-template-columns: minmax(0,.85fr) minmax(280px,.55fr); gap: 46px; align-items: end;
+    max-width: 1280px; margin: 96px auto 0;
+  }
+  .operations-capabilities-head .section-title { max-width: 15ch; }
+  .operations-capabilities-grid {
+    display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 16px;
+    max-width: 1280px; margin: 44px auto 0;
+  }
+  .operations-capability-card {
+    position: relative; min-height: 250px; padding: 26px 24px;
+    border: 1px solid rgba(212,175,55,.16); background: rgba(17,19,28,.56);
+  }
+  .operations-capability-card header { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+  .operations-capability-index { color: var(--purple); font: 700 .66rem/1 var(--font-mono); letter-spacing: .08em; }
+  .operations-capability-status {
+    min-height: 26px; padding: 6px 8px; border: 1px solid rgba(212,175,55,.22);
+    color: var(--gold); font: 700 .58rem/1 var(--font-mono); letter-spacing: .035em;
+  }
+  .operations-capability-card[data-status-tone="live"] .operations-capability-status {
+    color: #70e6a0; border-color: rgba(34,197,94,.35); background: rgba(34,197,94,.07);
+  }
+  .operations-capability-card[data-status-tone="ai"] .operations-capability-status {
+    color: #cfafff; border-color: rgba(181,108,255,.36); background: rgba(132,67,202,.08);
+  }
+  .operations-capability-card h3 { margin-top: 28px; font-size: 1.16rem; line-height: 1.25; }
+  .operations-capability-card p { margin-top: 11px; color: var(--muted); font-size: .86rem; line-height: 1.65; }
+
+  #operations-rollout { background: #0b0c12; border-bottom: 1px solid rgba(212,175,55,.18); }
+  .operations-rollout-grid {
+    display: grid; grid-template-columns: minmax(260px,.68fr) minmax(0,1fr); gap: clamp(42px,8vw,110px);
+    max-width: 1180px; margin: 0 auto; align-items: start;
+  }
+  .operations-rollout-steps { display: grid; border-top: 1px solid rgba(212,175,55,.2); }
+  .operations-rollout-step {
+    display: grid; grid-template-columns: 54px minmax(0,1fr); gap: 18px; padding: 24px 0;
+    border-bottom: 1px solid rgba(212,175,55,.14);
+  }
+  .operations-rollout-step > span { color: var(--purple); font: 700 .72rem/1.5 var(--font-mono); }
+  .operations-rollout-step h3 { font-size: 1.08rem; }
+  .operations-rollout-step p { margin-top: 7px; color: var(--muted); font-size: .88rem; line-height: 1.65; }
+
+  @media (max-width: 820px) {
+    .operations-intro, .operations-capabilities-head, .operations-rollout-grid { grid-template-columns: 1fr; }
+    .operations-pillars { grid-template-columns: 1fr; }
+    .operations-audience-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+    .operations-capabilities-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+    .operations-pillar { min-height: 0; }
+  }
+  @media (max-width: 520px) {
+    .operations-pillar { padding: 24px 20px; }
+    .operations-scope { grid-template-columns: 1fr; padding: 22px 20px; }
+    .operations-scope-badge { width: max-content; }
+    .operations-audience-grid, .operations-capabilities-grid { grid-template-columns: 1fr; }
+    .operations-capabilities-head { margin-top: 72px; }
+    .operations-audience-card, .operations-capability-card { min-height: 0; }
   }
 
   /* ── SECTION SHARED ── */
@@ -1282,7 +1535,7 @@
   }
   html:not([data-theme="light"]) { color-scheme: dark; }
   html[data-theme="light"], html[data-theme="light"] body { background: var(--bg); color: var(--white); }
-  body, #hero, #proof, #roles, #operating-proof, #problems, #features, #languages, #how, #industries, #pricing,
+  body, #hero, #proof, #products, #roles, #operating-proof, #problems, #features, #languages, #how, #industries, #pricing,
   .pack-card, .modal-box, .checkout-box, .legal-box, .chat-panel, .a11y-panel {
     transition: background-color .24s ease, color .24s ease, border-color .24s ease;
   }
@@ -1297,12 +1550,32 @@
   html[data-theme="light"] .hero-eyebrow { color: #4f5868; }
   html[data-theme="light"] .hero-sub { color: #525b6b; }
   html[data-theme="light"] .btn-outline-gold { color: var(--white); border-color: rgba(23,26,34,.32); }
+  html[data-theme="light"] .product-switch { background: rgba(255,250,241,.86); border-color: var(--line); box-shadow: 0 14px 34px rgba(42,36,26,.08); }
+  html[data-theme="light"] .product-switch-button.is-active { color: #241a05; }
   html[data-theme="light"] .hero-photo-mask {
     background: linear-gradient(90deg, rgba(242,239,231,.42) 0%, rgba(242,239,231,.04) 34%, transparent 68%), linear-gradient(180deg, transparent 54%, rgba(14,17,25,.18) 100%);
   }
 
   html[data-theme="light"] #proof { background: var(--blueprint); border-color: var(--line); }
   html[data-theme="light"] #proof .proof-shot::before { background: var(--blueprint); }
+  html[data-theme="light"] #products { background: var(--paper); }
+  html[data-theme="light"] #products::before { opacity: .55; }
+  html[data-theme="light"] .product-edition-features li,
+  html[data-theme="light"] .product-ai-features li { color: #343a46; }
+  html[data-theme="light"] .product-edition-frame { background: #e4ddd0; box-shadow: 0 28px 64px rgba(42,36,26,.14); }
+  html[data-theme="light"] .product-ai-panel,
+  html[data-theme="light"] .pricing-product-context { background: rgba(255,250,241,.82); border-block-color: var(--line); }
+  html[data-theme="light"] .product-edition-badge { color: #63309e; background: rgba(104,52,179,.08); }
+  html[data-theme="light"] #operations-platform,
+  html[data-theme="light"] #operations-rollout { background: var(--ivory); }
+  html[data-theme="light"] .operations-pillar {
+    background: rgba(255,255,255,.66); border-color: var(--line); box-shadow: 0 22px 56px rgba(42,36,26,.08);
+  }
+  html[data-theme="light"] .operations-pillar li { color: #343a46; }
+  html[data-theme="light"] .operations-scope { background: rgba(104,52,179,.06); }
+  html[data-theme="light"] #operations-capabilities { background: var(--ivory); }
+  html[data-theme="light"] .operations-audience-card,
+  html[data-theme="light"] .operations-capability-card { background: rgba(255,255,255,.66); box-shadow: 0 18px 42px rgba(42,36,26,.07); }
   html[data-theme="light"] #roles { background: var(--ivory); }
   html[data-theme="light"] #problems { background: var(--stone); }
   html[data-theme="light"] #features { background: var(--blueprint); }
@@ -1312,6 +1585,7 @@
   html[data-theme="light"] #industries { background: var(--paper); }
   html[data-theme="light"] #pricing { background: #f8f1e4; }
   html[data-theme="light"] #roles,
+  html[data-theme="light"] #products,
   html[data-theme="light"] #problems,
   html[data-theme="light"] #features,
   html[data-theme="light"] #operating-proof,
@@ -1449,6 +1723,9 @@
     /* Preserve all three actions on narrow phones without shrinking the 44px theme target. */
     nav { padding-inline: 2vw; }
     .nav-actions { gap: 4px; }
+    .nav-logo .brand-logo-dark { display: none; }
+    .nav-logo .brand-logo-light { display: inline-flex; }
+    .nav-logo .brand-logo-light > span { display: none; }
     .nav-cta-account { display: inline-flex; align-items: center; min-height: 36px; padding: 6px 7px; font-size: .62rem; }
     .nav-cta { display: inline-flex; align-items: center; min-height: 36px; padding: 7px 8px; font-size: .68rem; }
   }
@@ -1458,7 +1735,7 @@
   }
 </style>
 </head>
-<body>
+<body data-product="punch">
 
 <script>
 // ── Brand icon set — same visual language as the SitePunch app (feather-style
@@ -1505,11 +1782,11 @@ function bi(name, tone) { return '<span class="bi bi-' + (tone||'gold') + '">' +
     <span class="brand-logo-light" aria-hidden="true"><img class="brand-mark" src="favicon-32.png" alt=""><span><strong>Site</strong>Punch</span></span>
   </a>
   <ul class="nav-links">
-    <li><a href="#roles" data-index="01">למי מיועד</a></li>
-    <li><a href="#features" data-index="02">יכולות</a></li>
-    <li><a href="#how" data-index="03">תהליך העבודה</a></li>
-    <li><a href="#industries" data-index="04">ענפים</a></li>
-    <li><a href="#pricing" data-index="05">מחירים</a></li>
+    <li><a href="#roles" data-index="01" data-product-nav>למי מיועד</a></li>
+    <li><a href="#features" data-index="02" data-product-nav>יכולות</a></li>
+    <li><a href="#how" data-index="03" data-product-nav>תהליך העבודה</a></li>
+    <li><a href="#industries" data-index="04" data-product-nav>ענפים</a></li>
+    <li><a href="#pricing" data-index="05" data-product-nav>מחירים</a></li>
   </ul>
   <details class="nav-resources">
     <summary id="navResourcesLabel">מידע</summary>
@@ -1537,6 +1814,14 @@ function bi(name, tone) { return '<span class="bi bi-' + (tone||'gold') + '">' +
 
   <div class="hero-grid">
     <div class="hero-content">
+      <div class="product-switch" id="productSwitch" role="group" aria-label="בחירת מוצר">
+        <button type="button" class="product-switch-button is-active" data-product-choice="punch" aria-pressed="true" onclick="setLandingProduct('punch')">
+          <strong>SitePunch</strong><span id="punchSwitchStatus">ניהול ליקויים · זמין עכשיו</span>
+        </button>
+        <button type="button" class="product-switch-button" data-product-choice="operations" aria-pressed="false" onclick="setLandingProduct('operations')">
+          <strong>SitePunch Operations</strong><span id="operationsSwitchStatus">תהליכי שטח · גישה מוקדמת</span>
+        </button>
+      </div>
       <p class="hero-eyebrow"><span class="eyebrow-index" dir="ltr">SP / 24—07</span><span class="eyebrow-text">מערכת ניהול ליקויים לאתרי בנייה</span></p>
       <h1 class="hero-title">
         פנצ' ליסט שמנהל<br>
@@ -1546,15 +1831,15 @@ function bi(name, tone) { return '<span class="bi bi-' + (tone||'gold') + '">' +
         תעדו ליקויים מהשטח, הקצו אחריות לקבלנים, עקבו אחרי טיפול והפיקו דוחות מקצועיים — הכל ממערכת אחת.
       </p>
       <div class="hero-actions">
-        <a href="https://app.sitepunch.co.il" class="btn-gold-main">כניסה לאפליקציה</a>
-        <a href="#pricing" class="btn-outline-gold">צפו במחירים</a>
+        <a href="https://app.sitepunch.co.il" class="btn-gold-main" id="heroPrimaryCta">כניסה לאפליקציה</a>
+        <a href="#pricing" class="btn-outline-gold" id="heroSecondaryCta">צפו במחירים</a>
       </div>
       <p class="hero-offline-note" id="heroOfflineNote">עובדים גם בלי קליטה · הפעולות מסתנכרנות כשהחיבור חוזר</p>
     </div>
 
     <div class="hero-visual" aria-hidden="true">
       <div class="hero-photo">
-        <img src="assets/site-inspection-highrise.webp" alt="" loading="eager">
+        <img id="heroProductImage" src="assets/site-inspection-highrise.webp" alt="" loading="eager">
         <div class="hero-photo-mask"></div>
       </div>
     </div>
@@ -1587,8 +1872,136 @@ function bi(name, tone) { return '<span class="bi bi-' + (tone||'gold') + '">' +
   </figure>
 </section>
 
+<!-- PRODUCT EDITIONS: commercial boundary between the shipped punch workflow and Operations early access -->
+<section id="products" data-product="punch">
+  <div class="product-edition-grid">
+    <div class="product-edition-copy reveal">
+      <p class="product-edition-tag" id="productEditionTag">SitePunch · זמין עכשיו</p>
+      <h2 class="product-edition-title" id="productEditionTitle">דרך מהירה וברורה לסגור ליקויים</h2>
+      <p class="product-edition-sub" id="productEditionSub">מוצר ממוקד לצוותי ביצוע ופיקוח שרוצים לתעד, להקצות, לעקוב ולדווח — בלי להטמיע מערכת תפעולית כבדה.</p>
+      <ul class="product-edition-features" id="productEditionFeatures">
+        <li>תיעוד ליקויים ותמונות מהשטח</li>
+        <li>הקצאת אחריות, סטטוסים ותאריכי יעד</li>
+        <li>דוחות PDF, Excel ו-CSV</li>
+      </ul>
+      <div class="product-edition-actions">
+        <a class="btn-gold-main" id="productEditionCta" href="#pricing">למסלולי SitePunch</a>
+        <span class="product-edition-badge" id="productEditionBadge">מוצר פעיל</span>
+      </div>
+    </div>
+    <figure class="product-edition-media reveal">
+      <div class="product-edition-frame">
+        <img id="productEditionImage" src="assets/site-inspection-highrise.webp" alt="צוות באתר בנייה משתמש ב-SitePunch" loading="lazy">
+      </div>
+      <figcaption class="product-edition-caption" id="productEditionCaption">SitePunch — המוצר הקיים לניהול ליקויים</figcaption>
+    </figure>
+  </div>
+
+  <div class="product-ai-panel reveal" id="productAiPanel" data-visual="false">
+    <div>
+      <p class="product-ai-kicker">SitePunch AI</p>
+      <h3 class="product-ai-title" id="productAiTitle">תשובות מהירות על מצב הפרויקט</h3>
+      <p class="product-ai-text" id="productAiText">במסלול Enterprise העוזר מנתח את נתוני הליקויים, מסנן ומכין פעולות לייצוא — כשהנתונים וההרשאות נשארים בשליטת הארגון.</p>
+      <ul class="product-ai-features" id="productAiFeatures">
+        <li>שאלות על ליקויים</li><li>ניתוח וסינון</li><li>הכנת ייצוא</li>
+      </ul>
+    </div>
+    <figure class="product-ai-visual">
+      <img id="productAiImage" src="assets/sitepunch-ai-checklist-import-v1.webp" alt="המחשה של יצירת טיוטת צ'קליסט מקובץ באמצעות AI" loading="lazy">
+    </figure>
+  </div>
+</section>
+
+<!-- OPERATIONS PLATFORM: product scope shown only for the advanced early-access route -->
+<section id="operations-platform" data-product-only="operations" aria-labelledby="operationsPlatformTitle">
+  <div class="operations-shell">
+    <div class="operations-intro">
+      <div>
+        <p class="section-tag reveal" id="operationsPlatformTag">ארבעה עולמות עבודה · פלטפורמה אחת</p>
+        <h2 class="section-title reveal" id="operationsPlatformTitle">השטח בוחר פעולה — המערכת מנהלת את התהליך</h2>
+      </div>
+      <p class="operations-intro-note reveal" id="operationsPlatformSub">מסך פתיחה נקי מוביל כל בעל תפקיד לעולם העבודה שלו. כל תהליך נשען על תבניות, הרשאות, מעקב, תיעוד ודוחות משותפים.</p>
+    </div>
+
+    <div class="operations-pillars" id="operationsPillars">
+      <article class="operations-pillar reveal" data-operations-pillar="0">
+        <div class="operations-pillar-head"><span class="operations-pillar-index">01 / QC</span><span class="operations-pillar-status" data-operations-status>ליבה פעילה + הרחבה</span></div>
+        <h3>Quality Control</h3><p>בקרת איכות מתועדת מהשטח ועד למסירה.</p>
+        <ul><li>רשימות תיוג ובקרת איכות</li><li>ניהול ליקויים ו־Punch Lists</li><li>מסמכי איכות וגרסאות</li></ul>
+      </article>
+      <article class="operations-pillar reveal" data-operations-pillar="1">
+        <div class="operations-pillar-head"><span class="operations-pillar-index">02 / FIELD</span><span class="operations-pillar-status" data-operations-status>תוכנית השקה</span></div>
+        <h3>Field Execution</h3><p>כלי ביצוע יומיומיים למנהלי העבודה והקבלנים.</p>
+        <ul><li>יומני עבודה דיגיטליים</li><li>תוכניות ו־Markups מהשטח</li><li>משימות ופקודות עבודה</li></ul>
+      </article>
+      <article class="operations-pillar reveal" data-operations-pillar="2">
+        <div class="operations-pillar-head"><span class="operations-pillar-index">03 / PM</span><span class="operations-pillar-status" data-operations-status>תוכנית השקה</span></div>
+        <h3>Project Management</h3><p>שליטה בשאלות, שינויים, אבני דרך ואישורים.</p>
+        <ul><li>RFI, שינויים וחריגים</li><li>לוחות זמנים ואבני דרך</li><li>אישורי שלבים ותקציב</li></ul>
+      </article>
+      <article class="operations-pillar reveal" data-operations-pillar="3">
+        <div class="operations-pillar-head"><span class="operations-pillar-index">04 / HSE</span><span class="operations-pillar-status" data-operations-status>תוכנית השקה</span></div>
+        <h3>Safety / HSE</h3><p>תהליכי בטיחות, הדרכה ואישור קריאה במקום אחד.</p>
+        <ul><li>PTP וסיורי בטיחות</li><li>Toolbox Talks והסמכות</li><li>אירועים וכמעט־ונפגע</li></ul>
+      </article>
+    </div>
+
+    <div class="operations-scope reveal">
+      <span class="operations-scope-badge" id="operationsScopeBadge">EARLY ACCESS</span>
+      <div><h3 id="operationsScopeTitle">שקיפות לפני הבטחה</h3><p id="operationsScopeText">מנוע הליקויים, העבודה הרב־לשונית והדוחות כבר פעילים. יתר התהליכים נבנים ומופעלים בהדרגה עם לקוחות תוכנית ההשקה — לאחר אפיון ואישור.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="operations-capabilities" data-product-only="operations" aria-labelledby="operationsAudienceTitle">
+  <div class="operations-shell">
+    <p class="section-tag reveal" id="operationsAudienceTag">למי מיועד Operations</p>
+    <h2 class="section-title reveal" id="operationsAudienceTitle">ממשק אחד — עבודה מדויקת לכל תפקיד</h2>
+    <p class="section-sub reveal" id="operationsAudienceSub">כל בעל תפקיד נכנס לאותם נתוני פרויקט, אך רואה את הפעולות, האישורים והמשימות שרלוונטיים לאחריות שלו.</p>
+
+    <div class="operations-audience-grid" id="operationsAudienceGrid">
+      <article class="operations-audience-card reveal" data-operations-audience="0"><span>01 / QC</span><h3>מנהלי איכות</h3><p>צ'קליסטים, מסמכים, ליקויים, בדיקות ואישור שלבי איכות.</p></article>
+      <article class="operations-audience-card reveal" data-operations-audience="1"><span>02 / HSE</span><h3>מנהלי בטיחות</h3><p>PTP, סיורים, הדרכות, אירועים ואישורי קריאה.</p></article>
+      <article class="operations-audience-card reveal" data-operations-audience="2"><span>03 / PM</span><h3>מנהלי פרויקטים</h3><p>שינויים, RFI, אבני דרך, משימות ותמונת מצב ניהולית.</p></article>
+      <article class="operations-audience-card reveal" data-operations-audience="3"><span>04 / FIELD</span><h3>מנהלי עבודה וקבלנים</h3><p>טפסים, יומנים, תוכניות ופעולות מהירות מהטלפון.</p></article>
+    </div>
+
+    <div class="operations-capabilities-head">
+      <div>
+        <p class="section-tag reveal" id="operationsCapabilitiesTag">יכולות הפלטפורמה</p>
+        <h2 class="section-title reveal" id="operationsCapabilitiesTitle">תשתית משותפת לכל תהליך בשטח</h2>
+      </div>
+      <p class="operations-intro-note reveal" id="operationsCapabilitiesSub">הלקוח מגדיר את דרך העבודה בתוך גבולות המוצר — בלי לבנות אפליקציה חדשה לכל טופס ובלי לאבד שליטה בגרסאות ובהרשאות.</p>
+    </div>
+
+    <div class="operations-capabilities-grid" id="operationsCapabilitiesGrid">
+      <article class="operations-capability-card reveal" data-operations-capability="0" data-status-tone="future"><header><span class="operations-capability-index">01</span><span class="operations-capability-status">EARLY ACCESS</span></header><h3>בונה טפסים וצ'קליסטים</h3><p>שדות, שורות למילוי, חובה או רשות, שלבים ותוצאה סופית.</p></article>
+      <article class="operations-capability-card reveal" data-operations-capability="1" data-status-tone="future"><header><span class="operations-capability-index">02</span><span class="operations-capability-status">EARLY ACCESS</span></header><h3>חתימות ואישורי קריאה</h3><p>חתימה תפעולית או אישור בנקודות שהוגדרו, עם זמן וזהות.</p></article>
+      <article class="operations-capability-card reveal" data-operations-capability="2" data-status-tone="live"><header><span class="operations-capability-index">03</span><span class="operations-capability-status">CORE LIVE</span></header><h3>הרשאות ותבניות</h3><p>תצורה לפי ארגון, פרויקט ותפקיד על בסיס מנגנון הרשאות קיים.</p></article>
+      <article class="operations-capability-card reveal" data-operations-capability="3" data-status-tone="future"><header><span class="operations-capability-index">04</span><span class="operations-capability-status">EARLY ACCESS</span></header><h3>מסמכים וגרסאות</h3><p>שיוך מסמכי איכות, תוכניות ונהלים לתהליך ולפרויקט הנכון.</p></article>
+      <article class="operations-capability-card reveal" data-operations-capability="4" data-status-tone="live"><header><span class="operations-capability-index">05</span><span class="operations-capability-status">CORE LIVE</span></header><h3>מעקב, דוחות והתראות</h3><p>סטטוסים, אחריות, היסטוריה ודוחות ניהוליים מאותה תשתית נתונים.</p></article>
+      <article class="operations-capability-card reveal" data-operations-capability="5" data-status-tone="ai"><header><span class="operations-capability-index">06</span><span class="operations-capability-status">AI EARLY ACCESS</span></header><h3>SitePunch AI</h3><p>טיוטת תהליך ממסמך, איתור חריגים וסיכום מצב — עם אישור אנושי.</p></article>
+    </div>
+  </div>
+</section>
+
+<section id="operations-rollout" data-product-only="operations" aria-labelledby="operationsRolloutTitle">
+  <div class="operations-rollout-grid">
+    <div>
+      <p class="section-tag reveal" id="operationsRolloutTag">איך מתחילים</p>
+      <h2 class="section-title reveal" id="operationsRolloutTitle">מתחילים קטן, מוכיחים בשטח ומתרחבים</h2>
+      <p class="section-sub reveal" id="operationsRolloutSub">במקום פרויקט פיתוח פתוח, מגדירים תהליך ראשון עם יעד, בעלים וגבולות ברורים.</p>
+    </div>
+    <div class="operations-rollout-steps" id="operationsRolloutSteps">
+      <article class="operations-rollout-step reveal"><span>01</span><div><h3>בוחרים תהליך ראשון</h3><p>מזהים תהליך חוזר ובעל ערך גבוה — למשל PTP, בדיקת לחץ או צ'קליסט איכות.</p></div></article>
+      <article class="operations-rollout-step reveal"><span>02</span><div><h3>מגדירים תבנית והרשאות</h3><p>מתרגמים את דרך העבודה לטופס, שלבים, חתימות והרשאות ברמת ארגון ופרויקט.</p></div></article>
+      <article class="operations-rollout-step reveal"><span>03</span><div><h3>מריצים פיילוט ומרחיבים</h3><p>בודקים עם הצוות בשטח, מתקנים ומרחיבים רק לאחר שהתהליך עובד ונמדד.</p></div></article>
+    </div>
+  </div>
+</section>
+
 <!-- ROLES -->
-<section id="roles">
+<section id="roles" data-product-only="punch">
   <div class="roles-layout">
     <div class="roles-media reveal">
       <img src="assets/site-inspection-finishes.webp" alt="" loading="lazy">
@@ -1635,7 +2048,7 @@ function bi(name, tone) { return '<span class="bi bi-' + (tone||'gold') + '">' +
 </section>
 
 <!-- PROBLEMS -->
-<section id="problems">
+<section id="problems" data-product-only="punch">
   <p class="section-tag reveal">האתגרים שאנו פותרים</p>
   <h2 class="section-title reveal">הפסיקו לרדוף אחרי ליקויים באקסלים, וואטסאפ ומיילים</h2>
   <p class="section-sub reveal">מעקב ידני, הכנת דוחות ותיאומים מפוזרים גוזלים זמן ומסתירים את תמונת המצב — SitePunch מרכזת אותם לזרימת עבודה אחת.</p>
@@ -1664,7 +2077,7 @@ function bi(name, tone) { return '<span class="bi bi-' + (tone||'gold') + '">' +
 </section>
 
 <!-- FEATURES -->
-<section id="features">
+<section id="features" data-product-only="punch">
   <p class="section-tag reveal">פיצ'רים</p>
   <h2 class="section-title reveal">כל מה שצריך לניהול ליקויים במקום אחד</h2>
   <p class="section-sub reveal">כל פיצ'ר נבנה אחרי שיחות עם קבלנים ומהנדסים שעובדים בשטח ביום-יום.</p>
@@ -1703,7 +2116,7 @@ function bi(name, tone) { return '<span class="bi bi-' + (tone||'gold') + '">' +
 </section>
 
 <!-- OPERATING PROOF — verified capabilities only -->
-<section id="operating-proof">
+<section id="operating-proof" data-product-only="punch">
   <div class="operating-proof-head">
     <div>
       <p class="section-tag reveal" id="operatingProofTag">מוכן לעבודה אמיתית</p>
@@ -1721,9 +2134,9 @@ function bi(name, tone) { return '<span class="bi bi-' + (tone||'gold') + '">' +
 
 <!-- LANGUAGES -->
 <section id="languages">
-  <p class="section-tag reveal">שפות</p>
-  <h2 class="section-title reveal">מתאים לצוותים רב-לשוניים</h2>
-  <p class="section-sub reveal">SitePunch תומכת בעברית, ערבית, רוסית ואנגלית — כדי שכל בעלי התפקידים באתר יוכלו לעבוד בשפה הנוחה להם.</p>
+  <p class="section-tag reveal" id="languagesTag">שפות</p>
+  <h2 class="section-title reveal" id="languagesTitle">מתאים לצוותים רב-לשוניים</h2>
+  <p class="section-sub reveal" id="languagesSub">SitePunch תומכת בעברית, ערבית, רוסית ואנגלית — כדי שכל בעלי התפקידים באתר יוכלו לעבוד בשפה הנוחה להם.</p>
   <div class="lang-translate-callout reveal">
     <h3 id="langTranslateTitle">כל אחד קורא את הליקוי בשפה שלו</h3>
     <p id="langTranslateMsg">ליקוי שנכתב בעברית מוצג לקבלן בערבית, רוסית או אנגלית — כולל הכותרת והתיאור, לא רק כפתורי המערכת. המקור נשמר ותמיד אפשר להציג אותו.</p>
@@ -1757,7 +2170,7 @@ function bi(name, tone) { return '<span class="bi bi-' + (tone||'gold') + '">' +
 </section>
 
 <!-- HOW IT WORKS -->
-<section id="how">
+<section id="how" data-product-only="punch">
   <div class="how-layout">
     <div class="workflow-stage reveal" id="workflowStage">
       <img class="is-active" data-workflow-image src="hero-demo/1-empty.jpg" alt="" loading="lazy">
@@ -1796,7 +2209,7 @@ function bi(name, tone) { return '<span class="bi bi-' + (tone||'gold') + '">' +
 </section>
 
 <!-- INDUSTRIES -->
-<section id="industries">
+<section id="industries" data-product-only="punch">
   <div class="section-header">
     <p class="section-tag reveal">מעבר לבנייה</p>
     <h2 class="section-title reveal">נבנה לשטח — מבנייה ועד תעשייה ואנרגיה</h2>
@@ -1834,6 +2247,17 @@ function bi(name, tone) { return '<span class="bi bi-' + (tone||'gold') + '">' +
   <p class="section-tag reveal">מחירים</p>
   <h2 class="section-title reveal">שקוף, פשוט, ללא הפתעות</h2>
   <p class="section-sub reveal">התחילו בחינם ושדרגו כשאתם גדלים. ללא כרטיס אשראי, ללא התחייבות.</p>
+
+  <div class="pricing-product-context reveal" id="pricingProductContext">
+    <div>
+      <h3 id="pricingProductTitle">מסלולי SitePunch</h3>
+      <p id="pricingProductText">בחרו את היקף הפרויקטים והמשתמשים שמתאים לצוות שלכם. אפשר להתחיל בחינם.</p>
+    </div>
+    <div class="pricing-product-actions">
+      <a class="pricing-product-link" id="pricingProductCta" href="https://account.sitepunch.co.il?register=1">פתחו חשבון</a>
+      <button type="button" class="pricing-product-switch" id="pricingProductSwitch" onclick="setLandingProduct('punch')" hidden>הציגו מחירי SitePunch</button>
+    </div>
+  </div>
 
   <div class="pricing-toggle reveal">
     <span class="toggle-label active" id="monthlyLabel">חיוב חודשי</span>
@@ -3096,7 +3520,7 @@ const TRANSLATIONS = {
     problemsTag:"האתגרים", problemsTitle:"הפסיקו לרדוף אחרי ליקויים באקסלים, וואטסאפ ומיילים", problemsSub:"מעקב ידני, הכנת דוחות ותיאומים מפוזרים גוזלים זמן ומסתירים את תמונת המצב — SitePunch מרכזת אותם לזרימת עבודה אחת.",
     problemCards:[["ליקויים שנשכחים","ללא מעקב מסודר קשה לדעת מה טופל ומה עדיין פתוח. ליקוי שנשכח עלול להגיע עד למסירה בלי בעלים ובלי תיעוד טיפול."],["חוסר אחריות","לא תמיד ברור מי אחראי לטיפול בכל ליקוי. SitePunch מקצה אחראי לכל ליקוי ומתריעה כשהוא לא נסגר בזמן."],["ריבוי גרסאות","קבצים, תמונות והודעות מפוזרים בין עשרות צ'אטים ומייל. אי אפשר לחפש לפי פרויקט ואין שום דרך לדעת מה עדכני."],["מסירות שמתעכבות","ליקויים פתוחים שלא מנוהלים בזמן יוצרים עומס לקראת המסירה ומקשים להבין מה באמת מוכן ומה עדיין מעכב."]],
     featTag:"פיצ'רים", featTitle:"כל מה שצריך לניהול ליקויים במקום אחד", featSub:"כל פיצ'ר נבנה אחרי שיחות עם קבלנים ומהנדסים שעובדים בשטח ביום-יום.",
-    featureItems:[["יצירת ליקויים מהשטח","פותחים ליקוי ישירות מהשטח: תמונה, מיקום וקטגוריה — ומקצים לאחראי. גם בלי אינטרנט."],["צילום תמונות ישירות מהטלפון","מצלמים לפני ואחרי הטיפול — הכל נשמר בענן ומופיע אוטומטית בדוח ה-PDF."],["שיוך לאחריות קבלנים","כל ליקוי מוקצה לאחראי ספציפי. המערכת עוקבת ומתריעה כשהוא לא נסגר בזמן."],["מעקב סטטוסים ודשבורד","ראו אחוזי סגירה, ליקויים פתוחים לפי קבלן, ומגמות — ממבט אחד. ללא Excel."],["דוחות PDF מקצועיים","לוגו הפרויקט, כל הליקויים, תמונות, תאריכים — דוח מקצועי שנוצר בלחיצה אחת ונשלח ישירות."],["תמיכה במספר שפות","עברית, ערבית, רוסית ואנגלית — כל עובד עובד בשפתו שלו."]],
+    featureItems:[["יצירת ליקויים מהשטח","פותחים ליקוי ישירות מהשטח: תמונה, מיקום וקטגוריה — ומקצים לאחראי. גם בלי אינטרנט."],["צילום תמונות ישירות מהטלפון","מצלמים לפני ואחרי הטיפול — הכל נשמר בענן ומופיע אוטומטית בדוח ה-PDF."],["עבודה מלאה גם בלי אינטרנט","פותחים ליקוי, מצלמים ומעדכנים סטטוס גם בלי קליטה. הכל נשמר במכשיר ומסתנכרן אוטומטית כשהחיבור חוזר."],["שיוך לאחריות קבלנים","כל ליקוי מוקצה לאחראי ספציפי. המערכת עוקבת ומתריעה כשהוא לא נסגר בזמן."],["מעקב סטטוסים ודשבורד","ראו אחוזי סגירה, ליקויים פתוחים לפי קבלן, ומגמות — ממבט אחד. ללא Excel."],["דוחות PDF מקצועיים","לוגו הפרויקט, כל הליקויים, תמונות, תאריכים — דוח מקצועי שנוצר בלחיצה אחת ונשלח ישירות."],["תמיכה במספר שפות","עברית, ערבית, רוסית ואנגלית — כל עובד עובד בשפתו שלו."]],
     langTag:"שפות", langTitle:"מתאים לצוותים רב-לשוניים", langSub:"SitePunch תומכת בעברית, ערבית, רוסית ואנגלית — כדי שכל בעלי התפקידים באתר יוכלו לעבוד בשפה הנוחה להם.",
     languageCards:[["עברית","עברית","ממשק RTL מלא, מונחים מקצועיים מהתעשייה הישראלית ותמיכה בכל גדלי המסך."],["ערבית","عربي","ממשק ערבי מלא RTL לעובדי שטח, עם מונחי בנייה ברורים."],["רוסית","Русский","ממשק מלא לעובדים דוברי רוסית, עם כיוון, מונחים ופעולות המותאמים לעבודה בשטח."],["אנגלית","English","ממשק אנגלי מלא לצוותים בינלאומיים ולמנהלי פרויקטים העובדים בין מדינות."]],
     langTranslateTitle:"כל אחד קורא את הליקוי בשפה שלו",
@@ -3152,7 +3576,7 @@ const TRANSLATIONS = {
     problemsTag:"CHALLENGES", problemsTitle:"Stop chasing defects across spreadsheets, WhatsApp and email", problemsSub:"Manual tracking, report preparation and scattered coordination consume time and obscure the real picture — SitePunch brings them into one operational flow.",
     problemCards:[["Forgotten Defects","Without organized tracking it's hard to know what's been handled. A forgotten defect can reach handover without an owner or a documented resolution."],["No Accountability","It's not always clear who's responsible for each defect. SitePunch assigns a responsible party to every defect and alerts when it's not closed on time."],["Version Chaos","Files, photos and messages scattered across dozens of chats and emails. Can't search by project and no way to know what's current."],["Delayed Handovers","Open defects that are not managed in time create pressure before handover and make it hard to see what is ready and what is still blocking progress."]],
     featTag:"FEATURES", featTitle:"Everything you need to manage defects in one place", featSub:"Every feature was built after conversations with contractors and engineers who work on site every day.",
-    featureItems:[["Creating Site Defects","Open a defect directly from the field: photo, location and category — then assign it to the responsible party. Even without internet."],["Direct Photo from Phone","Capture before & after photos — everything saved in the cloud and appears automatically in the PDF report."],["Assign to Contractors","Every defect is assigned to a specific responsible party. The system tracks and alerts when it's not closed on time."],["Status Tracking & Dashboard","See closure rates, open defects per contractor, and trends — at a glance. No Excel."],["Professional PDF Reports","Project logo, all defects, photos, dates — a professional report generated in one click and sent directly."],["Multi-Language Support","Hebrew, Arabic, Russian and English — every worker works in their own language."]],
+    featureItems:[["Creating Site Defects","Open a defect directly from the field: photo, location and category — then assign it to the responsible party. Even without internet."],["Direct Photo from Phone","Capture before & after photos — everything saved in the cloud and appears automatically in the PDF report."],["Full Field Work Without Internet","Open a defect, take photos and update its status without reception. Everything stays on the device and syncs automatically when the connection returns."],["Assign to Contractors","Every defect is assigned to a specific responsible party. The system tracks and alerts when it's not closed on time."],["Status Tracking & Dashboard","See closure rates, open defects per contractor, and trends — at a glance. No Excel."],["Professional PDF Reports","Project logo, all defects, photos, dates — a professional report generated in one click and sent directly."],["Multi-Language Support","Hebrew, Arabic, Russian and English — every worker works in their own language."]],
     langTag:"LANGUAGES", langTitle:"Built for multilingual teams", langSub:"SitePunch supports Hebrew, Arabic, Russian and English — so every person on site can work in their own language.",
     languageCards:[["Hebrew","עברית","Full RTL interface with terminology used across the Israeli construction industry and support for every screen size."],["Arabic","عربي","Full RTL Arabic interface for field teams, with clear construction terminology."],["Russian","Русский","A complete Russian interface with direction, terminology and actions adapted to field work."],["English","English","A complete English interface for international teams and project managers working across borders."]],
     langTranslateTitle:"Everyone reads the punch in their own language",
@@ -3208,7 +3632,7 @@ const TRANSLATIONS = {
     problemsTag:"ПРОБЛЕМЫ", problemsTitle:"Перестаньте гоняться за дефектами в таблицах, WhatsApp и почте", problemsSub:"Ручной учёт, подготовка отчётов и разрозненная координация отнимают время и скрывают реальную картину — SitePunch объединяет их в один рабочий процесс.",
     problemCards:[["Забытые дефекты","Без чёткого учёта сложно понять, что обработано. Забытый дефект может дойти до сдачи без ответственного и без подтверждения исправления."],["Отсутствие ответственности","Непонятно, кто за какой дефект отвечает. SitePunch назначает ответственного за каждый дефект и предупреждает, если не закрыт вовремя."],["Хаос версий","Файлы, фото и сообщения разбросаны по чатам и почте. Нельзя искать по проекту — непонятно, что актуально."],["Задержки сдачи","Открытые дефекты без своевременного управления создают нагрузку перед сдачей и мешают понять, что готово, а что ещё блокирует процесс."]],
     featTag:"ФУНКЦИИ", featTitle:"Всё необходимое для управления дефектами в одном месте", featSub:"Каждая функция создана после разговоров с подрядчиками и инженерами, работающими на объектах.",
-    featureItems:[["Создание дефектов на объекте","Открываем дефект прямо на объекте: фото, местоположение и категория — затем назначаем ответственному. Даже без интернета."],["Фото прямо с телефона","Снимаем до и после — всё сохраняется в облаке и автоматически появляется в PDF-отчёте."],["Назначение подрядчикам","Каждый дефект назначен конкретному ответственному. Система отслеживает и предупреждает, если не закрыт вовремя."],["Отслеживание статусов и дашборд","Процент закрытых, открытые по подрядчику, тенденции — с первого взгляда. Без Excel."],["Профессиональные PDF-отчёты","Логотип, все дефекты, фото, даты — профессиональный отчёт в один клик, готов к отправке."],["Поддержка нескольких языков","Иврит, арабский, русский и английский — каждый работает на своём языке."]],
+    featureItems:[["Создание дефектов на объекте","Открываем дефект прямо на объекте: фото, местоположение и категория — затем назначаем ответственному. Даже без интернета."],["Фото прямо с телефона","Снимаем до и после — всё сохраняется в облаке и автоматически появляется в PDF-отчёте."],["Полная работа без интернета","Создавайте замечания, снимайте фото и меняйте статус без связи. Данные остаются на устройстве и синхронизируются после восстановления подключения."],["Назначение подрядчикам","Каждый дефект назначен конкретному ответственному. Система отслеживает и предупреждает, если не закрыт вовремя."],["Отслеживание статусов и дашборд","Процент закрытых, открытые по подрядчику, тенденции — с первого взгляда. Без Excel."],["Профессиональные PDF-отчёты","Логотип, все дефекты, фото, даты — профессиональный отчёт в один клик, готов к отправке."],["Поддержка нескольких языков","Иврит, арабский, русский и английский — каждый работает на своём языке."]],
     langTag:"ЯЗЫКИ", langTitle:"Для многоязычных команд", langSub:"SitePunch поддерживает иврит, арабский, русский и английский — чтобы каждый на объекте мог работать на своём языке.",
     languageCards:[["Иврит","עברית","Полный RTL-интерфейс с профессиональной терминологией израильской строительной отрасли и поддержкой всех размеров экрана."],["Арабский","عربي","Полный арабский RTL-интерфейс для полевых команд с понятной строительной терминологией."],["Русский","Русский","Полный русский интерфейс с направлением, терминами и действиями, адаптированными для работы на объекте."],["Английский","English","Полный английский интерфейс для международных команд и руководителей проектов."]],
     langTranslateTitle:"Каждый читает замечание на своём языке",
@@ -3264,7 +3688,7 @@ const TRANSLATIONS = {
     problemsTag:"التحديات", problemsTitle:"توقف عن مطاردة العيوب في الجداول وواتساب والبريد", problemsSub:"المتابعة اليدوية وإعداد التقارير والتنسيق الموزع تستهلك الوقت وتخفي الصورة الحقيقية — يجمعها SitePunch في مسار عمل واحد.",
     problemCards:[["عيوب منسية","بدون متابعة منظمة يصعب معرفة ما تم. قد يصل العيب المنسي إلى التسليم بلا مسؤول وبلا توثيق للمعالجة."],["غياب المساءلة","ليس دائمًا واضحًا من المسؤول عن كل عيب. SitePunch يُسند مسؤولًا لكل عيب وينبّه حين لا يُغلق في الوقت المحدد."],["فوضى النسخ","ملفات وصور ورسائل مبعثرة في عشرات المجموعات والبريد. لا يمكن البحث حسب المشروع ولا معرفة ما هو محدّث."],["تأخر التسليم","العيوب المفتوحة التي لا تُدار في الوقت المناسب تزيد الضغط قبل التسليم وتصعّب معرفة ما هو جاهز وما يزال يعيق التقدم."]],
     featTag:"الميزات", featTitle:"كل ما تحتاجه لإدارة العيوب في مكان واحد", featSub:"كل ميزة بُنيت بعد محادثات مع مقاولين ومهندسين يعملون في الميدان يوميًا.",
-    featureItems:[["فتح العيوب من الموقع","افتح العيب مباشرة من الموقع: صورة وموقع وفئة — ثم أسنده للمسؤول. حتى بدون إنترنت."],["تصوير مباشر من الهاتف","التقط صورًا قبل وبعد الإصلاح — كل شيء محفوظ في السحابة ويظهر تلقائيًا في تقرير PDF."],["إسناد للمقاولين","كل عيب مُسند لمسؤول محدد. النظام يتابع وينبّه حين لا يُغلق في الوقت المحدد."],["تتبع الحالات ولوحة التحكم","اطّلع على معدلات الإغلاق والعيوب المفتوحة حسب المقاول والاتجاهات — بنظرة واحدة. بدون Excel."],["تقارير PDF احترافية","شعار المشروع، جميع العيوب، الصور، التواريخ — تقرير احترافي بنقرة واحدة وجاهز للإرسال."],["دعم متعدد اللغات","عبري، عربي، روسي وإنجليزي — كل عامل يعمل بلغته."]],
+    featureItems:[["فتح العيوب من الموقع","افتح العيب مباشرة من الموقع: صورة وموقع وفئة — ثم أسنده للمسؤول. حتى بدون إنترنت."],["تصوير مباشر من الهاتف","التقط صورًا قبل وبعد الإصلاح — كل شيء محفوظ في السحابة ويظهر تلقائيًا في تقرير PDF."],["عمل ميداني كامل دون إنترنت","افتح ملاحظة والتقط الصور وحدّث الحالة دون تغطية. تبقى البيانات على الجهاز وتتزامن تلقائيًا عند عودة الاتصال."],["إسناد للمقاولين","كل عيب مُسند لمسؤول محدد. النظام يتابع وينبّه حين لا يُغلق في الوقت المحدد."],["تتبع الحالات ولوحة التحكم","اطّلع على معدلات الإغلاق والعيوب المفتوحة حسب المقاول والاتجاهات — بنظرة واحدة. بدون Excel."],["تقارير PDF احترافية","شعار المشروع، جميع العيوب، الصور، التواريخ — تقرير احترافي بنقرة واحدة وجاهز للإرسال."],["دعم متعدد اللغات","عبري، عربي، روسي وإنجليزي — كل عامل يعمل بلغته."]],
     langTag:"اللغات", langTitle:"مناسب للفرق متعددة اللغات", langSub:"يدعم SitePunch العبرية والعربية والروسية والإنجليزية — حتى يتمكن كل شخص في الموقع من العمل بلغته.",
     languageCards:[["العبرية","עברית","واجهة RTL كاملة بمصطلحات مهنية من قطاع البناء الإسرائيلي ودعم لجميع أحجام الشاشات."],["العربية","عربي","واجهة عربية كاملة RTL لفرق الميدان، بمصطلحات بناء واضحة."],["الروسية","Русский","واجهة روسية كاملة باتجاه ومصطلحات وإجراءات ملائمة للعمل الميداني."],["الإنجليزية","English","واجهة إنجليزية كاملة للفرق الدولية ومديري المشاريع الذين يعملون عبر الحدود."]],
     langTranslateTitle:"كل شخص يقرأ الملاحظة بلغته",
@@ -3301,8 +3725,362 @@ const TRANSLATIONS = {
   }
 };
 
+const PRODUCT_EDITION_COPY = {
+  he: {
+    switchLabel: 'בחירת מוצר', punchStatus: 'ניהול ליקויים · זמין עכשיו', operationsStatus: 'תהליכי שטח · גישה מוקדמת',
+    operationsCtaTag: 'מוכנים לבנות תהליך?', operationsCtaTitle: 'הפכו את שיטת העבודה שלכם למערכת אחת מסודרת',
+    operationsCtaSub: 'נתחיל בתהליך אחד בעל ערך גבוה, נגדיר תבנית והרשאות, ונרחיב רק אחרי שהעבודה בשטח הוכחה.', operationsCtaButton: 'תיאום אפיון',
+    punch: {
+      pageTitle: 'SitePunch – ניהול ליקויים באתרי בנייה',
+      pageDescription: 'ניהול ליקויים רב־לשוני לאתרי בנייה: תיעוד מהשטח, הקצאת אחריות, מעקב ודוחות מקצועיים.',
+      heroEyebrow: 'מערכת ניהול ליקויים לאתרי בנייה',
+      heroTitle: 'פנצ\' ליסט שמנהל<br>את האתר <span class="gold">בשבילך</span>',
+      heroSub: 'תעדו ליקויים מהשטח, הקצו אחריות לקבלנים, עקבו אחרי טיפול והפיקו דוחות מקצועיים — הכל ממערכת אחת.',
+      offlineNote: 'עובדים גם בלי קליטה · הפעולות מסתנכרנות כשהחיבור חוזר',
+      heroPrimary: 'כניסה לאפליקציה', heroPrimaryHref: 'https://app.sitepunch.co.il',
+      heroSecondary: 'צפו במחירים', heroSecondaryHref: '#pricing',
+      heroImage: 'assets/site-inspection-highrise.webp',
+      proofLabel: 'הוכחת מוצר',
+      proofTitle: 'כל תמונה מהשטח הופכת לליקוי מנוהל — עם אחראי, סטטוס והיסטוריה מלאה.',
+      proofCaption: 'מסך אמיתי מהאפליקציה — סימון ליקוי מהטלפון',
+      tag: 'SitePunch · זמין עכשיו',
+      title: 'דרך מהירה וברורה לסגור ליקויים',
+      sub: 'מוצר ממוקד לצוותי ביצוע ופיקוח שרוצים לתעד, להקצות, לעקוב ולדווח — בלי להטמיע מערכת תפעולית כבדה.',
+      features: ['תיעוד ליקויים ותמונות מהשטח', 'הקצאת אחריות, סטטוסים ותאריכי יעד', 'דוחות PDF, Excel ו-CSV', 'עבודה בארבע שפות ומצב שטח ללא קליטה'],
+      cta: 'למסלולי SitePunch', ctaHref: '#pricing', badge: 'מוצר פעיל',
+      image: 'assets/site-inspection-highrise.webp', imageAlt: 'צוות באתר בנייה משתמש ב-SitePunch',
+      caption: 'SitePunch — המוצר הקיים לניהול ליקויים',
+      aiTitle: 'תשובות מהירות על מצב הפרויקט',
+      aiText: 'במסלול Enterprise העוזר מנתח את נתוני הליקויים, מסנן ומכין פעולות לייצוא — כשהנתונים וההרשאות נשארים בשליטת הארגון.',
+      aiFeatures: ['שאלות על ליקויים', 'ניתוח וסינון', 'הכנת ייצוא'], aiVisual: false,
+      pricingTitle: 'מסלולי SitePunch',
+      pricingText: 'בחרו את היקף הפרויקטים והמשתמשים שמתאים לצוות שלכם. אפשר להתחיל בחינם.',
+      pricingCta: 'פתחו חשבון', pricingCtaHref: 'https://account.sitepunch.co.il?register=1', showPunchPricing: true,
+      showPunchPricingLabel: 'הציגו מחירי SitePunch'
+    },
+    operations: {
+      heroEyebrow: 'מערכת תפעול גמישה לאיכות, בטיחות וביצוע',
+      heroTitle: 'מערכת תפעול מותאמת<br><span class="gold">לעבודה שלכם</span>',
+      heroSub: 'בנו תהליכים, צ\'קליסטים, טפסים ואישורים לפי שיטת העבודה של הארגון — על בסיס מנוע השטח של SitePunch. התוכנית נמצאת בגישה מוקדמת.',
+      offlineNote: 'גישה מוקדמת · ההצטרפות כוללת אפיון והטמעה מבוקרת',
+      heroPrimary: 'תיאום אפיון', heroPrimaryHref: 'mailto:office@sitepunch.co.il?subject=SitePunch%20Operations%20-%20Early%20Access',
+      heroSecondary: 'ראו איך זה יעבוד', heroSecondaryHref: '#products',
+      heroImage: 'assets/sitepunch-operations-upgrade-v1.webp',
+      proofLabel: 'בסיס מוכח',
+      proofTitle: 'Operations נבנה מעל מנגנון השטח הפעיל של SitePunch — תיעוד, אחריות, סטטוסים והיסטוריה.',
+      proofCaption: 'יכולת הליבה הפעילה שעליה נבנית שכבת Operations',
+      tag: 'SitePunch Operations · גישה מוקדמת',
+      title: 'לא עוד פיתוח מחדש לכל לקוח',
+      sub: 'שכבת ניהול ניתנת להגדרה עבור PTP, Toolbox, בדיקות לחץ, ועדות בטיחות, קליטת עובדים ותהליכים נוספים — בתוך גבולות מוצר ברורים.',
+      features: ['סוגי רשומות ושדות שניתנים להגדרה', 'צ\'קליסטים עם שורות למילוי ומעקב ביצוע', 'חתימות תפעוליות בנקודות שהוגדרו', 'תבניות והרשאות לפי ארגון ופרויקט'],
+      cta: 'הצטרפות לתוכנית ההשקה', ctaHref: 'mailto:office@sitepunch.co.il?subject=SitePunch%20Operations%20-%20Early%20Access', badge: 'Early Access',
+      image: 'assets/sitepunch-operations-workflows-v1.jpg', imageAlt: 'המחשה של תהליך עבודה ב-SitePunch Operations בטאבלט ובטלפון',
+      caption: 'תהליך אחד מהשטח לאישור ולתמונת מצב ניהולית',
+      aiTitle: 'מקובץ קיים לטיוטת תהליך שניתנת לעריכה',
+      aiText: 'בגישה מוקדמת אפשר להעלות PDF, CSV או TXT עד 4MB ולקבל טיוטת צ\'קליסט ניתנת לעריכה. אדם בארגון בודק, מתקן ומאשר לפני פרסום — ה-AI אינו חותם ואינו מחליף אישור מקצועי.',
+      aiFeatures: ['PDF, CSV או TXT · עד 4MB', 'טיוטת שדות וצ\'קליסט', 'בדיקה אנושית לפני פרסום'], aiVisual: true,
+      aiImageAlt: 'המחשה של יצירת טיוטת צ\'קליסט מקובץ באמצעות AI',
+      pricingTitle: 'Operations הוא מוצר ארגוני נפרד — מעל 1,500 ₪ לחודש',
+      pricingText: 'המחיר הסופי נקבע לפי מספר אתרים, משתמשים, תהליכים ותבניות, והיקף האפיון וההטמעה. מסלולי SitePunch, לרבות Enterprise, אינם כוללים את שכבת Operations.',
+      pricingCta: 'קבלו הצעת אפיון', pricingCtaHref: 'mailto:office@sitepunch.co.il?subject=SitePunch%20Operations%20-%20Pricing', showPunchPricing: false,
+      showPunchPricingLabel: 'הציגו מחירי SitePunch'
+    }
+  },
+  en: {
+    switchLabel: 'Choose a product', punchStatus: 'Punch lists · Available now', operationsStatus: 'Field operations · Early access',
+    operationsCtaTag: 'Ready to shape a workflow?', operationsCtaTitle: 'Turn your operating method into one controlled system',
+    operationsCtaSub: 'Start with one high-value workflow, define its template and permissions, and expand only after it works in the field.', operationsCtaButton: 'Book discovery',
+    punch: {
+      pageTitle: 'SitePunch – Construction punch list management',
+      pageDescription: 'Multilingual construction punch list management for field capture, ownership, tracking and professional reporting.',
+      heroEyebrow: 'Punch list management for construction sites',
+      heroTitle: 'The punch list that manages<br>the site <span class="gold">for you</span>',
+      heroSub: 'Capture site defects, assign contractors, track progress and create professional reports — in one focused product.',
+      offlineNote: 'Works without reception · changes sync when the connection returns',
+      heroPrimary: 'Open the app', heroPrimaryHref: 'https://app.sitepunch.co.il', heroSecondary: 'View pricing', heroSecondaryHref: '#pricing',
+      heroImage: 'assets/site-inspection-highrise.webp',
+      proofLabel: 'Product proof', proofTitle: 'Every site photo becomes a managed punch — with an owner, status and complete history.', proofCaption: 'A real app screen — marking a punch on mobile',
+      tag: 'SitePunch · Available now', title: 'A fast, focused way to close defects',
+      sub: 'For delivery and supervision teams that need to capture, assign, track and report without deploying a heavyweight operations system.',
+      features: ['Site photos and punch capture', 'Ownership, statuses and due dates', 'PDF, Excel and CSV reports', 'Four languages and offline field work'],
+      cta: 'Explore SitePunch plans', ctaHref: '#pricing', badge: 'Live product', image: 'assets/site-inspection-highrise.webp', imageAlt: 'A construction team using SitePunch',
+      caption: 'SitePunch — the live product for punch list management',
+      aiTitle: 'Fast answers about project status', aiText: 'On Enterprise, the assistant analyses punch data, filters it and prepares export actions while organisation data and permissions remain in control.',
+      aiFeatures: ['Punch questions', 'Analysis and filters', 'Export preparation'], aiVisual: false,
+      pricingTitle: 'SitePunch plans', pricingText: 'Choose the project and user capacity that fits your team. Start free.', pricingCta: 'Create an account', pricingCtaHref: 'https://account.sitepunch.co.il?register=1', showPunchPricing: true, showPunchPricingLabel: 'Show SitePunch pricing'
+    },
+    operations: {
+      heroEyebrow: 'Flexible operations for quality, safety and delivery',
+      heroTitle: 'Operations configured<br><span class="gold">around your work</span>',
+      heroSub: 'Build workflows, checklists, forms and approvals around your organisation — on SitePunch\'s field engine. The programme is in early access.',
+      offlineNote: 'Early access · onboarding includes scoped discovery and controlled implementation',
+      heroPrimary: 'Book discovery', heroPrimaryHref: 'mailto:office@sitepunch.co.il?subject=SitePunch%20Operations%20-%20Early%20Access', heroSecondary: 'See how it works', heroSecondaryHref: '#products',
+      heroImage: 'assets/sitepunch-operations-upgrade-v1.webp',
+      proofLabel: 'Proven foundation', proofTitle: 'Operations is built on SitePunch\'s live field engine — capture, ownership, status and history.', proofCaption: 'The live product foundation beneath Operations',
+      tag: 'SitePunch Operations · Early access', title: 'Configuration without rebuilding for every customer',
+      sub: 'A configurable management layer for PTP, Toolbox, pressure tests, safety committees, onboarding and other controlled workflows.',
+      features: ['Configurable record types and fields', 'Fillable checklist rows with completion tracking', 'Operational signatures at defined checkpoints', 'Templates and permissions by organisation and project'],
+      cta: 'Join the launch programme', ctaHref: 'mailto:office@sitepunch.co.il?subject=SitePunch%20Operations%20-%20Early%20Access', badge: 'Early Access',
+      image: 'assets/sitepunch-operations-workflows-v1.jpg', imageAlt: 'SitePunch Operations workflow on a field tablet and phone', caption: 'One workflow from field capture to approval and management insight',
+      aiTitle: 'From an existing document to an editable workflow draft',
+      aiText: 'In Early Access, upload a PDF, CSV or TXT file up to 4 MB to generate an editable checklist draft. A person reviews, edits and approves it before publishing; AI never signs or replaces professional approval.',
+      aiFeatures: ['PDF, CSV or TXT · up to 4 MB', 'Field and checklist draft', 'Human review before publishing'], aiVisual: true,
+      aiImageAlt: 'AI-assisted checklist draft generated from an uploaded document',
+      pricingTitle: 'Operations is a separate enterprise product — above ₪1,500/month', pricingText: 'Final pricing depends on sites, users, workflows, templates and onboarding. SitePunch plans, including Enterprise, do not include Operations.',
+      pricingCta: 'Request a scoped proposal', pricingCtaHref: 'mailto:office@sitepunch.co.il?subject=SitePunch%20Operations%20-%20Pricing', showPunchPricing: false, showPunchPricingLabel: 'Show SitePunch pricing'
+    }
+  },
+  ru: {
+    switchLabel: 'Выбор продукта', punchStatus: 'Замечания · Доступно', operationsStatus: 'Полевые процессы · Ранний доступ',
+    operationsCtaTag: 'Готовы настроить процесс?', operationsCtaTitle: 'Превратите вашу методику работы в единую управляемую систему',
+    operationsCtaSub: 'Начнём с одного важного процесса, определим шаблон и права и расширим систему после проверки на площадке.', operationsCtaButton: 'Обсудить внедрение',
+    punch: {
+      pageTitle: 'SitePunch – управление замечаниями на стройплощадке',
+      pageDescription: 'Многоязычное управление замечаниями: фиксация на площадке, ответственные, контроль и профессиональные отчёты.',
+      heroEyebrow: 'Управление замечаниями на строительной площадке', heroTitle: 'Punch list, который управляет<br>площадкой <span class="gold">за вас</span>',
+      heroSub: 'Фиксируйте замечания, назначайте подрядчиков, отслеживайте выполнение и создавайте отчёты в одном продукте.', offlineNote: 'Работает без связи · изменения синхронизируются после подключения',
+      heroPrimary: 'Открыть приложение', heroPrimaryHref: 'https://app.sitepunch.co.il', heroSecondary: 'Посмотреть цены', heroSecondaryHref: '#pricing', heroImage: 'assets/site-inspection-highrise.webp',
+      proofLabel: 'Реальный продукт', proofTitle: 'Каждая фотография превращается в управляемое замечание с ответственным, статусом и историей.', proofCaption: 'Реальный экран приложения — отметка замечания с телефона',
+      tag: 'SitePunch · Доступно сейчас', title: 'Быстрый и понятный способ закрывать замечания', sub: 'Для строительных и надзорных команд, которым нужны фиксация, назначение, контроль и отчётность без тяжёлой операционной системы.',
+      features: ['Замечания и фотографии с площадки', 'Ответственные, статусы и сроки', 'Отчёты PDF, Excel и CSV', 'Четыре языка и работа без связи'],
+      cta: 'Тарифы SitePunch', ctaHref: '#pricing', badge: 'Рабочий продукт', image: 'assets/site-inspection-highrise.webp', imageAlt: 'Команда использует SitePunch на строительной площадке', caption: 'SitePunch — действующий продукт для управления замечаниями',
+      aiTitle: 'Быстрые ответы о состоянии проекта', aiText: 'В Enterprise помощник анализирует замечания, применяет фильтры и готовит экспорт, сохраняя контроль данных и прав у организации.', aiFeatures: ['Вопросы по замечаниям', 'Анализ и фильтры', 'Подготовка экспорта'], aiVisual: false,
+      pricingTitle: 'Тарифы SitePunch', pricingText: 'Выберите объём проектов и пользователей для вашей команды. Можно начать бесплатно.', pricingCta: 'Создать аккаунт', pricingCtaHref: 'https://account.sitepunch.co.il?register=1', showPunchPricing: true, showPunchPricingLabel: 'Показать цены SitePunch'
+    },
+    operations: {
+      heroEyebrow: 'Гибкие процессы качества, безопасности и производства', heroTitle: 'Операционная система<br><span class="gold">под вашу работу</span>',
+      heroSub: 'Создавайте процессы, чек-листы, формы и подтверждения на базе полевого ядра SitePunch. Программа находится в раннем доступе.', offlineNote: 'Ранний доступ · подключение включает анализ и контролируемое внедрение',
+      heroPrimary: 'Обсудить внедрение', heroPrimaryHref: 'mailto:office@sitepunch.co.il?subject=SitePunch%20Operations%20-%20Early%20Access', heroSecondary: 'Как это работает', heroSecondaryHref: '#products', heroImage: 'assets/sitepunch-operations-upgrade-v1.webp',
+      proofLabel: 'Проверенная основа', proofTitle: 'Operations строится на действующем ядре SitePunch: фиксация, ответственные, статусы и история.', proofCaption: 'Действующее ядро продукта, на котором строится Operations',
+      tag: 'SitePunch Operations · Ранний доступ', title: 'Настройка без новой разработки для каждого клиента', sub: 'Настраиваемый слой для PTP, Toolbox, испытаний давлением, комиссий по безопасности, приёма сотрудников и других процессов.',
+      features: ['Настраиваемые типы записей и поля', 'Заполняемые строки чек-листа и контроль выполнения', 'Операционные подписи в заданных точках', 'Шаблоны и права по организации и проекту'],
+      cta: 'Присоединиться к запуску', ctaHref: 'mailto:office@sitepunch.co.il?subject=SitePunch%20Operations%20-%20Early%20Access', badge: 'Early Access', image: 'assets/sitepunch-operations-workflows-v1.jpg', imageAlt: 'Рабочий процесс SitePunch Operations на планшете и телефоне', caption: 'Единый процесс: от фиксации на площадке до согласования и управленческой аналитики',
+      aiTitle: 'Из документа в редактируемый черновик процесса', aiText: 'В раннем доступе можно загрузить PDF, CSV или TXT размером до 4 МБ и получить редактируемый черновик чек-листа. Человек проверяет и утверждает его до публикации; AI не подписывает и не заменяет специалиста.', aiFeatures: ['PDF, CSV или TXT · до 4 МБ', 'Черновик полей и чек-листа', 'Проверка человеком'], aiVisual: true,
+      aiImageAlt: 'Создание черновика чек-листа из загруженного документа с помощью AI',
+      pricingTitle: 'Operations — отдельный корпоративный продукт, более ₪1 500 в месяц', pricingText: 'Итоговая цена зависит от площадок, пользователей, процессов, шаблонов и внедрения. Тарифы SitePunch, включая Enterprise, не включают Operations.', pricingCta: 'Запросить предложение', pricingCtaHref: 'mailto:office@sitepunch.co.il?subject=SitePunch%20Operations%20-%20Pricing', showPunchPricing: false, showPunchPricingLabel: 'Показать цены SitePunch'
+    }
+  },
+  ar: {
+    switchLabel: 'اختيار المنتج', punchStatus: 'إدارة الملاحظات · متاح', operationsStatus: 'عمليات الموقع · وصول مبكر',
+    operationsCtaTag: 'هل أنتم مستعدون لبناء العملية؟', operationsCtaTitle: 'حوّلوا طريقة عملكم إلى نظام واحد منضبط',
+    operationsCtaSub: 'نبدأ بعملية واحدة عالية القيمة، نحدد القالب والصلاحيات، ثم نتوسع بعد إثباتها في الميدان.', operationsCtaButton: 'حجز جلسة تحليل',
+    punch: {
+      pageTitle: 'SitePunch – إدارة ملاحظات مواقع البناء',
+      pageDescription: 'إدارة متعددة اللغات لملاحظات مواقع البناء: توثيق ميداني ومسؤوليات ومتابعة وتقارير احترافية.',
+      heroEyebrow: 'إدارة ملاحظات مواقع البناء', heroTitle: 'قائمة ملاحظات تدير<br>الموقع <span class="gold">من أجلك</span>', heroSub: 'وثّق الملاحظات من الموقع، عيّن المقاولين، تابع التنفيذ وأنشئ تقارير مهنية في منتج واحد.', offlineNote: 'يعمل دون تغطية · تتم المزامنة عند عودة الاتصال',
+      heroPrimary: 'فتح التطبيق', heroPrimaryHref: 'https://app.sitepunch.co.il', heroSecondary: 'عرض الأسعار', heroSecondaryHref: '#pricing', heroImage: 'assets/site-inspection-highrise.webp',
+      proofLabel: 'إثبات المنتج', proofTitle: 'كل صورة من الموقع تتحول إلى ملاحظة مُدارة مع مسؤول وحالة وسجل كامل.', proofCaption: 'شاشة حقيقية من التطبيق — تحديد ملاحظة من الهاتف',
+      tag: 'SitePunch · متاح الآن', title: 'طريقة سريعة وواضحة لإغلاق الملاحظات', sub: 'للفرق التنفيذية والإشرافية التي تحتاج إلى التوثيق والتكليف والمتابعة والتقارير دون نظام تشغيل ثقيل.',
+      features: ['توثيق الملاحظات وصور الموقع', 'المسؤوليات والحالات والمواعيد', 'تقارير PDF وExcel وCSV', 'أربع لغات والعمل دون اتصال'],
+      cta: 'خطط SitePunch', ctaHref: '#pricing', badge: 'منتج فعّال', image: 'assets/site-inspection-highrise.webp', imageAlt: 'فريق بناء يستخدم SitePunch', caption: 'SitePunch — المنتج الفعّال لإدارة الملاحظات',
+      aiTitle: 'إجابات سريعة عن حالة المشروع', aiText: 'في Enterprise يحلل المساعد بيانات الملاحظات ويطبق المرشحات ويجهز التصدير مع بقاء البيانات والصلاحيات تحت سيطرة المؤسسة.', aiFeatures: ['أسئلة عن الملاحظات', 'تحليل ومرشحات', 'تجهيز التصدير'], aiVisual: false,
+      pricingTitle: 'خطط SitePunch', pricingText: 'اختر سعة المشاريع والمستخدمين المناسبة لفريقك. يمكنك البدء مجاناً.', pricingCta: 'إنشاء حساب', pricingCtaHref: 'https://account.sitepunch.co.il?register=1', showPunchPricing: true, showPunchPricingLabel: 'عرض أسعار SitePunch'
+    },
+    operations: {
+      heroEyebrow: 'عمليات مرنة للجودة والسلامة والتنفيذ', heroTitle: 'نظام عمليات مُهيأ<br><span class="gold">لطريقة عملكم</span>', heroSub: 'أنشئ سير عمل وقوائم فحص ونماذج واعتمادات على محرك SitePunch الميداني. البرنامج في مرحلة الوصول المبكر.', offlineNote: 'وصول مبكر · الانضمام يشمل التحليل والتنفيذ المنضبط',
+      heroPrimary: 'حجز جلسة تحليل', heroPrimaryHref: 'mailto:office@sitepunch.co.il?subject=SitePunch%20Operations%20-%20Early%20Access', heroSecondary: 'كيف سيعمل', heroSecondaryHref: '#products', heroImage: 'assets/sitepunch-operations-upgrade-v1.webp',
+      proofLabel: 'أساس مُثبت', proofTitle: 'يُبنى Operations فوق محرك SitePunch الفعّال: التوثيق والمسؤولية والحالة والسجل.', proofCaption: 'الأساس الفعّال الذي تُبنى فوقه طبقة Operations',
+      tag: 'SitePunch Operations · وصول مبكر', title: 'تهيئة دون إعادة التطوير لكل عميل', sub: 'طبقة إدارة قابلة للتهيئة لـ PTP وToolbox واختبارات الضغط ولجان السلامة واستقبال الموظفين وعمليات أخرى.',
+      features: ['أنواع سجلات وحقول قابلة للتهيئة', 'صفوف قائمة فحص قابلة للتعبئة ومتابعة الإنجاز', 'توقيعات تشغيلية في النقاط المحددة', 'قوالب وصلاحيات حسب المؤسسة والمشروع'],
+      cta: 'الانضمام إلى برنامج الإطلاق', ctaHref: 'mailto:office@sitepunch.co.il?subject=SitePunch%20Operations%20-%20Early%20Access', badge: 'Early Access', image: 'assets/sitepunch-operations-workflows-v1.jpg', imageAlt: 'سير عمل SitePunch Operations على جهاز لوحي وهاتف', caption: 'سير واحد من التوثيق الميداني إلى الاعتماد والرؤية الإدارية',
+      aiTitle: 'من مستند قائم إلى مسودة عملية قابلة للتحرير', aiText: 'في الوصول المبكر يمكن رفع ملف PDF أو CSV أو TXT حتى 4 ميغابايت وإنشاء مسودة قائمة فحص قابلة للتحرير. يراجعها شخص ويعدلها ويعتمدها قبل النشر؛ الذكاء الاصطناعي لا يوقّع ولا يستبدل الاعتماد المهني.', aiFeatures: ['PDF أو CSV أو TXT · حتى 4 ميغابايت', 'مسودة الحقول والقائمة', 'مراجعة بشرية قبل النشر'], aiVisual: true,
+      aiImageAlt: 'إنشاء مسودة قائمة فحص من مستند مرفوع بمساعدة الذكاء الاصطناعي',
+      pricingTitle: 'Operations منتج مؤسسي منفصل — أكثر من ₪1,500 شهرياً', pricingText: 'يتحدد السعر النهائي وفق المواقع والمستخدمين والعمليات والقوالب ونطاق التنفيذ. خطط SitePunch، بما فيها Enterprise، لا تشمل Operations.', pricingCta: 'طلب عرض محدد', pricingCtaHref: 'mailto:office@sitepunch.co.il?subject=SitePunch%20Operations%20-%20Pricing', showPunchPricing: false, showPunchPricingLabel: 'عرض أسعار SitePunch'
+    }
+  }
+};
+
+const OPERATIONS_ROUTE_COPY = {
+  he: {
+    pageTitle: 'SitePunch Operations — פלטפורמת תפעול חכמה לאתרי בנייה',
+    pageDescription: 'תהליכי איכות, ביצוע, ניהול פרויקט ובטיחות בפלטפורמה רב־לשונית אחת — בתוכנית השקה מבוקרת.',
+    navLinks: ['הפלטפורמה', 'יכולות', 'איך מתחילים', 'שפות', 'מחירים'],
+    navHrefs: ['#operations-platform', '#operations-capabilities', '#operations-rollout', '#languages', '#pricing'],
+    platformTag: 'ארבעה עולמות עבודה · פלטפורמה אחת',
+    platformTitle: 'השטח בוחר פעולה — המערכת מנהלת את התהליך',
+    platformSub: 'מסך פתיחה נקי מוביל כל בעל תפקיד לעולם העבודה שלו. כל תהליך נשען על תבניות, הרשאות, מעקב, תיעוד ודוחות משותפים.',
+    audienceTag: 'למי מיועד Operations', audienceTitle: 'ממשק אחד — עבודה מדויקת לכל תפקיד',
+    audienceSub: 'כל בעל תפקיד נכנס לאותם נתוני פרויקט, אך רואה את הפעולות, האישורים והמשימות שרלוונטיים לאחריות שלו.',
+    audiences: [
+      { title: 'מנהלי איכות', text: 'צ\'קליסטים, מסמכים, ליקויים, בדיקות ואישור שלבי איכות.' },
+      { title: 'מנהלי בטיחות', text: 'PTP, סיורים, הדרכות, אירועים ואישורי קריאה.' },
+      { title: 'מנהלי פרויקטים', text: 'שינויים, RFI, אבני דרך, משימות ותמונת מצב ניהולית.' },
+      { title: 'מנהלי עבודה וקבלנים', text: 'טפסים, יומנים, תוכניות ופעולות מהירות מהטלפון.' }
+    ],
+    capabilitiesTag: 'יכולות הפלטפורמה', capabilitiesTitle: 'תשתית משותפת לכל תהליך בשטח',
+    capabilitiesSub: 'הלקוח מגדיר את דרך העבודה בתוך גבולות המוצר — בלי לבנות אפליקציה חדשה לכל טופס ובלי לאבד שליטה בגרסאות ובהרשאות.',
+    capabilities: [
+      { title: 'בונה טפסים וצ\'קליסטים', text: 'שדות, שורות למילוי, חובה או רשות, שלבים ותוצאה סופית.', status: 'EARLY ACCESS' },
+      { title: 'חתימות ואישורי קריאה', text: 'חתימה תפעולית או אישור בנקודות שהוגדרו, עם זמן וזהות.', status: 'EARLY ACCESS' },
+      { title: 'הרשאות ותבניות', text: 'תצורה לפי ארגון, פרויקט ותפקיד על בסיס מנגנון הרשאות קיים.', status: 'CORE LIVE' },
+      { title: 'מסמכים וגרסאות', text: 'שיוך מסמכי איכות, תוכניות ונהלים לתהליך ולפרויקט הנכון.', status: 'EARLY ACCESS' },
+      { title: 'מעקב, דוחות והתראות', text: 'סטטוסים, אחריות, היסטוריה ודוחות ניהוליים מאותה תשתית נתונים.', status: 'CORE LIVE' },
+      { title: 'SitePunch AI', text: 'טיוטת תהליך ממסמך, איתור חריגים וסיכום מצב — עם אישור אנושי.', status: 'AI EARLY ACCESS' }
+    ],
+    pillars: [
+      { title: 'Quality Control', text: 'בקרת איכות מתועדת מהשטח ועד למסירה.', status: 'ליבה פעילה + הרחבה', items: ['רשימות תיוג ובקרת איכות', 'ניהול ליקויים ו־Punch Lists', 'מסמכי איכות וגרסאות'] },
+      { title: 'Field Execution', text: 'כלי ביצוע יומיומיים למנהלי העבודה והקבלנים.', status: 'תוכנית השקה', items: ['יומני עבודה דיגיטליים', 'תוכניות ו־Markups מהשטח', 'משימות ופקודות עבודה'] },
+      { title: 'Project Management', text: 'שליטה בשאלות, שינויים, אבני דרך ואישורים.', status: 'תוכנית השקה', items: ['RFI, שינויים וחריגים', 'לוחות זמנים ואבני דרך', 'אישורי שלבים ותקציב'] },
+      { title: 'Safety / HSE', text: 'תהליכי בטיחות, הדרכה ואישור קריאה במקום אחד.', status: 'תוכנית השקה', items: ['PTP וסיורי בטיחות', 'Toolbox Talks והסמכות', 'אירועים וכמעט־ונפגע'] }
+    ],
+    scopeBadge: 'EARLY ACCESS', scopeTitle: 'שקיפות לפני הבטחה',
+    scopeText: 'מנוע הליקויים, העבודה הרב־לשונית והדוחות כבר פעילים. יתר התהליכים נבנים ומופעלים בהדרגה עם לקוחות תוכנית ההשקה — לאחר אפיון ואישור.',
+    rolloutTag: 'איך מתחילים', rolloutTitle: 'מתחילים קטן, מוכיחים בשטח ומתרחבים',
+    rolloutSub: 'במקום פרויקט פיתוח פתוח, מגדירים תהליך ראשון עם יעד, בעלים וגבולות ברורים.',
+    rolloutSteps: [
+      { title: 'בוחרים תהליך ראשון', text: 'מזהים תהליך חוזר ובעל ערך גבוה — למשל PTP, בדיקת לחץ או צ\'קליסט איכות.' },
+      { title: 'מגדירים תבנית והרשאות', text: 'מתרגמים את דרך העבודה לטופס, שלבים, חתימות והרשאות ברמת ארגון ופרויקט.' },
+      { title: 'מריצים פיילוט ומרחיבים', text: 'בודקים עם הצוות בשטח, מתקנים ומרחיבים רק לאחר שהתהליך עובד ונמדד.' }
+    ],
+    languageTag: 'עבודה רב־לשונית', languageTitle: 'אותו תהליך — בשפה של כל עובד',
+    languageSub: 'הממשק, ההנחיות והתוכן התפעולי מוצגים בעברית, ערבית, רוסית ואנגלית, עם RTL או LTR לפי השפה שנבחרה.',
+    languageCalloutTitle: 'גם התהליך עצמו מובן בשטח',
+    languageCalloutText: 'טפסים, צ\'קליסטים ופעולות מוצגים בשפת המשתמש. טקסט שנכתב בשפה אחרת יכול להיות מתורגם תוך שמירת המקור.'
+  },
+  en: {
+    pageTitle: 'SitePunch Operations — Intelligent field operations for construction',
+    pageDescription: 'Quality, field execution, project management and safety workflows in one multilingual platform — through a controlled launch programme.',
+    navLinks: ['Platform', 'Capabilities', 'Rollout', 'Languages', 'Pricing'],
+    navHrefs: ['#operations-platform', '#operations-capabilities', '#operations-rollout', '#languages', '#pricing'],
+    platformTag: 'Four work areas · One platform', platformTitle: 'The field chooses an action — the platform runs the process',
+    platformSub: 'A clean home screen routes each role to the right work area. Every workflow shares templates, permissions, tracking, evidence and reporting.',
+    audienceTag: 'Who Operations is for', audienceTitle: 'One interface — focused work for every role',
+    audienceSub: 'Every role works from the same project data while seeing the actions, approvals and tasks that match its responsibility.',
+    audiences: [
+      { title: 'Quality managers', text: 'Checklists, documents, defects, inspections and quality-stage approvals.' },
+      { title: 'Safety managers', text: 'PTP, inspections, training, incidents and read confirmations.' },
+      { title: 'Project managers', text: 'Changes, RFI, milestones, tasks and a management overview.' },
+      { title: 'Site managers and contractors', text: 'Forms, logs, plans and fast mobile actions.' }
+    ],
+    capabilitiesTag: 'Platform capabilities', capabilitiesTitle: 'Shared infrastructure for every field workflow',
+    capabilitiesSub: 'Customers configure their method within product boundaries — without rebuilding an application for every form or losing control of versions and permissions.',
+    capabilities: [
+      { title: 'Form and checklist builder', text: 'Fields, fillable rows, required or optional inputs, stages and outcomes.', status: 'EARLY ACCESS' },
+      { title: 'Signatures and acknowledgements', text: 'Operational signatures or confirmation at defined checkpoints, with identity and time.', status: 'EARLY ACCESS' },
+      { title: 'Permissions and templates', text: 'Configuration by organisation, project and role on the existing permission engine.', status: 'CORE LIVE' },
+      { title: 'Documents and versions', text: 'Attach quality documents, plans and procedures to the right workflow and project.', status: 'EARLY ACCESS' },
+      { title: 'Tracking, reports and alerts', text: 'Statuses, ownership, history and management reporting from the same data foundation.', status: 'CORE LIVE' },
+      { title: 'SitePunch AI', text: 'Workflow drafts from documents, exception detection and status summaries with human approval.', status: 'AI EARLY ACCESS' }
+    ],
+    pillars: [
+      { title: 'Quality Control', text: 'Documented quality control from the field through handover.', status: 'Live core + expansion', items: ['Quality checklists and inspections', 'Punch lists and defect management', 'Quality documents and versions'] },
+      { title: 'Field Execution', text: 'Daily execution tools for site managers and contractors.', status: 'Launch programme', items: ['Digital daily logs', 'Plans and field markups', 'Tasks and work orders'] },
+      { title: 'Project Management', text: 'Control questions, changes, milestones and approvals.', status: 'Launch programme', items: ['RFI, variations and exceptions', 'Schedules and milestones', 'Stage and budget approvals'] },
+      { title: 'Safety / HSE', text: 'Safety, training and read-confirmation workflows in one place.', status: 'Launch programme', items: ['PTP and safety inspections', 'Toolbox Talks and qualifications', 'Incidents and near misses'] }
+    ],
+    scopeBadge: 'EARLY ACCESS', scopeTitle: 'Clarity before promises',
+    scopeText: 'Punch workflows, multilingual field work and reporting are already live. Additional workflows are built and enabled gradually with launch customers after discovery and approval.',
+    rolloutTag: 'How to start', rolloutTitle: 'Start small, prove it in the field, then expand',
+    rolloutSub: 'Instead of an open-ended development project, define one first workflow with a goal, owner and clear boundaries.',
+    rolloutSteps: [
+      { title: 'Choose the first workflow', text: 'Select a frequent, high-value process such as a PTP, pressure test or quality checklist.' },
+      { title: 'Define the template and permissions', text: 'Translate your method into a form, stages, signatures and organisation or project permissions.' },
+      { title: 'Pilot and expand', text: 'Test with the field team, improve it and expand only after the workflow is proven and measured.' }
+    ],
+    languageTag: 'Multilingual field work', languageTitle: 'The same workflow — in every worker\'s language',
+    languageSub: 'The interface, instructions and operational content are available in Hebrew, Arabic, Russian and English, with the right RTL or LTR direction.',
+    languageCalloutTitle: 'The workflow itself is understood in the field',
+    languageCalloutText: 'Forms, checklists and actions are shown in the user\'s language. Cross-language text can be translated while the original remains available.'
+  },
+  ru: {
+    pageTitle: 'SitePunch Operations — умная платформа для строительной площадки',
+    pageDescription: 'Качество, производство, управление проектом и безопасность в одной многоязычной платформе раннего доступа.',
+    navLinks: ['Платформа', 'Возможности', 'Запуск', 'Языки', 'Цены'],
+    navHrefs: ['#operations-platform', '#operations-capabilities', '#operations-rollout', '#languages', '#pricing'],
+    platformTag: 'Четыре направления · Одна платформа', platformTitle: 'Площадка выбирает действие — система ведёт процесс',
+    platformSub: 'Понятный стартовый экран ведёт каждого сотрудника в нужный раздел. Все процессы используют общие шаблоны, права, контроль, документы и отчёты.',
+    audienceTag: 'Для кого Operations', audienceTitle: 'Один интерфейс — точная работа для каждой роли',
+    audienceSub: 'Все роли работают с едиными данными проекта, но видят только свои действия, согласования и задачи.',
+    audiences: [
+      { title: 'Менеджеры качества', text: 'Чек-листы, документы, замечания, проверки и согласование этапов качества.' },
+      { title: 'Менеджеры безопасности', text: 'PTP, обходы, обучение, инциденты и подтверждение ознакомления.' },
+      { title: 'Руководители проектов', text: 'Изменения, RFI, этапы, задачи и управленческая картина.' },
+      { title: 'Прорабы и подрядчики', text: 'Формы, журналы, планы и быстрые действия с телефона.' }
+    ],
+    capabilitiesTag: 'Возможности платформы', capabilitiesTitle: 'Общая инфраструктура для каждого полевого процесса',
+    capabilitiesSub: 'Клиент настраивает методику в рамках продукта — без новой разработки для каждой формы и без потери контроля версий и прав.',
+    capabilities: [
+      { title: 'Конструктор форм и чек-листов', text: 'Поля, заполняемые строки, обязательные данные, этапы и итог.', status: 'EARLY ACCESS' },
+      { title: 'Подписи и подтверждения', text: 'Операционная подпись или подтверждение в заданных точках с временем и личностью.', status: 'EARLY ACCESS' },
+      { title: 'Права и шаблоны', text: 'Настройка по организации, проекту и роли на действующем механизме прав.', status: 'CORE LIVE' },
+      { title: 'Документы и версии', text: 'Привязка документов качества, планов и процедур к нужному процессу и проекту.', status: 'EARLY ACCESS' },
+      { title: 'Контроль, отчёты и уведомления', text: 'Статусы, ответственные, история и управленческие отчёты на общей базе данных.', status: 'CORE LIVE' },
+      { title: 'SitePunch AI', text: 'Черновик процесса из документа, поиск отклонений и сводка с проверкой человеком.', status: 'AI EARLY ACCESS' }
+    ],
+    pillars: [
+      { title: 'Quality Control', text: 'Контроль качества от площадки до сдачи.', status: 'Рабочая основа + развитие', items: ['Чек-листы и контроль качества', 'Punch Lists и замечания', 'Документы качества и версии'] },
+      { title: 'Field Execution', text: 'Ежедневные инструменты для руководителей и подрядчиков.', status: 'Программа запуска', items: ['Цифровые ежедневные журналы', 'Планы и пометки на площадке', 'Задачи и наряды'] },
+      { title: 'Project Management', text: 'Вопросы, изменения, этапы и согласования.', status: 'Программа запуска', items: ['RFI, изменения и отклонения', 'Графики и ключевые этапы', 'Согласование этапов и бюджета'] },
+      { title: 'Safety / HSE', text: 'Безопасность, обучение и подтверждение ознакомления.', status: 'Программа запуска', items: ['PTP и обходы безопасности', 'Toolbox Talks и допуски', 'Инциденты и опасные ситуации'] }
+    ],
+    scopeBadge: 'EARLY ACCESS', scopeTitle: 'Прозрачность до обещаний',
+    scopeText: 'Замечания, многоязычная работа и отчёты уже действуют. Остальные процессы запускаются поэтапно с участниками программы после анализа и согласования.',
+    rolloutTag: 'Как начать', rolloutTitle: 'Начать с малого, проверить на площадке и расширять',
+    rolloutSub: 'Вместо открытого проекта разработки определяется один первый процесс с целью, владельцем и ясными границами.',
+    rolloutSteps: [
+      { title: 'Выбрать первый процесс', text: 'Определить частый и ценный процесс — например PTP, испытание давлением или чек-лист качества.' },
+      { title: 'Настроить шаблон и права', text: 'Перевести методику в форму, этапы, подписи и права организации или проекта.' },
+      { title: 'Провести пилот и расширить', text: 'Проверить с полевой командой, улучшить и расширять только после измеримого результата.' }
+    ],
+    languageTag: 'Многоязычная работа', languageTitle: 'Один процесс — на языке каждого сотрудника',
+    languageSub: 'Интерфейс, инструкции и рабочий контент доступны на иврите, арабском, русском и английском с правильным RTL или LTR.',
+    languageCalloutTitle: 'На площадке понятен сам процесс',
+    languageCalloutText: 'Формы, чек-листы и действия показываются на языке пользователя. Текст можно перевести, сохраняя доступ к оригиналу.'
+  },
+  ar: {
+    pageTitle: 'SitePunch Operations — منصة ذكية لإدارة عمليات مواقع البناء',
+    pageDescription: 'الجودة والتنفيذ وإدارة المشروع والسلامة في منصة متعددة اللغات ضمن برنامج إطلاق منضبط.',
+    navLinks: ['المنصة', 'القدرات', 'بدء التشغيل', 'اللغات', 'الأسعار'],
+    navHrefs: ['#operations-platform', '#operations-capabilities', '#operations-rollout', '#languages', '#pricing'],
+    platformTag: 'أربعة مجالات عمل · منصة واحدة', platformTitle: 'يختار فريق الموقع الإجراء — وتدير المنصة العملية',
+    platformSub: 'تنقل الشاشة الرئيسية الواضحة كل مستخدم إلى مجال عمله. تشترك العمليات في القوالب والصلاحيات والمتابعة والتوثيق والتقارير.',
+    audienceTag: 'لمن صُمم Operations', audienceTitle: 'واجهة واحدة — عمل واضح لكل دور',
+    audienceSub: 'تعمل جميع الأدوار على نفس بيانات المشروع، مع عرض الإجراءات والاعتمادات والمهام المناسبة لمسؤولية كل مستخدم.',
+    audiences: [
+      { title: 'مديرو الجودة', text: 'قوائم الفحص والمستندات والملاحظات والتفتيش واعتماد مراحل الجودة.' },
+      { title: 'مديرو السلامة', text: 'PTP والجولات والتدريب والحوادث وتأكيد القراءة.' },
+      { title: 'مديرو المشاريع', text: 'التغييرات وRFI والمراحل والمهام والصورة الإدارية.' },
+      { title: 'مديرو الموقع والمقاولون', text: 'النماذج والسجلات والمخططات والإجراءات السريعة من الهاتف.' }
+    ],
+    capabilitiesTag: 'قدرات المنصة', capabilitiesTitle: 'بنية مشتركة لكل إجراء ميداني',
+    capabilitiesSub: 'يضبط العميل طريقة عمله داخل حدود المنتج، دون بناء تطبيق جديد لكل نموذج ودون فقدان التحكم بالإصدارات والصلاحيات.',
+    capabilities: [
+      { title: 'منشئ النماذج وقوائم الفحص', text: 'حقول وصفوف قابلة للتعبئة وبيانات إلزامية ومراحل ونتيجة نهائية.', status: 'EARLY ACCESS' },
+      { title: 'التوقيعات وتأكيد القراءة', text: 'توقيع تشغيلي أو تأكيد في نقاط محددة مع الوقت وهوية المستخدم.', status: 'EARLY ACCESS' },
+      { title: 'الصلاحيات والقوالب', text: 'إعداد حسب المؤسسة والمشروع والدور اعتماداً على محرك الصلاحيات القائم.', status: 'CORE LIVE' },
+      { title: 'المستندات والإصدارات', text: 'ربط مستندات الجودة والمخططات والإجراءات بالعملية والمشروع الصحيحين.', status: 'EARLY ACCESS' },
+      { title: 'المتابعة والتقارير والتنبيهات', text: 'الحالات والمسؤولية والسجل والتقارير الإدارية من نفس قاعدة البيانات.', status: 'CORE LIVE' },
+      { title: 'SitePunch AI', text: 'مسودة إجراء من مستند وكشف الاستثناءات وتلخيص الحالة مع اعتماد بشري.', status: 'AI EARLY ACCESS' }
+    ],
+    pillars: [
+      { title: 'Quality Control', text: 'رقابة جودة موثقة من الموقع حتى التسليم.', status: 'أساس فعّال + توسع', items: ['قوائم فحص ورقابة جودة', 'إدارة الملاحظات وPunch Lists', 'مستندات الجودة والإصدارات'] },
+      { title: 'Field Execution', text: 'أدوات تنفيذ يومية لمديري الموقع والمقاولين.', status: 'برنامج الإطلاق', items: ['سجلات يومية رقمية', 'مخططات وملاحظات من الموقع', 'مهام وأوامر عمل'] },
+      { title: 'Project Management', text: 'إدارة الأسئلة والتغييرات والمراحل والاعتمادات.', status: 'برنامج الإطلاق', items: ['RFI والتغييرات والاستثناءات', 'الجداول الزمنية والمراحل', 'اعتماد المراحل والميزانية'] },
+      { title: 'Safety / HSE', text: 'إجراءات السلامة والتدريب وتأكيد القراءة في مكان واحد.', status: 'برنامج الإطلاق', items: ['PTP وجولات السلامة', 'Toolbox Talks والتأهيل', 'الحوادث وشبه الحوادث'] }
+    ],
+    scopeBadge: 'EARLY ACCESS', scopeTitle: 'وضوح قبل الوعود',
+    scopeText: 'إدارة الملاحظات والعمل متعدد اللغات والتقارير متاحة الآن. أما الإجراءات الإضافية فتُبنى وتُفعّل تدريجياً مع عملاء برنامج الإطلاق بعد التحليل والموافقة.',
+    rolloutTag: 'كيف نبدأ', rolloutTitle: 'نبدأ بخطوة صغيرة، نثبتها في الموقع ثم نتوسع',
+    rolloutSub: 'بدلاً من مشروع تطوير مفتوح، نحدد أول إجراء بهدف ومسؤول وحدود واضحة.',
+    rolloutSteps: [
+      { title: 'اختيار الإجراء الأول', text: 'اختيار إجراء متكرر وعالي القيمة مثل PTP أو اختبار ضغط أو قائمة فحص جودة.' },
+      { title: 'تعريف القالب والصلاحيات', text: 'تحويل طريقة العمل إلى نموذج ومراحل وتوقيعات وصلاحيات للمؤسسة أو المشروع.' },
+      { title: 'تشغيل تجربة ثم التوسع', text: 'اختبار الإجراء مع فريق الموقع وتحسينه ثم التوسع بعد إثباته وقياسه.' }
+    ],
+    languageTag: 'عمل ميداني متعدد اللغات', languageTitle: 'نفس الإجراء — بلغة كل مستخدم',
+    languageSub: 'الواجهة والتعليمات والمحتوى التشغيلي متاحة بالعبرية والعربية والروسية والإنجليزية مع اتجاه RTL أو LTR الصحيح.',
+    languageCalloutTitle: 'العملية نفسها مفهومة في الموقع',
+    languageCalloutText: 'تظهر النماذج وقوائم الفحص والإجراءات بلغة المستخدم، ويمكن ترجمة النص مع إبقاء النص الأصلي متاحاً.'
+  }
+};
+
 let currentLang = 'he';
+let currentProductEdition = new URLSearchParams(window.location.search).get('product') === 'operations' ? 'operations' : 'punch';
 const THEME_STORAGE_KEY = 'sp_landing_theme';
+const DEFAULT_PAGE_META = {
+  title: document.title,
+  description: document.querySelector('meta[name="description"]')?.getAttribute('content') || ''
+};
 
 function updateThemeToggle() {
   const button = document.getElementById('themeToggle');
@@ -3339,6 +4117,187 @@ const followSystemTheme = (event) => {
 };
 if (themePreference.addEventListener) themePreference.addEventListener('change', followSystemTheme);
 else if (themePreference.addListener) themePreference.addListener(followSystemTheme);
+
+function replaceListItems(list, values) {
+  if (!list) return;
+  const items = (values || []).map(value => {
+    const item = document.createElement('li');
+    item.textContent = value;
+    return item;
+  });
+  list.replaceChildren(...items);
+}
+
+function renderProductEdition() {
+  const languageCopy = PRODUCT_EDITION_COPY[currentLang] || PRODUCT_EDITION_COPY.he;
+  const copy = languageCopy[currentProductEdition] || languageCopy.punch;
+  const standardCopy = TRANSLATIONS[currentLang] || TRANSLATIONS.he;
+  const operationsCopy = OPERATIONS_ROUTE_COPY[currentLang] || OPERATIONS_ROUTE_COPY.he;
+  const isOperations = currentProductEdition === 'operations';
+  const setText = (id, value) => {
+    const element = document.getElementById(id);
+    if (element) element.textContent = value;
+  };
+
+  document.body.dataset.product = currentProductEdition;
+  document.title = isOperations ? operationsCopy.pageTitle : (copy.pageTitle || DEFAULT_PAGE_META.title);
+  const metaDescription = document.querySelector('meta[name="description"]');
+  if (metaDescription) metaDescription.setAttribute('content', isOperations ? operationsCopy.pageDescription : (copy.pageDescription || DEFAULT_PAGE_META.description));
+
+  const navLinks = document.querySelectorAll('[data-product-nav]');
+  const navLabels = isOperations ? operationsCopy.navLinks : standardCopy.navLinks;
+  const navHrefs = isOperations ? operationsCopy.navHrefs : ['#roles', '#features', '#how', '#industries', '#pricing'];
+  navLinks.forEach((link, index) => {
+    if (navLabels[index]) link.textContent = navLabels[index];
+    if (navHrefs[index]) link.href = navHrefs[index];
+  });
+
+  const switcher = document.getElementById('productSwitch');
+  if (switcher) switcher.setAttribute('aria-label', languageCopy.switchLabel);
+  setText('punchSwitchStatus', languageCopy.punchStatus);
+  setText('operationsSwitchStatus', languageCopy.operationsStatus);
+  document.querySelectorAll('[data-product-choice]').forEach(button => {
+    const selected = button.dataset.productChoice === currentProductEdition;
+    button.classList.toggle('is-active', selected);
+    button.setAttribute('aria-pressed', String(selected));
+  });
+
+  const eyebrowText = document.querySelector('.hero-eyebrow .eyebrow-text');
+  if (eyebrowText) eyebrowText.textContent = copy.heroEyebrow;
+  const heroTitle = document.querySelector('.hero-title');
+  if (heroTitle) heroTitle.innerHTML = copy.heroTitle;
+  const heroSub = document.querySelector('.hero-sub');
+  if (heroSub) heroSub.textContent = copy.heroSub;
+  setText('heroOfflineNote', copy.offlineNote);
+  const heroPrimary = document.getElementById('heroPrimaryCta');
+  if (heroPrimary) { heroPrimary.textContent = copy.heroPrimary; heroPrimary.href = copy.heroPrimaryHref; }
+  const heroSecondary = document.getElementById('heroSecondaryCta');
+  if (heroSecondary) { heroSecondary.textContent = copy.heroSecondary; heroSecondary.href = copy.heroSecondaryHref; }
+  const heroImage = document.getElementById('heroProductImage');
+  if (heroImage) heroImage.src = copy.heroImage;
+
+  setText('proofNumLabel', copy.proofLabel);
+  setText('proofTitle', copy.proofTitle);
+  setText('proofCaption', copy.proofCaption);
+
+  const productSection = document.getElementById('products');
+  if (productSection) productSection.dataset.product = currentProductEdition;
+  setText('productEditionTag', copy.tag);
+  setText('productEditionTitle', copy.title);
+  setText('productEditionSub', copy.sub);
+  replaceListItems(document.getElementById('productEditionFeatures'), copy.features);
+  setText('productEditionBadge', copy.badge);
+  setText('productEditionCaption', copy.caption);
+  const productCta = document.getElementById('productEditionCta');
+  if (productCta) { productCta.textContent = copy.cta; productCta.href = copy.ctaHref; }
+  const productImage = document.getElementById('productEditionImage');
+  if (productImage) { productImage.src = copy.image; productImage.alt = copy.imageAlt; }
+
+  setText('productAiTitle', copy.aiTitle);
+  setText('productAiText', copy.aiText);
+  replaceListItems(document.getElementById('productAiFeatures'), copy.aiFeatures);
+  const productAiImage = document.getElementById('productAiImage');
+  if (productAiImage) productAiImage.alt = copy.aiImageAlt || '';
+  const aiPanel = document.getElementById('productAiPanel');
+  if (aiPanel) aiPanel.dataset.visual = String(Boolean(copy.aiVisual));
+
+  setText('operationsPlatformTag', operationsCopy.platformTag);
+  setText('operationsPlatformTitle', operationsCopy.platformTitle);
+  setText('operationsPlatformSub', operationsCopy.platformSub);
+  document.querySelectorAll('[data-operations-pillar]').forEach((card, index) => {
+    const pillar = operationsCopy.pillars[index];
+    if (!pillar) return;
+    const title = card.querySelector('h3');
+    const description = card.querySelector('p');
+    const status = card.querySelector('[data-operations-status]');
+    if (title) title.textContent = pillar.title;
+    if (description) description.textContent = pillar.text;
+    if (status) status.textContent = pillar.status;
+    replaceListItems(card.querySelector('ul'), pillar.items);
+  });
+  setText('operationsAudienceTag', operationsCopy.audienceTag);
+  setText('operationsAudienceTitle', operationsCopy.audienceTitle);
+  setText('operationsAudienceSub', operationsCopy.audienceSub);
+  document.querySelectorAll('[data-operations-audience]').forEach((card, index) => {
+    const audience = operationsCopy.audiences[index];
+    if (!audience) return;
+    const title = card.querySelector('h3');
+    const description = card.querySelector('p');
+    if (title) title.textContent = audience.title;
+    if (description) description.textContent = audience.text;
+  });
+  setText('operationsCapabilitiesTag', operationsCopy.capabilitiesTag);
+  setText('operationsCapabilitiesTitle', operationsCopy.capabilitiesTitle);
+  setText('operationsCapabilitiesSub', operationsCopy.capabilitiesSub);
+  document.querySelectorAll('[data-operations-capability]').forEach((card, index) => {
+    const capability = operationsCopy.capabilities[index];
+    if (!capability) return;
+    const title = card.querySelector('h3');
+    const description = card.querySelector('p');
+    const status = card.querySelector('.operations-capability-status');
+    if (title) title.textContent = capability.title;
+    if (description) description.textContent = capability.text;
+    if (status) status.textContent = capability.status;
+  });
+  setText('operationsScopeBadge', operationsCopy.scopeBadge);
+  setText('operationsScopeTitle', operationsCopy.scopeTitle);
+  setText('operationsScopeText', operationsCopy.scopeText);
+  setText('operationsRolloutTag', operationsCopy.rolloutTag);
+  setText('operationsRolloutTitle', operationsCopy.rolloutTitle);
+  setText('operationsRolloutSub', operationsCopy.rolloutSub);
+  document.querySelectorAll('.operations-rollout-step').forEach((step, index) => {
+    const stepCopy = operationsCopy.rolloutSteps[index];
+    if (!stepCopy) return;
+    const title = step.querySelector('h3');
+    const description = step.querySelector('p');
+    if (title) title.textContent = stepCopy.title;
+    if (description) description.textContent = stepCopy.text;
+  });
+
+  setText('languagesTag', isOperations ? operationsCopy.languageTag : standardCopy.langTag);
+  setText('languagesTitle', isOperations ? operationsCopy.languageTitle : standardCopy.langTitle);
+  setText('languagesSub', isOperations ? operationsCopy.languageSub : standardCopy.langSub);
+  setText('langTranslateTitle', isOperations ? operationsCopy.languageCalloutTitle : standardCopy.langTranslateTitle);
+  setText('langTranslateMsg', isOperations ? operationsCopy.languageCalloutText : standardCopy.langTranslateMsg);
+
+  const pricing = document.getElementById('pricing');
+  if (pricing) pricing.dataset.product = currentProductEdition;
+  setText('pricingProductTitle', copy.pricingTitle);
+  setText('pricingProductText', copy.pricingText);
+  const pricingCta = document.getElementById('pricingProductCta');
+  if (pricingCta) { pricingCta.textContent = copy.pricingCta; pricingCta.href = copy.pricingCtaHref; }
+  const pricingSwitch = document.getElementById('pricingProductSwitch');
+  if (pricingSwitch) {
+    pricingSwitch.textContent = copy.showPunchPricingLabel;
+    pricingSwitch.hidden = Boolean(copy.showPunchPricing);
+  }
+
+  const closingCta = document.getElementById('cta');
+  if (closingCta) {
+    const tag = closingCta.querySelector('.cta-tag');
+    const title = closingCta.querySelector('.cta-title');
+    const sub = closingCta.querySelector('.cta-sub');
+    const button = closingCta.querySelector('.cta-actions .btn-gold-main');
+    if (tag) tag.textContent = isOperations ? languageCopy.operationsCtaTag : standardCopy.ctaTag;
+    if (title) title.textContent = isOperations ? languageCopy.operationsCtaTitle : standardCopy.ctaTitle;
+    if (sub) sub.textContent = isOperations ? languageCopy.operationsCtaSub : standardCopy.ctaSub;
+    if (button) {
+      button.textContent = isOperations ? languageCopy.operationsCtaButton : standardCopy.ctaBtn1;
+      button.href = isOperations ? copy.heroPrimaryHref : 'https://app.sitepunch.co.il';
+    }
+  }
+}
+
+function setLandingProduct(edition, persist = true) {
+  if (edition !== 'punch' && edition !== 'operations') return;
+  currentProductEdition = edition;
+  renderProductEdition();
+  if (!persist) return;
+  const url = new URL(window.location.href);
+  if (edition === 'punch') url.searchParams.delete('product');
+  else url.searchParams.set('product', edition);
+  window.history.replaceState({}, '', url.pathname + url.search + url.hash);
+}
 
 function switchLang(lang) {
   currentLang = lang;
@@ -3604,9 +4563,11 @@ function switchLang(lang) {
     const aiHeader = document.getElementById('aiSectionHeader'); if (aiHeader) aiHeader.textContent = tc.featAiHeader;
     const aiInputEl = document.getElementById('aiInput'); if (aiInputEl) aiInputEl.placeholder = tc.featAiPlaceholder;
   }
+  renderProductEdition();
 }
 
 updateThemeToggle();
+renderProductEdition();
 
 // ── Workflow sequence: operational steps with real product screens ──
 (() => {
