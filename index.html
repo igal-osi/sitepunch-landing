@@ -129,9 +129,7 @@
   nav > * { position: relative; z-index: 1; }
   .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
   .nav-logo img { height: 56px; width: auto; object-fit: contain; }
-  .brand-logo-light { display: none; align-items: center; gap: 8px; color: #20232c; font: 700 1.05rem/1 var(--font-sans); letter-spacing: -.025em; }
-  .brand-logo-light strong { color: #a16e00; font-weight: 700; }
-  .brand-logo-light .brand-mark { width: 30px; height: 30px; object-fit: contain; image-rendering: auto; }
+  .brand-logo-light { display: none; }
   .nav-links { display: flex; gap: 22px; list-style: none; align-items: center; }
   .nav-links a {
     position: relative; color: #a8adb9; text-decoration: none; font-size: 0.79rem;
@@ -1638,7 +1636,7 @@
     background-image: linear-gradient(rgba(154,104,0,.055) 1px, transparent 1px), linear-gradient(90deg, rgba(154,104,0,.055) 1px, transparent 1px);
   }
   html[data-theme="light"] .brand-logo-dark { display: none; }
-  html[data-theme="light"] .brand-logo-light { display: inline-flex; }
+  html[data-theme="light"] .brand-logo-light { display: block; }
   html[data-theme="light"] .nav-links a,
   html[data-theme="light"] .nav-resources summary { color: #525b68; }
   html[data-theme="light"] .nav-links a:hover,
@@ -1672,8 +1670,6 @@
   html[data-theme="light"] footer p,
   html[data-theme="light"] .footer-links a { color: #596273; }
   html[data-theme="light"] .footer-bottom > p { color: #697386 !important; }
-  footer .brand-logo-light { font-size: 1.15rem; }
-  footer .brand-logo-light .brand-mark { width: 34px; height: 34px; }
 
   /* Dialogs and utility panels inherit the selected reading surface. */
   html[data-theme="light"] .modal-overlay,
@@ -1724,14 +1720,9 @@
     nav { padding-inline: 2vw; }
     .nav-actions { gap: 4px; }
     .nav-logo .brand-logo-dark { display: none; }
-    .nav-logo .brand-logo-light { display: inline-flex; }
-    .nav-logo .brand-logo-light > span { display: none; }
+    .nav-logo .brand-logo-light { display: block; }
     .nav-cta-account { display: inline-flex; align-items: center; min-height: 36px; padding: 6px 7px; font-size: .62rem; }
     .nav-cta { display: inline-flex; align-items: center; min-height: 36px; padding: 7px 8px; font-size: .68rem; }
-  }
-  @media (max-width: 340px) {
-    /* At 320px retain every action and reduce only the duplicated wordmark text. */
-    .nav-logo .brand-logo-light > span { display: none; }
   }
 </style>
 </head>
@@ -1779,7 +1770,7 @@ function bi(name, tone) { return '<span class="bi bi-' + (tone||'gold') + '">' +
 <nav>
   <a class="nav-logo" href="#hero" aria-label="SitePunch — חזרה לראש העמוד">
     <img class="brand-logo-dark" src="logo-header.png" alt="SitePunch">
-    <span class="brand-logo-light" aria-hidden="true"><img class="brand-mark" src="favicon-32.png" alt=""><span><strong>Site</strong>Punch</span></span>
+    <img class="brand-logo-light" src="logo-header.png" alt="SitePunch">
   </a>
   <ul class="nav-links">
     <li><a href="#roles" data-index="01" data-product-nav>למי מיועד</a></li>
@@ -2430,7 +2421,7 @@ function bi(name, tone) { return '<span class="bi bi-' + (tone||'gold') + '">' +
 <footer>
   <div class="footer-top">
     <img class="brand-logo-dark" src="logo-header.png" alt="SitePunch">
-    <span class="brand-logo-light" aria-hidden="true"><img class="brand-mark" src="favicon-32.png" alt=""><span><strong>Site</strong>Punch</span></span>
+    <img class="brand-logo-light" src="logo-header.png" alt="SitePunch">
     <p>בנוי לשוק הבנייה הישראלי 🇮🇱</p>
     <p>© 2026 SitePunch · כל הזכויות שמורות</p>
   </div>
