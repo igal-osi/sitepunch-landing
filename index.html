@@ -2276,7 +2276,7 @@ function bi(name, tone) { return '<span class="bi bi-' + (tone||'gold') + '">' +
   <div class="operations-pricing-card reveal" id="operationsPricingCard" aria-label="SitePunch Operations pricing">
     <div class="operations-pricing-copy">
       <div class="operations-pricing-eyebrow" id="operationsPricingEyebrow">מחירון Operations</div>
-      <p id="operationsPricingNote">מחיר המוצר קבוע ושקוף. אפיון, הטמעה ושירותים מותאמים מתומחרים בנפרד רק כשנדרשים.</p>
+      <p id="operationsPricingNote">המנוי: ₪1,590 לחודש או ₪15,264 לשנה. אפיון, הטמעה ושירותים מותאמים מוצעים בנפרד ובכתב מראש.</p>
     </div>
     <div class="operations-price-option is-primary">
       <div class="operations-price-label" id="operationsMonthlyLabel">חודשי</div>
@@ -2379,15 +2379,15 @@ function bi(name, tone) { return '<span class="bi bi-' + (tone||'gold') + '">' +
   <div class="packs-grid reveal">
     <div class="pack-card">
       <div class="pack-info"><h4>פרויקט בודד</h4><p>3 חודשים · עד 10 משתמשים</p></div>
-      <div class="pack-right"><div class="pack-price">₪199</div><button class="pack-cta" onclick="openCheckout('pack1')">רכשו →</button></div>
+      <div class="pack-right"><div class="pack-price" data-price-sku="pack_1">₪199</div><button class="pack-cta" onclick="openCheckout('pack1')">רכשו →</button></div>
     </div>
     <div class="pack-card">
       <div class="pack-info"><h4>חבילת 3 פרויקטים</h4><p>6 חודשים · עד 20 משתמשים</p></div>
-      <div class="pack-right"><div class="pack-price">₪499</div><button class="pack-cta" onclick="openCheckout('pack3')">רכשו →</button></div>
+      <div class="pack-right"><div class="pack-price" data-price-sku="pack_3">₪499</div><button class="pack-cta" onclick="openCheckout('pack3')">רכשו →</button></div>
     </div>
     <div class="pack-card">
       <div class="pack-info"><h4>חבילת 10 פרויקטים</h4><p>שנה · משתמשים ללא הגבלה</p></div>
-      <div class="pack-right"><div class="pack-price">₪1,290</div><button class="pack-cta" onclick="openCheckout('pack10')">רכשו →</button></div>
+      <div class="pack-right"><div class="pack-price" data-price-sku="pack_10">₪1,290</div><button class="pack-cta" onclick="openCheckout('pack10')">רכשו →</button></div>
     </div>
   </div>
 
@@ -2395,19 +2395,19 @@ function bi(name, tone) { return '<span class="bi bi-' + (tone||'gold') + '">' +
   <div class="packs-grid reveal" id="extrasGrid">
     <div class="pack-card">
       <div class="pack-info"><h4 data-key="extra1Name">+10 פרויקטים</h4><p data-key="extra1Sub">Pro ומעלה · לחודש</p></div>
-      <div class="pack-right"><div class="pack-price">₪79</div><a href="mailto:office@sitepunch.co.il?subject=Extra%20Projects" class="pack-cta">פרטים →</a></div>
+      <div class="pack-right"><div class="pack-price" data-price-sku="extra_proj_10">₪79</div><a href="mailto:office@sitepunch.co.il?subject=Extra%20Projects" class="pack-cta">פרטים →</a></div>
     </div>
     <div class="pack-card">
       <div class="pack-info"><h4 data-key="extra2Name">+25 פרויקטים</h4><p data-key="extra2Sub">Pro ומעלה · לחודש</p></div>
-      <div class="pack-right"><div class="pack-price">₪149</div><a href="mailto:office@sitepunch.co.il?subject=Extra%20Projects" class="pack-cta">פרטים →</a></div>
+      <div class="pack-right"><div class="pack-price" data-price-sku="extra_proj_25">₪149</div><a href="mailto:office@sitepunch.co.il?subject=Extra%20Projects" class="pack-cta">פרטים →</a></div>
     </div>
     <div class="pack-card">
       <div class="pack-info"><h4 data-key="extra3Name">+10 משתמשים</h4><p data-key="extra3Sub">כל חבילה · לחודש</p></div>
-      <div class="pack-right"><div class="pack-price">₪59</div><a href="mailto:office@sitepunch.co.il?subject=Extra%20Users" class="pack-cta">פרטים →</a></div>
+      <div class="pack-right"><div class="pack-price" data-price-sku="extra_users_10">₪59</div><a href="mailto:office@sitepunch.co.il?subject=Extra%20Users" class="pack-cta">פרטים →</a></div>
     </div>
     <div class="pack-card">
       <div class="pack-info"><h4 data-key="extra4Name">+50 משתמשים</h4><p data-key="extra4Sub">Enterprise · לחודש</p></div>
-      <div class="pack-right"><div class="pack-price">₪199</div><a href="mailto:office@sitepunch.co.il?subject=Extra%20Users" class="pack-cta">פרטים →</a></div>
+      <div class="pack-right"><div class="pack-price" data-price-sku="extra_users_50">₪199</div><a href="mailto:office@sitepunch.co.il?subject=Extra%20Users" class="pack-cta">פרטים →</a></div>
     </div>
   </div>
 </section>
@@ -2933,9 +2933,9 @@ const KB = [
   { keys: ['מי אתה','מי את','מה אתה','who are you','what are you','sitepunch ai'],
     ans: 'אני העוזר הדיגיטלי של SitePunch. אני כאן כדי לעזור בשאלות על המערכת, תמחור, פיצ׳רים והטמעה.' },
   { keys: ['operations','אופריישנס','מערכת תפעול','quality control','field execution','project management','safety','hse','ptp','toolbox'],
-    ans: '🏗️ <b>SitePunch Operations</b> הוא מוצר נפרד בגישה מוקדמת לניהול איכות, ביצוע בשטח, ניהול פרויקט ובטיחות/HSE. מחיר המחירון הוא <b>₪1,590 לחודש</b> או <b>₪15,264 לשנה</b>; אפיון, הטמעה ושירותים מותאמים נקבעים בנפרד רק לפי הצורך.' },
+    ans: () => '🏗️ <b>SitePunch Operations</b> הוא מוצר נפרד בגישה מוקדמת לניהול איכות, ביצוע בשטח, ניהול פרויקט ובטיחות/HSE. מחיר המחירון הוא <b>₪' + displayPrice(PUBLIC_PRICING.operations.monthly) + ' לחודש</b> או <b>₪' + displayPrice(PUBLIC_PRICING.operations.annual) + ' לשנה</b>; אפיון, הטמעה ושירותים מותאמים נקבעים בנפרד רק לפי הצורך.' },
   { keys: ['מחיר','עולה','עלות','כמה','תשלום','תוכנית','תכנית','מנוי','starter','pro','enterprise','חינם','ניסיון'],
-    ans: '💰 מסלולי SitePunch: <b>Starter ₪149/חודש</b>, <b>Pro ₪299/חודש</b> ו-<b>Enterprise ₪799/חודש</b>. בחיוב שנתי: ₪1,428, ₪2,868 ו-₪7,668 בהתאמה. SitePunch Operations הוא מוצר נפרד במחיר ₪1,590 לחודש או ₪15,264 לשנה.' },
+    ans: () => '💰 מסלולי SitePunch: <b>Starter ₪' + displayPrice(PUBLIC_PRICING.starter.monthly) + '/חודש</b>, <b>Pro ₪' + displayPrice(PUBLIC_PRICING.pro.monthly) + '/חודש</b> ו-<b>Enterprise ₪' + displayPrice(PUBLIC_PRICING.enterprise.monthly) + '/חודש</b>. בחיוב שנתי: ₪' + displayPrice(PUBLIC_PRICING.starter.annual) + ', ₪' + displayPrice(PUBLIC_PRICING.pro.annual) + ' ו-₪' + displayPrice(PUBLIC_PRICING.enterprise.annual) + ' בהתאמה. SitePunch Operations הוא מוצר נפרד במחיר ₪' + displayPrice(PUBLIC_PRICING.operations.monthly) + ' לחודש או ₪' + displayPrice(PUBLIC_PRICING.operations.annual) + ' לשנה.' },
   { keys: ['להתחיל','מתחיל','הטמעה','onboarding','הקמה','כמה זמן','מהיר','מורכב','קשה','פשוט'],
     ans: '🚀 הטמעה ב-SitePunch לוקחת פחות מ-30 דקות: פותחים פרויקט, מגדירים צוות, ומתחילים לתעד. ב-Starter ו-Pro ההקמה היא עצמאית וחינמית. ב-Enterprise יש ליווי אישי כולל הדרכת צוות בשטח.' },
   { keys: ['אינטרנט','offline','אופליין','4g','קישור','חיבור','רשת','גרוע','שטח','בלי נט'],
@@ -2967,11 +2967,11 @@ const KB = [
   { keys: ['תמיכה','עזרה','שירות','בעיה','שגיאה','לא עובד','פנייה','צ\'אט','מייל'],
     ans: '🆘 Starter כולל תמיכה במייל. Pro ו-Enterprise כוללים תמיכה מועדפת. אין כרגע התחייבות SLA או זמן תגובה חוזי.' },
   { keys: ['כמה פרויקט','פרויקטים','מספר','מקביל','בו זמנית','הגבלה','ללא הגבלה'],
-    ans: '📋 Starter: עד 3 פרויקטים פעילים. Pro: עד 100 פרויקטים. Enterprise: ללא הגבלה. צריכים יותר? יש חבילות אקסטרה של +10 או +25 פרויקטים בתוספת ₪79–₪149 לחודש.' },
+    ans: () => '📋 Starter: עד 3 פרויקטים פעילים. Pro: עד 100 פרויקטים. Enterprise: ללא הגבלה. צריכים יותר? יש חבילות אקסטרה של +10 או +25 פרויקטים בתוספת ₪' + displayPrice(PUBLIC_SKUS.extra_proj_10) + '–₪' + displayPrice(PUBLIC_SKUS.extra_proj_25) + ' לחודש.' },
   { keys: ['דמו','demo','ניסיון','לנסות','תקופת','חינם','ללא תשלום','free','trial'],
     ans: '🎯 אנחנו מציעים דמו אישי חינמי — 20-30 דקות עם הצוות שלנו. שלחו מייל ל-office@sitepunch.co.il.' },
   { keys: ['לבטל','ביטול','cancel','קנס','התחייבות','חוזה','חודש','שנה'],
-    ans: '✅ אין התחייבות ואין קנס ביטול. מנוי חודשי — מבטלים בכל זמן. מנוי שנתי — מקבלים זיכוי יחסי.' },
+    ans: '✅ תנאי הביטול, מועד הסיום וכל זיכוי נקבעים בהצעה או בהזמנה שאושרה. חשבוניות שכבר הונפקו אינן משתנות אוטומטית, וכל זיכוי או החזר דורש בדיקה ומסמך חשבונאי מתאים.' },
   { keys: ['לוגו','לבן','white label','מיתוג','ברנד'],
     ans: '🏷️ ב-Pro ומעלה אפשר להוסיף לוגו פרויקט לדוחות PDF. ב-Enterprise אפשר להגדיר גם לוגו וצבעי ארגון בסביבת העבודה, בדוחות ובתבניות מייל נתמכות. דומיין ומסך כניסה מותאמים אינם כלולים — זה לא White Label מלא.' },
   { keys: ['צוות','עובד','עובדים','כמה אנשים','משתמשים','user','להוסיף','הזמנה'],
@@ -3029,9 +3029,10 @@ function plainChatText(text) {
 function smartAnswer(q) {
   const text = q.toLowerCase();
   for (let i = 0; i < KB.length - 1; i++) {
-    if (KB[i].keys.some(k => text.includes(k))) return plainChatText(KB[i].ans);
+    if (KB[i].keys.some(k => text.includes(k))) return plainChatText(typeof KB[i].ans === 'function' ? KB[i].ans() : KB[i].ans);
   }
-  return plainChatText(KB[KB.length - 1].ans);
+  const fallback = KB[KB.length - 1].ans;
+  return plainChatText(typeof fallback === 'function' ? fallback() : fallback);
 }
 
 function renderSuggestions(featIdx) {
@@ -3154,7 +3155,49 @@ document.getElementById('chatInput').addEventListener('keydown', function(e) { i
 
 <script>
 let isAnnual = false;
-const PRICES = { starter: { monthly: 149, annual: 119 }, pro: { monthly: 299, annual: 239 }, ent: { monthly: 799, annual: 639 } };
+let PUBLIC_PRICING = Object.freeze({
+  starter: Object.freeze({ monthly: 14900, annual: 142800 }),
+  pro: Object.freeze({ monthly: 29900, annual: 286800 }),
+  enterprise: Object.freeze({ monthly: 79900, annual: 766800 }),
+  operations: Object.freeze({ monthly: 159000, annual: 1526400 }),
+});
+let PUBLIC_SKUS = Object.freeze({
+  pack_1: 19900, pack_3: 49900, pack_10: 129000,
+  extra_proj_10: 7900, extra_proj_25: 14900,
+  extra_users_10: 5900, extra_users_50: 19900,
+});
+
+function displayPrice(agorot) {
+  const nis = Number(agorot) / 100;
+  return nis.toLocaleString('en-US', {
+    minimumFractionDigits: Number.isInteger(nis) ? 0 : 2,
+    maximumFractionDigits: 2,
+  });
+}
+
+function monthlyEquivalentAgorot(annualAgorot) {
+  return Math.round(Number(annualAgorot) / 12);
+}
+
+function syncCheckoutPrices() {
+  PLANS.starter.monthlyPrice = '₪' + displayPrice(PUBLIC_PRICING.starter.monthly) + '/חודש';
+  PLANS.starter.annualPrice = '₪' + displayPrice(monthlyEquivalentAgorot(PUBLIC_PRICING.starter.annual)) + '/חודש (חיוב שנתי ₪' + displayPrice(PUBLIC_PRICING.starter.annual) + ')';
+  PLANS.pro.monthlyPrice = '₪' + displayPrice(PUBLIC_PRICING.pro.monthly) + '/חודש';
+  PLANS.pro.annualPrice = '₪' + displayPrice(monthlyEquivalentAgorot(PUBLIC_PRICING.pro.annual)) + '/חודש (חיוב שנתי ₪' + displayPrice(PUBLIC_PRICING.pro.annual) + ')';
+  PLANS.pack1.monthlyPrice = PLANS.pack1.annualPrice = '₪' + displayPrice(PUBLIC_SKUS.pack_1) + ' חד-פעמי';
+  PLANS.pack3.monthlyPrice = PLANS.pack3.annualPrice = '₪' + displayPrice(PUBLIC_SKUS.pack_3) + ' חד-פעמי';
+  PLANS.pack10.monthlyPrice = PLANS.pack10.annualPrice = '₪' + displayPrice(PUBLIC_SKUS.pack_10) + ' חד-פעמי';
+}
+
+function renderBillingPrices() {
+  const period = isAnnual ? 'annual' : 'monthly';
+  const priceFor = (plan) => isAnnual ? monthlyEquivalentAgorot(PUBLIC_PRICING[plan][period]) : PUBLIC_PRICING[plan][period];
+  document.getElementById('starterPrice').textContent = displayPrice(priceFor('starter'));
+  document.getElementById('proPrice').textContent = displayPrice(priceFor('pro'));
+  document.getElementById('entPrice').textContent = displayPrice(priceFor('enterprise'));
+  syncCheckoutPrices();
+}
+
 const PLANS = {
   starter: { name: 'Starter', monthlyPrice: '₪149/חודש', annualPrice: '₪119/חודש (חיוב שנתי ₪1,428)', type: 'subscription' },
   pro:     { name: 'Pro',     monthlyPrice: '₪299/חודש', annualPrice: '₪239/חודש (חיוב שנתי ₪2,868)', type: 'subscription' },
@@ -3168,9 +3211,7 @@ function toggleBilling() {
   document.getElementById('billingToggle').classList.toggle('on', isAnnual);
   document.getElementById('monthlyLabel').classList.toggle('active', !isAnnual);
   document.getElementById('annualLabel').classList.toggle('active', isAnnual);
-  document.getElementById('starterPrice').textContent = isAnnual ? PRICES.starter.annual : PRICES.starter.monthly;
-  document.getElementById('proPrice').textContent     = isAnnual ? PRICES.pro.annual     : PRICES.pro.monthly;
-  document.getElementById('entPrice').textContent     = isAnnual ? PRICES.ent.annual     : PRICES.ent.monthly;
+  renderBillingPrices();
 }
 
 let currentPlan = null;
@@ -3250,6 +3291,9 @@ const LEGAL = {
       <p>אחראים לשמור על סודיות פרטי הגישה לחשבון. יש לדווח מיידית על כל שימוש לא מורשה.</p>
       <h3>3. תשלומים</h3>
       <p>שדרוג או שינוי מסלול נעשה בבקשה ידנית מול צוות SitePunch, ואינו מתחדש או מתחייב אוטומטית. ביטול מסלול בתשלום נכנס לתוקף מול הצוות בהתאם לתיאום עמו. אין החזרים על תקופות שכבר שולמו, אלא אם סוכם אחרת.</p>
+      <h3>3א. עדכון והפחתת מחיר</h3>
+      <p>אם SitePunch תחליט להפחית את מחירו של מסלול קיים, תישלח ללקוח הרלוונטי הודעה רשמית מראש בדוא״ל, ובה המחיר המעודכן, מועד התחילה ואופן התחולה. אלא אם נכתב אחרת בהודעה או בהסכם, ההפחתה תחול במועד החידוש הבא של השירות.</p>
+      <p>חשבוניות ומסמכי מס שכבר הונפקו לא ישוכתבו. זיכוי שירות או השבה כספית, ככל שיחולו, יצוינו במפורש בהודעה או בהסכם ויבוצעו בכפוף למסמך זיכוי מתאים ולהוראות הדין החל.</p>
       <h3>4. קניין רוחני</h3>
       <p>כל התכנים, הלוגואים והקוד של SitePunch הם קניינה הבלעדי. אסור להעתיק, לשכפל או להפיץ ללא אישור בכתב.</p>
       <h3>5. נתוני משתמש</h3>
@@ -3260,7 +3304,7 @@ const LEGAL = {
       <p>אנו שומרים לעצמנו את הזכות לעדכן תנאים אלו. שינויים מהותיים יוודעו למשתמשים במייל 14 יום מראש.</p>
       <h3>8. יצירת קשר</h3>
       <p>לכל שאלה: <a href="mailto:office@sitepunch.co.il" style="color:var(--gold)">office@sitepunch.co.il</a></p>
-      <p style="color:var(--muted);font-size:0.8rem;margin-top:20px;">עדכון אחרון: יוני 2026</p>
+      <p style="color:var(--muted);font-size:0.8rem;margin-top:20px;">עדכון אחרון: ספטמבר 2026</p>
     `
   },
   privacy: {
@@ -3796,7 +3840,7 @@ const PRODUCT_EDITION_COPY = {
       heroEyebrow: 'מערכת תפעול גמישה לאיכות, בטיחות וביצוע',
       heroTitle: 'מערכת תפעול מותאמת<br><span class="gold">לעבודה שלכם</span>',
       heroSub: 'בנו תהליכים, צ\'קליסטים, טפסים ואישורים לפי שיטת העבודה של הארגון — על בסיס מנוע השטח של SitePunch. התוכנית נמצאת בגישה מוקדמת.',
-      offlineNote: 'גישה מוקדמת · ההצטרפות כוללת אפיון והטמעה מבוקרת',
+      offlineNote: 'גישה מוקדמת · אפיון והטמעה בהצעה נפרדת מראש',
       heroPrimary: 'תיאום אפיון', heroPrimaryHref: 'mailto:office@sitepunch.co.il?subject=SitePunch%20Operations%20-%20Early%20Access',
       heroSecondary: 'ראו איך זה יעבוד', heroSecondaryHref: '#products',
       heroImage: 'assets/sitepunch-operations-upgrade-v1.webp',
@@ -3814,8 +3858,8 @@ const PRODUCT_EDITION_COPY = {
       aiText: 'בגישה מוקדמת אפשר להעלות PDF, CSV או TXT עד 4MB ולקבל טיוטת צ\'קליסט ניתנת לעריכה. אדם בארגון בודק, מתקן ומאשר לפני פרסום — ה-AI אינו חותם ואינו מחליף אישור מקצועי.',
       aiFeatures: ['PDF, CSV או TXT · עד 4MB', 'טיוטת שדות וצ\'קליסט', 'בדיקה אנושית לפני פרסום'], aiVisual: true,
       aiImageAlt: 'המחשה של יצירת טיוטת צ\'קליסט מקובץ באמצעות AI',
-      pricingTitle: 'SitePunch Operations — 1,590 ₪ לחודש או 15,264 ₪ לשנה',
-      pricingText: 'Operations הוא מוצר נפרד ממסלולי SitePunch. מחיר המוצר שקוף; אפיון, הטמעה ושירותים מותאמים נקבעים בנפרד רק לפי הצורך.',
+      pricingTitle: 'SitePunch Operations',
+      pricingText: 'Operations הוא מוצר נפרד ממסלולי SitePunch. מחיר המנוי מוצג במדויק; אפיון, הטמעה ושירותים מותאמים מוצעים בנפרד ובכתב מראש.',
       pricingCta: 'קבלו הצעת אפיון', pricingCtaHref: 'mailto:office@sitepunch.co.il?subject=SitePunch%20Operations%20-%20Pricing', showPunchPricing: false,
       showPunchPricingLabel: 'הציגו מחירי SitePunch'
     }
@@ -3847,7 +3891,7 @@ const PRODUCT_EDITION_COPY = {
       heroEyebrow: 'Flexible operations for quality, safety and delivery',
       heroTitle: 'Operations configured<br><span class="gold">around your work</span>',
       heroSub: 'Build workflows, checklists, forms and approvals around your organisation — on SitePunch\'s field engine. The programme is in early access.',
-      offlineNote: 'Early access · onboarding includes scoped discovery and controlled implementation',
+      offlineNote: 'Early access · discovery and implementation are quoted separately in advance',
       heroPrimary: 'Book discovery', heroPrimaryHref: 'mailto:office@sitepunch.co.il?subject=SitePunch%20Operations%20-%20Early%20Access', heroSecondary: 'See how it works', heroSecondaryHref: '#products',
       heroImage: 'assets/sitepunch-operations-upgrade-v1.webp',
       proofLabel: 'Proven foundation', proofTitle: 'Operations is built on SitePunch\'s live field engine — capture, ownership, status and history.', proofCaption: 'The live product foundation beneath Operations',
@@ -3860,7 +3904,7 @@ const PRODUCT_EDITION_COPY = {
       aiText: 'In Early Access, upload a PDF, CSV or TXT file up to 4 MB to generate an editable checklist draft. A person reviews, edits and approves it before publishing; AI never signs or replaces professional approval.',
       aiFeatures: ['PDF, CSV or TXT · up to 4 MB', 'Field and checklist draft', 'Human review before publishing'], aiVisual: true,
       aiImageAlt: 'AI-assisted checklist draft generated from an uploaded document',
-      pricingTitle: 'SitePunch Operations — ₪1,590/month or ₪15,264/year', pricingText: 'Operations is separate from SitePunch plans. The product price is transparent; onboarding, implementation, and tailored services are scoped separately only when needed.',
+      pricingTitle: 'SitePunch Operations', pricingText: 'Operations is separate from SitePunch plans. The subscription price is shown exactly; discovery, implementation, and tailored services are quoted separately in writing before work starts.',
       pricingCta: 'Request a scoped proposal', pricingCtaHref: 'mailto:office@sitepunch.co.il?subject=SitePunch%20Operations%20-%20Pricing', showPunchPricing: false, showPunchPricingLabel: 'Show SitePunch pricing'
     }
   },
@@ -3883,7 +3927,7 @@ const PRODUCT_EDITION_COPY = {
     },
     operations: {
       heroEyebrow: 'Гибкие процессы качества, безопасности и производства', heroTitle: 'Операционная система<br><span class="gold">под вашу работу</span>',
-      heroSub: 'Создавайте процессы, чек-листы, формы и подтверждения на базе полевого ядра SitePunch. Программа находится в раннем доступе.', offlineNote: 'Ранний доступ · подключение включает анализ и контролируемое внедрение',
+      heroSub: 'Создавайте процессы, чек-листы, формы и подтверждения на базе полевого ядра SitePunch. Программа находится в раннем доступе.', offlineNote: 'Ранний доступ · анализ и внедрение оцениваются отдельно заранее',
       heroPrimary: 'Обсудить внедрение', heroPrimaryHref: 'mailto:office@sitepunch.co.il?subject=SitePunch%20Operations%20-%20Early%20Access', heroSecondary: 'Как это работает', heroSecondaryHref: '#products', heroImage: 'assets/sitepunch-operations-upgrade-v1.webp',
       proofLabel: 'Проверенная основа', proofTitle: 'Operations строится на действующем ядре SitePunch: фиксация, ответственные, статусы и история.', proofCaption: 'Действующее ядро продукта, на котором строится Operations',
       tag: 'SitePunch Operations · Ранний доступ', title: 'Настройка без новой разработки для каждого клиента', sub: 'Настраиваемый слой для PTP, Toolbox, испытаний давлением, комиссий по безопасности, приёма сотрудников и других процессов.',
@@ -3891,7 +3935,7 @@ const PRODUCT_EDITION_COPY = {
       cta: 'Присоединиться к запуску', ctaHref: 'mailto:office@sitepunch.co.il?subject=SitePunch%20Operations%20-%20Early%20Access', badge: 'Early Access', image: 'assets/sitepunch-operations-workflows-v1.jpg', imageAlt: 'Рабочий процесс SitePunch Operations на планшете и телефоне', caption: 'Единый процесс: от фиксации на площадке до согласования и управленческой аналитики',
       aiTitle: 'Из документа в редактируемый черновик процесса', aiText: 'В раннем доступе можно загрузить PDF, CSV или TXT размером до 4 МБ и получить редактируемый черновик чек-листа. Человек проверяет и утверждает его до публикации; AI не подписывает и не заменяет специалиста.', aiFeatures: ['PDF, CSV или TXT · до 4 МБ', 'Черновик полей и чек-листа', 'Проверка человеком'], aiVisual: true,
       aiImageAlt: 'Создание черновика чек-листа из загруженного документа с помощью AI',
-      pricingTitle: 'SitePunch Operations — ₪1 590 в месяц или ₪15 264 в год', pricingText: 'Operations — отдельный продукт, не входящий в тарифы SitePunch. Цена продукта прозрачна; запуск, внедрение и индивидуальные услуги оцениваются отдельно только при необходимости.', pricingCta: 'Запросить предложение', pricingCtaHref: 'mailto:office@sitepunch.co.il?subject=SitePunch%20Operations%20-%20Pricing', showPunchPricing: false, showPunchPricingLabel: 'Показать цены SitePunch'
+      pricingTitle: 'SitePunch Operations', pricingText: 'Operations — отдельный продукт, не входящий в тарифы SitePunch. Цена подписки указана точно; анализ, внедрение и индивидуальные услуги заранее оформляются отдельным письменным предложением.', pricingCta: 'Запросить предложение', pricingCtaHref: 'mailto:office@sitepunch.co.il?subject=SitePunch%20Operations%20-%20Pricing', showPunchPricing: false, showPunchPricingLabel: 'Показать цены SitePunch'
     }
   },
   ar: {
@@ -3911,7 +3955,7 @@ const PRODUCT_EDITION_COPY = {
       pricingTitle: 'خطط SitePunch', pricingText: 'اختر سعة المشاريع والمستخدمين المناسبة لفريقك. يمكنك البدء مجاناً.', pricingCta: 'إنشاء حساب', pricingCtaHref: 'https://account.sitepunch.co.il?register=1', showPunchPricing: true, showPunchPricingLabel: 'عرض أسعار SitePunch'
     },
     operations: {
-      heroEyebrow: 'عمليات مرنة للجودة والسلامة والتنفيذ', heroTitle: 'نظام عمليات مُهيأ<br><span class="gold">لطريقة عملكم</span>', heroSub: 'أنشئ سير عمل وقوائم فحص ونماذج واعتمادات على محرك SitePunch الميداني. البرنامج في مرحلة الوصول المبكر.', offlineNote: 'وصول مبكر · الانضمام يشمل التحليل والتنفيذ المنضبط',
+      heroEyebrow: 'عمليات مرنة للجودة والسلامة والتنفيذ', heroTitle: 'نظام عمليات مُهيأ<br><span class="gold">لطريقة عملكم</span>', heroSub: 'أنشئ سير عمل وقوائم فحص ونماذج واعتمادات على محرك SitePunch الميداني. البرنامج في مرحلة الوصول المبكر.', offlineNote: 'وصول مبكر · يُسعّر التحليل والتنفيذ بعرض منفصل مسبقًا',
       heroPrimary: 'حجز جلسة تحليل', heroPrimaryHref: 'mailto:office@sitepunch.co.il?subject=SitePunch%20Operations%20-%20Early%20Access', heroSecondary: 'كيف سيعمل', heroSecondaryHref: '#products', heroImage: 'assets/sitepunch-operations-upgrade-v1.webp',
       proofLabel: 'أساس مُثبت', proofTitle: 'يُبنى Operations فوق محرك SitePunch الفعّال: التوثيق والمسؤولية والحالة والسجل.', proofCaption: 'الأساس الفعّال الذي تُبنى فوقه طبقة Operations',
       tag: 'SitePunch Operations · وصول مبكر', title: 'تهيئة دون إعادة التطوير لكل عميل', sub: 'طبقة إدارة قابلة للتهيئة لـ PTP وToolbox واختبارات الضغط ولجان السلامة واستقبال الموظفين وعمليات أخرى.',
@@ -3919,17 +3963,17 @@ const PRODUCT_EDITION_COPY = {
       cta: 'الانضمام إلى برنامج الإطلاق', ctaHref: 'mailto:office@sitepunch.co.il?subject=SitePunch%20Operations%20-%20Early%20Access', badge: 'Early Access', image: 'assets/sitepunch-operations-workflows-v1.jpg', imageAlt: 'سير عمل SitePunch Operations على جهاز لوحي وهاتف', caption: 'سير واحد من التوثيق الميداني إلى الاعتماد والرؤية الإدارية',
       aiTitle: 'من مستند قائم إلى مسودة عملية قابلة للتحرير', aiText: 'في الوصول المبكر يمكن رفع ملف PDF أو CSV أو TXT حتى 4 ميغابايت وإنشاء مسودة قائمة فحص قابلة للتحرير. يراجعها شخص ويعدلها ويعتمدها قبل النشر؛ الذكاء الاصطناعي لا يوقّع ولا يستبدل الاعتماد المهني.', aiFeatures: ['PDF أو CSV أو TXT · حتى 4 ميغابايت', 'مسودة الحقول والقائمة', 'مراجعة بشرية قبل النشر'], aiVisual: true,
       aiImageAlt: 'إنشاء مسودة قائمة فحص من مستند مرفوع بمساعدة الذكاء الاصطناعي',
-      pricingTitle: 'SitePunch Operations — ₪1,590 شهرياً أو ₪15,264 سنوياً', pricingText: 'Operations منتج منفصل عن خطط SitePunch. سعر المنتج واضح؛ ويُسعّر الإعداد والتنفيذ والخدمات المخصصة بشكل منفصل عند الحاجة فقط.', pricingCta: 'طلب عرض محدد', pricingCtaHref: 'mailto:office@sitepunch.co.il?subject=SitePunch%20Operations%20-%20Pricing', showPunchPricing: false, showPunchPricingLabel: 'عرض أسعار SitePunch'
+      pricingTitle: 'SitePunch Operations', pricingText: 'Operations منتج منفصل عن خطط SitePunch. يُعرض سعر الاشتراك بدقة؛ ويُقدم التحليل والتنفيذ والخدمات المخصصة بعرض منفصل ومكتوب مسبقًا.', pricingCta: 'طلب عرض محدد', pricingCtaHref: 'mailto:office@sitepunch.co.il?subject=SitePunch%20Operations%20-%20Pricing', showPunchPricing: false, showPunchPricingLabel: 'عرض أسعار SitePunch'
     }
   }
 };
 
-const OPERATIONS_PRICING = Object.freeze({ monthly: 1590, annual: 15264, monthlyEquivalent: 1272, annualSavings: 3816 });
+let OPERATIONS_PRICING = Object.freeze({ monthly: 159000, annual: 1526400, monthlyEquivalent: 127200, annualSavings: 381600 });
 const OPERATIONS_PRICING_COPY = {
-  he: { eyebrow: 'מחירון Operations', note: 'מחיר המוצר קבוע ושקוף. אפיון, הטמעה ושירותים מותאמים מתומחרים בנפרד רק כשנדרשים.', monthly: 'חודשי', monthlyPeriod: 'לחודש', annual: 'שנתי', annualPeriod: 'לשנה · שווה ערך ל־₪{amount} לחודש', saving: 'חיסכון שנתי של ₪{amount}' },
-  en: { eyebrow: 'Operations pricing', note: 'The product price is fixed and transparent. Onboarding, implementation, and tailored services are priced separately only when required.', monthly: 'Monthly', monthlyPeriod: 'per month', annual: 'Annual', annualPeriod: 'per year · equivalent to ₪{amount}/month', saving: 'Save ₪{amount} per year' },
-  ru: { eyebrow: 'Тариф Operations', note: 'Цена продукта фиксирована и прозрачна. Запуск, внедрение и индивидуальные услуги оплачиваются отдельно только при необходимости.', monthly: 'Ежемесячно', monthlyPeriod: 'в месяц', annual: 'Ежегодно', annualPeriod: 'в год · эквивалент ₪{amount} в месяц', saving: 'Экономия ₪{amount} в год' },
-  ar: { eyebrow: 'أسعار Operations', note: 'سعر المنتج ثابت وواضح. يتم تسعير الإعداد والتنفيذ والخدمات المخصصة بشكل منفصل عند الحاجة فقط.', monthly: 'شهري', monthlyPeriod: 'شهرياً', annual: 'سنوي', annualPeriod: 'سنوياً · ما يعادل ₪{amount} شهرياً', saving: 'وفّر ₪{amount} سنوياً' }
+  he: { eyebrow: 'מחירון Operations', note: 'המנוי: ₪{monthly} לחודש או ₪{annual} לשנה. אפיון, הטמעה ושירותים מותאמים מוצעים בנפרד ובכתב מראש.', monthly: 'חודשי', monthlyPeriod: 'לחודש', annual: 'שנתי', annualPeriod: 'לשנה · שווה ערך ל־₪{amount} לחודש', saving: 'חיסכון שנתי של ₪{amount}' },
+  en: { eyebrow: 'Operations pricing', note: 'Subscription: ₪{monthly}/month or ₪{annual}/year. Discovery, implementation, and tailored services are quoted separately in writing before work starts.', monthly: 'Monthly', monthlyPeriod: 'per month', annual: 'Annual', annualPeriod: 'per year · equivalent to ₪{amount}/month', saving: 'Save ₪{amount} per year' },
+  ru: { eyebrow: 'Тариф Operations', note: 'Подписка: ₪{monthly} в месяц или ₪{annual} в год. Анализ, внедрение и индивидуальные услуги заранее оформляются отдельным письменным предложением.', monthly: 'Ежемесячно', monthlyPeriod: 'в месяц', annual: 'Ежегодно', annualPeriod: 'в год · эквивалент ₪{amount} в месяц', saving: 'Экономия ₪{amount} в год' },
+  ar: { eyebrow: 'أسعار Operations', note: 'الاشتراك: ₪{monthly} شهريًا أو ₪{annual} سنويًا. يُقدم التحليل والتنفيذ والخدمات المخصصة بعرض منفصل ومكتوب مسبقًا.', monthly: 'شهري', monthlyPeriod: 'شهرياً', annual: 'سنوي', annualPeriod: 'سنوياً · ما يعادل ₪{amount} شهرياً', saving: 'وفّر ₪{amount} سنوياً' }
 };
 
 const OPERATIONS_ROUTE_COPY = {
@@ -4305,7 +4349,7 @@ function renderProductEdition() {
 
   const pricing = document.getElementById('pricing');
   if (pricing) pricing.dataset.product = currentProductEdition;
-  setText('pricingProductTitle', copy.pricingTitle);
+  setText('pricingProductTitle', isOperations ? operationsPricingTitle(currentLang) : copy.pricingTitle);
   setText('pricingProductText', copy.pricingText);
   const pricingCta = document.getElementById('pricingProductCta');
   if (pricingCta) { pricingCta.textContent = copy.pricingCta; pricingCta.href = copy.pricingCtaHref; }
@@ -4314,9 +4358,11 @@ function renderProductEdition() {
     pricingSwitch.textContent = copy.showPunchPricingLabel;
     pricingSwitch.hidden = Boolean(copy.showPunchPricing);
   }
-  const formatOperationsPrice = value => Number(value).toLocaleString('en-US');
+  const formatOperationsPrice = value => displayPrice(value);
   setText('operationsPricingEyebrow', operationsPricingCopy.eyebrow);
-  setText('operationsPricingNote', operationsPricingCopy.note);
+  setText('operationsPricingNote', operationsPricingCopy.note
+    .replace('{monthly}', formatOperationsPrice(OPERATIONS_PRICING.monthly))
+    .replace('{annual}', formatOperationsPrice(OPERATIONS_PRICING.annual)));
   setText('operationsMonthlyLabel', operationsPricingCopy.monthly);
   setText('operationsMonthlyPrice', formatOperationsPrice(OPERATIONS_PRICING.monthly));
   setText('operationsMonthlyPeriod', operationsPricingCopy.monthlyPeriod);
@@ -4616,11 +4662,82 @@ function switchLang(lang) {
     const aiHeader = document.getElementById('aiSectionHeader'); if (aiHeader) aiHeader.textContent = tc.featAiHeader;
     const aiInputEl = document.getElementById('aiInput'); if (aiInputEl) aiInputEl.placeholder = tc.featAiPlaceholder;
   }
-  renderProductEdition();
+  renderCommercialPricing();
 }
 
 updateThemeToggle();
 renderProductEdition();
+
+function isSafePublicPricing(payload) {
+  if (!payload || typeof payload !== 'object' || !payload.prices || typeof payload.prices !== 'object'
+      || !payload.skus || typeof payload.skus !== 'object') return false;
+  const plans = ['starter', 'pro', 'enterprise', 'operations'];
+  const validPlans = plans.every((plan) => {
+    const price = payload.prices[plan];
+    return price && Number.isSafeInteger(price.monthly) && Number.isSafeInteger(price.annual)
+      && price.monthly >= 0 && price.annual >= 0;
+  });
+  const skus = ['pack_1', 'pack_3', 'pack_10', 'extra_proj_10', 'extra_proj_25', 'extra_users_10', 'extra_users_50'];
+  return validPlans && skus.every((sku) => Number.isSafeInteger(payload.skus[sku]) && payload.skus[sku] >= 0);
+}
+
+function operationsPricingTitle(language) {
+  const monthly = displayPrice(PUBLIC_PRICING.operations.monthly);
+  const annual = displayPrice(PUBLIC_PRICING.operations.annual);
+  if (language === 'he') return 'SitePunch Operations — ' + monthly + ' ₪ לחודש או ' + annual + ' ₪ לשנה';
+  if (language === 'ru') return 'SitePunch Operations — ₪' + monthly + ' в месяц или ₪' + annual + ' в год';
+  if (language === 'ar') return 'SitePunch Operations — ₪' + monthly + ' شهرياً أو ₪' + annual + ' سنوياً';
+  return 'SitePunch Operations — ₪' + monthly + '/month or ₪' + annual + '/year';
+}
+
+function renderCommercialPricing() {
+  renderBillingPrices();
+  document.querySelectorAll('[data-price-sku]').forEach((node) => {
+    const value = PUBLIC_SKUS[node.dataset.priceSku];
+    if (Number.isSafeInteger(value)) node.textContent = '₪' + displayPrice(value);
+  });
+  const operations = PUBLIC_PRICING.operations;
+  const annualSavings = Math.max(0, (operations.monthly * 12) - operations.annual);
+  OPERATIONS_PRICING = Object.freeze({
+    monthly: operations.monthly,
+    annual: operations.annual,
+    monthlyEquivalent: monthlyEquivalentAgorot(operations.annual),
+    annualSavings,
+  });
+  renderProductEdition();
+}
+
+async function hydrateCommercialPricing() {
+  try {
+    const response = await fetch('/api/commercial-pricing', { headers: { Accept: 'application/json' } });
+    if (!response.ok) return;
+    const payload = await response.json();
+    if (!isSafePublicPricing(payload)) return;
+    PUBLIC_PRICING = Object.freeze({
+      starter: Object.freeze({ monthly: payload.prices.starter.monthly, annual: payload.prices.starter.annual }),
+      pro: Object.freeze({ monthly: payload.prices.pro.monthly, annual: payload.prices.pro.annual }),
+      enterprise: Object.freeze({ monthly: payload.prices.enterprise.monthly, annual: payload.prices.enterprise.annual }),
+      operations: Object.freeze({ monthly: payload.prices.operations.monthly, annual: payload.prices.operations.annual }),
+    });
+    PUBLIC_SKUS = Object.freeze({
+      pack_1: payload.skus.pack_1,
+      pack_3: payload.skus.pack_3,
+      pack_10: payload.skus.pack_10,
+      extra_proj_10: payload.skus.extra_proj_10,
+      extra_proj_25: payload.skus.extra_proj_25,
+      extra_users_10: payload.skus.extra_users_10,
+      extra_users_50: payload.skus.extra_users_50,
+    });
+    renderCommercialPricing();
+  } catch (_) {
+    // The server serves the approved fallback when the catalog is unavailable.
+    // If the network itself is unavailable, the server-rendered approved prices stay visible.
+  }
+}
+
+renderCommercialPricing();
+if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', hydrateCommercialPricing, { once: true });
+else hydrateCommercialPricing();
 
 // ── Workflow sequence: operational steps with real product screens ──
 (() => {
