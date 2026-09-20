@@ -31,16 +31,17 @@ test('SitePunch approved fallback is exact across cards, billing copy, and publi
   const compactLanding = landing.replace(/[,\s]/g, '');
   const compactPrompt = prompt.replace(/[,\s]/g, '');
 
-  for (const value of ['149', '299', '799', '1428', '2868', '7668']) {
+  for (const value of ['149', '299', '599', '1428', '2868', '5748']) {
     assert.match(compactLanding, new RegExp(value));
     assert.match(compactPrompt, new RegExp(value));
   }
 
   assert.match(landing, /starter:\s*Object\.freeze\(\{ monthly: 14900, annual: 142800 \}\)/);
   assert.match(landing, /pro:\s*Object\.freeze\(\{ monthly: 29900, annual: 286800 \}\)/);
-  assert.match(landing, /enterprise:\s*Object\.freeze\(\{ monthly: 79900, annual: 766800 \}\)/);
+  assert.match(landing, /enterprise:\s*Object\.freeze\(\{ monthly: 59900, annual: 574800 \}\)/);
+  assert.doesNotMatch(landing, /Enterprise[^\n]{0,120}₪?799|monthly:\s*79900|annual:\s*766800/);
   assert.doesNotMatch(landing, /₪(?:349|890)|\b(?:3348|8544)\b|3,348|8,544/);
-  assert.doesNotMatch(prompt, /₪(?:349|890)|3,348|8,544/);
+  assert.doesNotMatch(prompt, /₪(?:349|799|890)|3,348|7,668|8,544/);
 });
 
 test('public AI distinguishes the two products and preserves launch status', () => {

@@ -24,7 +24,7 @@ function payload(overrides = {}) {
       ...Object.entries({
         starter_monthly: ['starter', 'monthly', 14900], starter_annual: ['starter', 'annual', 142800],
         pro_monthly: ['pro', 'monthly', 29900], pro_annual: ['pro', 'annual', 286800],
-        enterprise_monthly: ['enterprise', 'monthly', 79900], enterprise_annual: ['enterprise', 'annual', 766800],
+        enterprise_monthly: ['enterprise', 'monthly', 59900], enterprise_annual: ['enterprise', 'annual', 574800],
         operations_monthly: ['operations', 'monthly', 159000], operations_annual: ['operations', 'annual', 1526400],
         pack_1: ['pack_1', 'one_time', 19900], pack_3: ['pack_3', 'one_time', 49900], pack_10: ['pack_10', 'one_time', 129000],
         extra_proj_10: ['extra_proj_10', 'monthly', 7900], extra_proj_25: ['extra_proj_25', 'monthly', 14900],
@@ -49,7 +49,7 @@ test('commercial catalog reads only the public RPC and projects the supported pu
   });
 
   assert.equal(catalog.source, 'catalog');
-  assert.equal(catalog.prices.enterprise.monthly, 79900);
+  assert.equal(catalog.prices.enterprise.monthly, 59900);
   assert.equal(catalog.prices.operations.annual, 1526400);
   assert.deepEqual(catalog.terms, {
     version: '2026-09-20',

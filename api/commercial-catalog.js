@@ -7,13 +7,13 @@ const CACHE_TTL_MS = 60 * 1000;
 const REQUIRED_PRICES = Object.freeze({
   starter: Object.freeze({ monthly: 14900, annual: 142800 }),
   pro: Object.freeze({ monthly: 29900, annual: 286800 }),
-  enterprise: Object.freeze({ monthly: 79900, annual: 766800 }),
+  enterprise: Object.freeze({ monthly: 59900, annual: 574800 }),
   operations: Object.freeze({ monthly: 159000, annual: 1526400 }),
 });
 const REQUIRED_SKUS = Object.freeze({
   starter_monthly: 14900, starter_annual: 142800,
   pro_monthly: 29900, pro_annual: 286800,
-  enterprise_monthly: 79900, enterprise_annual: 766800,
+  enterprise_monthly: 59900, enterprise_annual: 574800,
   operations_monthly: 159000, operations_annual: 1526400,
   pack_1: 19900, pack_3: 49900, pack_10: 129000,
   extra_proj_10: 7900, extra_proj_25: 14900,
