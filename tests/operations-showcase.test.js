@@ -23,6 +23,9 @@ test('export ships four translated real module grids without executable applicat
     }
     assert.doesNotMatch(screen, /<script|<form|ops_module_|supabase|onClick=/i);
     assert.ok(screen.includes('sp-project-header'));
+    assert.match(preview.desktopScreens[lang], /data-testid="ops-desktop-nav"/);
+    assert.match(preview.projectScreens[lang], /proj-card fade-in/);
+    assert.doesNotMatch(preview.desktopScreens[lang], /src="\/logo-icon.png"/);
   }
   assert.notEqual(preview.screens.en, preview.screens.he);
   assert.ok(preview.css.includes('minmax(min(248px, 100%), 1fr)'));
@@ -42,7 +45,7 @@ test('complete phone fits inside the narrow stage, including padding and entranc
     return stageHeight * .03 + rotatedHeight <= stageHeight;
   }
   for (const width of [320, 375, 390, 540]) assert.ok(fits(ratio, width), `${width}px clips phone`);
-  assert.equal(fits(.79, 375), false, 'negative control: previous stage must fail');
+  assert.equal(fits(1, 375), false, 'negative control: a square stage clips the phone');
 });
 
 test('motion and clipping protections cover both outer devices and inner UI', () => {
