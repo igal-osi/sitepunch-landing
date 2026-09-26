@@ -1748,6 +1748,8 @@
     .nav-cta { display: inline-flex; align-items: center; min-height: 36px; padding: 7px 8px; font-size: .68rem; }
   }
 </style>
+<link rel="stylesheet" href="/assets/operations-showcase.css">
+<script src="/assets/operations-showcase.js" defer></script>
 </head>
 <body data-product="punch">
 
@@ -1872,6 +1874,17 @@ function bi(name, tone) { return '<span class="bi bi-' + (tone||'gold') + '">' +
       <span class="proof-dot" style="--dot:var(--status-closed)"></span>
     </div>
   </div>
+  <figure class="operations-showcase" aria-labelledby="operationsShowcaseCaption">
+    <div class="ops-showcase-stage" aria-hidden="true">
+      <div class="ops-device-position ops-tablet-position"><div class="ops-device"><div class="ops-device-screen">
+        <iframe title="Operations tablet preview" data-width="960" tabindex="-1" sandbox="allow-same-origin"></iframe>
+      </div></div></div>
+      <div class="ops-device-position ops-phone-position"><div class="ops-device"><div class="ops-device-screen">
+        <iframe title="Operations mobile preview" data-width="390" tabindex="-1" sandbox="allow-same-origin"></iframe>
+      </div></div></div>
+    </div>
+    <figcaption class="ops-showcase-caption" id="operationsShowcaseCaption">אותו פרויקט. אותה מערכת. מותאמת לכל מסך.</figcaption>
+  </figure>
   <figure class="proof-shot">
     <div class="proof-phone" aria-hidden="true">
       <span class="proof-phone-button action"></span>
@@ -3845,7 +3858,7 @@ const PRODUCT_EDITION_COPY = {
       heroSecondary: 'ראו איך זה יעבוד', heroSecondaryHref: '#products',
       heroImage: 'assets/sitepunch-operations-upgrade-v1.webp',
       proofLabel: 'בסיס מוכח',
-      proofTitle: 'Operations נבנה מעל מנגנון השטח הפעיל של SitePunch — תיעוד, אחריות, סטטוסים והיסטוריה.',
+      proofTitle: 'איכות, ביצוע, ניהול ובטיחות — אותו פרויקט, בכל מסך.',
       proofCaption: 'יכולת הליבה הפעילה שעליה נבנית שכבת Operations',
       tag: 'SitePunch Operations · גישה מוקדמת',
       title: 'לא עוד פיתוח מחדש לכל לקוח',
@@ -3894,7 +3907,7 @@ const PRODUCT_EDITION_COPY = {
       offlineNote: 'Early access · discovery and implementation are quoted separately in advance',
       heroPrimary: 'Book discovery', heroPrimaryHref: 'mailto:office@sitepunch.co.il?subject=SitePunch%20Operations%20-%20Early%20Access', heroSecondary: 'See how it works', heroSecondaryHref: '#products',
       heroImage: 'assets/sitepunch-operations-upgrade-v1.webp',
-      proofLabel: 'Proven foundation', proofTitle: 'Operations is built on SitePunch\'s live field engine — capture, ownership, status and history.', proofCaption: 'The live product foundation beneath Operations',
+      proofLabel: 'Proven foundation', proofTitle: 'Quality, field work, management and safety — one project, on every screen.', proofCaption: 'The live product foundation beneath Operations',
       tag: 'SitePunch Operations · Early access', title: 'Configuration without rebuilding for every customer',
       sub: 'A configurable management layer for PTP, Toolbox, pressure tests, safety committees, onboarding and other controlled workflows.',
       features: ['Configurable record types and fields', 'Fillable checklist rows with completion tracking', 'Operational signatures at defined checkpoints', 'Templates and permissions by organisation and project'],
@@ -3929,7 +3942,7 @@ const PRODUCT_EDITION_COPY = {
       heroEyebrow: 'Гибкие процессы качества, безопасности и производства', heroTitle: 'Операционная система<br><span class="gold">под вашу работу</span>',
       heroSub: 'Создавайте процессы, чек-листы, формы и подтверждения на базе полевого ядра SitePunch. Программа находится в раннем доступе.', offlineNote: 'Ранний доступ · анализ и внедрение оцениваются отдельно заранее',
       heroPrimary: 'Обсудить внедрение', heroPrimaryHref: 'mailto:office@sitepunch.co.il?subject=SitePunch%20Operations%20-%20Early%20Access', heroSecondary: 'Как это работает', heroSecondaryHref: '#products', heroImage: 'assets/sitepunch-operations-upgrade-v1.webp',
-      proofLabel: 'Проверенная основа', proofTitle: 'Operations строится на действующем ядре SitePunch: фиксация, ответственные, статусы и история.', proofCaption: 'Действующее ядро продукта, на котором строится Operations',
+      proofLabel: 'Проверенная основа', proofTitle: 'Качество, работы, управление и безопасность — один проект на любом экране.', proofCaption: 'Действующее ядро продукта, на котором строится Operations',
       tag: 'SitePunch Operations · Ранний доступ', title: 'Настройка без новой разработки для каждого клиента', sub: 'Настраиваемый слой для PTP, Toolbox, испытаний давлением, комиссий по безопасности, приёма сотрудников и других процессов.',
       features: ['Настраиваемые типы записей и поля', 'Заполняемые строки чек-листа и контроль выполнения', 'Операционные подписи в заданных точках', 'Шаблоны и права по организации и проекту'],
       cta: 'Присоединиться к запуску', ctaHref: 'mailto:office@sitepunch.co.il?subject=SitePunch%20Operations%20-%20Early%20Access', badge: 'Early Access', image: 'assets/sitepunch-operations-workflows-v1.jpg', imageAlt: 'Рабочий процесс SitePunch Operations на планшете и телефоне', caption: 'Единый процесс: от фиксации на площадке до согласования и управленческой аналитики',
@@ -3957,7 +3970,7 @@ const PRODUCT_EDITION_COPY = {
     operations: {
       heroEyebrow: 'عمليات مرنة للجودة والسلامة والتنفيذ', heroTitle: 'نظام عمليات مُهيأ<br><span class="gold">لطريقة عملكم</span>', heroSub: 'أنشئ سير عمل وقوائم فحص ونماذج واعتمادات على محرك SitePunch الميداني. البرنامج في مرحلة الوصول المبكر.', offlineNote: 'وصول مبكر · يُسعّر التحليل والتنفيذ بعرض منفصل مسبقًا',
       heroPrimary: 'حجز جلسة تحليل', heroPrimaryHref: 'mailto:office@sitepunch.co.il?subject=SitePunch%20Operations%20-%20Early%20Access', heroSecondary: 'كيف سيعمل', heroSecondaryHref: '#products', heroImage: 'assets/sitepunch-operations-upgrade-v1.webp',
-      proofLabel: 'أساس مُثبت', proofTitle: 'يُبنى Operations فوق محرك SitePunch الفعّال: التوثيق والمسؤولية والحالة والسجل.', proofCaption: 'الأساس الفعّال الذي تُبنى فوقه طبقة Operations',
+      proofLabel: 'أساس مُثبت', proofTitle: 'الجودة والتنفيذ والإدارة والسلامة — مشروع واحد على كل شاشة.', proofCaption: 'الأساس الفعّال الذي تُبنى فوقه طبقة Operations',
       tag: 'SitePunch Operations · وصول مبكر', title: 'تهيئة دون إعادة التطوير لكل عميل', sub: 'طبقة إدارة قابلة للتهيئة لـ PTP وToolbox واختبارات الضغط ولجان السلامة واستقبال الموظفين وعمليات أخرى.',
       features: ['أنواع سجلات وحقول قابلة للتهيئة', 'صفوف قائمة فحص قابلة للتعبئة ومتابعة الإنجاز', 'توقيعات تشغيلية في النقاط المحددة', 'قوالب وصلاحيات حسب المؤسسة والمشروع'],
       cta: 'الانضمام إلى برنامج الإطلاق', ctaHref: 'mailto:office@sitepunch.co.il?subject=SitePunch%20Operations%20-%20Early%20Access', badge: 'Early Access', image: 'assets/sitepunch-operations-workflows-v1.jpg', imageAlt: 'سير عمل SitePunch Operations على جهاز لوحي وهاتف', caption: 'سير واحد من التوثيق الميداني إلى الاعتماد والرؤية الإدارية',
