@@ -7,6 +7,13 @@ const preview = JSON.parse(read('assets/operations-preview.json'));
 const css = read('assets/operations-showcase.css');
 const controller = read('assets/operations-showcase.js');
 
+test('font import remains intact before the shared root theme variables', () => {
+  const validPrelude = value => /^\s*@import url\('[^']+'\);\s*:root\s*\{/.test(value);
+  assert.ok(validPrelude(preview.css));
+  assert.ok(preview.css.includes("--sp-font-ui: 'Heebo', system-ui"));
+  assert.equal(validPrelude(preview.css.replace(/@import[^;]+;/g, '')), false);
+});
+
 test('export ships four translated real module grids without executable application code', () => {
   for (const lang of ['he', 'en', 'ru', 'ar']) {
     const screen = preview.screens[lang];
