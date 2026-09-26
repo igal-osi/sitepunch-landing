@@ -3,6 +3,15 @@
   const showcase = document.querySelector('.operations-showcase');
   if (!showcase) return;
   const frames = [...showcase.querySelectorAll('iframe')];
+  const replay = document.getElementById('operationsShowcaseReplay');
+  const motionNote = document.getElementById('operationsShowcaseMotionNote');
+  const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const motionCopy = {
+    he: ['הפעלה חוזרת', 'התנועה כבויה בהתאם להגדרות הנגישות שלך.'],
+    en: ['Replay animation', 'Motion is off according to your accessibility settings.'],
+    ru: ['Повторить анимацию', 'Движение отключено согласно настройкам доступности.'],
+    ar: ['إعادة الحركة', 'الحركة متوقفة وفق إعدادات إمكانية الوصول لديك.'],
+  };
   const captions = {
     he: 'אותו פרויקט. אותה מערכת. מותאמת לכל מסך.',
     en: 'One project. One platform. Adapted to every screen.',
@@ -28,7 +37,7 @@
     html[data-reduce-motion="true"] * { animation:none !important; transition:none !important; }
     @media(prefers-reduced-motion:reduce) { * { animation:none !important; transition:none !important; } }
   `;
-  let payload, pending, visible = false, renderingKey = '';
+  let payload, pending, visible = false, entered = false, renderingKey = '';
   const isActive = () => visible && document.body.dataset.product === 'operations';
   function resize() {
     frames.forEach(frame => {
@@ -37,17 +46,22 @@
     });
   }
   async function update() {
-    const active = isActive() && !document.hidden;
+    const active = isActive() && entered && !document.hidden;
     showcase.dataset.paused = String(!active);
-    const reduceMotion = Boolean(document.getElementById('a11y-anim-style')?.textContent.trim());
+    const reduceMotion = motionPreference.matches || Boolean(document.getElementById('a11y-anim-style')?.textContent.trim());
+    const lang = document.documentElement.lang in captions ? document.documentElement.lang : 'he';
+    replay.textContent = motionCopy[lang][0];
+    replay.disabled = reduceMotion || !payload;
+    motionNote.textContent = reduceMotion ? motionCopy[lang][1] : '';
+    motionNote.hidden = !reduceMotion;
     frames.forEach(frame => {
-      if (frame.contentDocument) {
-        frame.contentDocument.documentElement.dataset.paused = String(!active);
-        frame.contentDocument.documentElement.dataset.reduceMotion = String(reduceMotion);
+      const root = frame.contentDocument?.documentElement;
+      if (root) {
+        root.dataset.paused = String(!active);
+        root.dataset.reduceMotion = String(reduceMotion);
       }
     });
     if (!active) return;
-    const lang = document.documentElement.lang in captions ? document.documentElement.lang : 'he';
     const theme = document.documentElement.dataset.theme === 'light' ? 'light' : 'dark';
     document.getElementById('operationsShowcaseCaption').textContent = captions[lang];
     if (!payload) {
@@ -78,9 +92,23 @@
   }
   new ResizeObserver(resize).observe(showcase);
   new IntersectionObserver(entries => {
-    visible = entries[0].isIntersecting;
+    const entry = entries[entries.length - 1];
+    visible = entry.isIntersecting;
+    // A sliver at the bottom of an iPhone must not consume the entire intro.
+    if (entry.intersectionRatio >= .4) entered = true;
     update();
-  }, { threshold: .08 }).observe(showcase);
+  }, { threshold: [0, .4] }).observe(showcase.querySelector('.ops-showcase-stage'));
+  replay.addEventListener('click', () => {
+    if (replay.disabled) return;
+    entered = true;
+    renderingKey = '';
+    showcase.dataset.ready = 'false';
+    // One layout read on explicit replay restarts both CSS device timelines.
+    void showcase.offsetWidth;
+    update();
+  });
+  if (motionPreference.addEventListener) motionPreference.addEventListener('change', update);
+  else motionPreference.addListener(update);
   new MutationObserver(update).observe(document.body, { attributes: true, attributeFilter: ['data-product'] });
   new MutationObserver(update).observe(document.documentElement, { attributes: true, attributeFilter: ['lang', 'data-theme'] });
   new MutationObserver(records => {

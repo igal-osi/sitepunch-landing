@@ -1748,8 +1748,8 @@
     .nav-cta { display: inline-flex; align-items: center; min-height: 36px; padding: 7px 8px; font-size: .68rem; }
   }
 </style>
-<link rel="stylesheet" href="/assets/operations-showcase.css">
-<script src="/assets/operations-showcase.js" defer></script>
+<link rel="stylesheet" href="/assets/operations-showcase.css?v=2">
+<script src="/assets/operations-showcase.js?v=2" defer></script>
 </head>
 <body data-product="punch">
 
@@ -1884,6 +1884,10 @@ function bi(name, tone) { return '<span class="bi bi-' + (tone||'gold') + '">' +
       </div></div></div>
     </div>
     <figcaption class="ops-showcase-caption" id="operationsShowcaseCaption">אותו פרויקט. אותה מערכת. מותאמת לכל מסך.</figcaption>
+    <div class="ops-showcase-controls">
+      <button class="ops-showcase-replay" id="operationsShowcaseReplay" type="button" disabled aria-describedby="operationsShowcaseMotionNote">הפעלה חוזרת</button>
+      <p class="ops-showcase-motion-note" id="operationsShowcaseMotionNote" hidden></p>
+    </div>
   </figure>
   <figure class="proof-shot">
     <div class="proof-phone" aria-hidden="true">
